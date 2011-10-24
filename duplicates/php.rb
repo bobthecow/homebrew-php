@@ -46,6 +46,7 @@ class Php < Formula
      ['--with-mariadb', 'Include MariaDB support'],
      ['--with-pgsql', 'Include PostgreSQL support'],
      ['--with-mssql', 'Include MSSQL-DB support'],
+     ['--with-cgi', 'Enable building of the CGI executable (implies --without-apache)'],
      ['--with-fpm', 'Enable building of the fpm SAPI executable (implies --without-apache)'],
      ['--without-apache', 'Build without shared Apache 2.0 Handler module'],
      ['--with-intl', 'Include internationalization support'],
@@ -113,8 +114,13 @@ class Php < Formula
       args.push "--enable-fpm"
     end
 
+    # Enable PHP CGI
+    if ARGV.include? '--with-cgi'
+      args.push "--enable-cgi"
+    end
+
     # Build Apache module by default
-    unless ARGV.include? '--with-fpm' or ARGV.include? '--without-apache'
+    unless ARGV.include? '--with-fpm' or ARGV.include? '--with-cgi' or ARGV.include? '--without-apache'
       args.push "--with-apxs2=/usr/sbin/apxs"
       args.push "--libexecdir=#{libexec}"
     end
