@@ -123,7 +123,7 @@ class Php < Formula
       args.push "--libexecdir=#{libexec}"
     end
 
-    if ARGV.include? '--with-mysql'
+    if ARGV.include? '--with-mysql' or ARGV.include? '--with-mariadb'
       args.push "--with-mysql-sock=/tmp/mysql.sock"
       args.push "--with-mysqli=mysqlnd"
       args.push "--with-mysql=mysqlnd"
