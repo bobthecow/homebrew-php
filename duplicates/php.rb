@@ -51,11 +51,16 @@ class Php < Formula
      ['--without-apache', 'Build without shared Apache 2.0 Handler module'],
      ['--with-intl', 'Include internationalization support'],
      ['--without-readline', 'Build without readline support'],
-     ['--with-gmp', 'Include GMP support']
+     ['--with-gmp', 'Include GMP support'],
+     ['--with-suhosin', 'Include Suhosin patch']
    ]
   end
 
-  def patches; DATA; end
+  def patches
+    p = [DATA]
+    p << "http://ftp.freebsd.org/pub/FreeBSD/ports/local-distfiles/ale/suhosin-patch-5.3.8-0.9.10.patch.gz" if ARGV.include? '--with-suhosin'
+    return p
+  end
 
   def install
     args = [
