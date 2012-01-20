@@ -162,6 +162,8 @@ class Php < Formula
     system "make install"
 
     etc.install "./php.ini-production" => "php.ini" unless File.exists? etc+"php.ini"
+    chmod_R 0775, lib+"php"
+    system bin+"pear", "config-set", "php_ini", etc+"php.ini"
   end
 
  def caveats; <<-EOS
@@ -174,10 +176,6 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
 
 The php.ini file can be found in:
     #{etc}/php.ini
-
-'Fix' the default PEAR permissions and config:
-    chmod -R ug+w #{lib}/php
-    pear config-set php_ini #{etc}/php.ini
    EOS
  end
 end
