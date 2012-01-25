@@ -109,13 +109,11 @@ class Php < Formula
 
     args.push "--with-gmp" if ARGV.include? '--with-gmp'
 
-    # Enable PHP FPM
-    if ARGV.include? '--with-fpm'
+    if ARGV.include? '--with-fpm' and ARGV.include? '--with-cgi'
+      raise "Cannot specify more than one executable to build."
+    elsif ARGV.include? '--with-fpm'
       args.push "--enable-fpm"
-    end
-
-    # Enable PHP CGI
-    if ARGV.include? '--with-cgi'
+    elsif ARGV.include? '--with-cgi'
       args.push "--enable-cgi"
     end
 
