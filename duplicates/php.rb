@@ -15,8 +15,8 @@ class Php < Formula
   version '5.3.10'
 
   devel do
-    url 'http://downloads.php.net/stas/php-5.4.0RC7.tar.gz'
-    md5 '78c6bf1613a7514ec6bc140d7b276251'
+    url 'http://downloads.php.net/stas/php-5.4.0RC8.tar.gz'
+    md5 'b659032842fcb495c6203738f2cf5e38'
     version '5.4.0'
   end
 
