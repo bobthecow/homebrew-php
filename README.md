@@ -1,48 +1,37 @@
 # Overview
 
-This repository contains **unofficial** formulae for [Homebrew](https://github.com/mxcl/homebrew).
+This repository contains **PHP-related** formulae for [Homebrew](https://github.com/mxcl/homebrew).
 
-(This replaces the `Homebrew Duplicates` branch that used to live under [adamv's
-main Homebrew fork](https://github.com/adamv/homebrew).)
+(This replaces the php formulae that used to live under [adamv's homebrew-alt repository](https://github.com/adamv/homebrew-alt).)
+
+The purpose of this repository is to allow PHP developers to quickly retrieve
+working, up-to-date formulae. The mainline homebrew repositories are maintianed
+by non-php developers, so testing/maintaining PHP-related brews has fallen by
+the wayside. If you are a PHP developer using homebrew, please contribute to
+this repository.
 
 
 ## Quick Start
 
-To install homebrew-alt formulae, use one of the following:
+To install homebrew-php formulae, use one of the following:
 
  * `brew install [raw GitHub URL]`
- * `brew install [full path to formula from your local homebrew-alt clone]`
+ * `brew install [full path to formula from your local homebrew-php clone]`
 
-For more details, see below: "Installing homebrew-alt Formulae".
+For more details, see below: "Installing homebrew-php Formulae".
 
 
 
 # How This Repository Is Organized
 
-  *   **duplicates**<br>
-      These brews duplicate OS X functionality, though may provide newer or
-      bug-fixed versions.  
+  *   **Formula**<br>
+      These brews provide php-related functionality, whether they be extensions,
+      dependencies, or the PHP-Core itself.
 
       (Homebrew policy discourages duplicates, except in some specific cases.)
 
-  *   **versions**<br>
-      These formulae provide mulitple versions of the same software package.
 
-      (Homebrew policy is to maintain a single, stable version of a given
-      package.)
-
-  *   **binary**<br>
-      These formulae provide binary-only installations.
-
-  *   **non-free**<br>
-      These formulae provide non-free software.
-
-  *   **other**<br>
-      Other formulae that haven't been accepted into master.
-
-
-
-# Installing homebrew-alt Formulae
+# Installing homebrew-php Formulae
 
 There are two methods to install packages from this repository.
 
@@ -50,17 +39,17 @@ There are two methods to install packages from this repository.
 ## Method 1: Raw URL
 
 First, find the raw URL for the formula you want. For example, the raw URL for
-the `princexml` formula is:
+the `php` formula is:
 
 ```
-    https://github.com/adamv/homebrew-alt/raw/master/non-free/princexml.rb
+    https://github.com/josegonzalez/homebrew-php/raw/master/Formula/php.rb
 ```
 
 
 Once you know the raw URL, simply use `brew install [raw URL]`, like so:
 
 ```
-    brew install https://github.com/adamv/homebrew-alt/raw/master/non-free/princexml.rb
+    brew install https://github.com/josegonzalez/homebrew-php/raw/master/Formula/php.rb
 ```
 
 
@@ -68,19 +57,19 @@ Once you know the raw URL, simply use `brew install [raw URL]`, like so:
 
 First, clone this repository.  Be sure to choose a good location!  
 
-For example, clone to `LibraryAlt` under `/usr/local`:
+For example, clone to `LibraryPHP` under `/usr/local`:
 
 ```
-    git clone https://github.com/adamv/homebrew-alt.git /usr/local/LibraryAlt
+    git clone https://github.com/josegonzalez/homebrew-php.git /usr/local/LibraryPHP
 ```
 
 
 Once you've got your clone, simply use `brew install [full path to formula]`.
 
-For example, to install `princexml`:
+For example, to install `php`:
 
 ```
-    brew install /usr/local/LibraryAlt/non-free/princexml.rb
+    brew install /usr/local/LibraryPHP/Formula/php.rb
 ```
 
 
