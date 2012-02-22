@@ -14,6 +14,8 @@ class Php < Formula
   md5 '816259e5ca7d0a7e943e56a3bb32b17f'
   version '5.3.10'
 
+  head 'http://snaps.php.net/php-trunk-latest.tar.bz2'
+
   devel do
     url 'http://downloads.php.net/stas/php-5.4.0RC8.tar.gz'
     md5 'b659032842fcb495c6203738f2cf5e38'
@@ -23,17 +25,17 @@ class Php < Formula
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
 
-  depends_on 'gettext'
-  depends_on 'readline' unless ARGV.include? '--without-readline'
-  depends_on 'libxml2'
-  depends_on 'jpeg'
-  depends_on 'mcrypt'
-  depends_on 'gmp' if ARGV.include? '--with-gmp'
-
-  depends_on 'libevent' if ARGV.include? '--with-fpm'
   depends_on 'freetds'if ARGV.include? '--with-mssql'
+  depends_on 'gettext'
+  depends_on 'gmp' if ARGV.include? '--with-gmp'
   depends_on 'icu4c' if ARGV.include? '--with-intl'
+  depends_on 'jpeg'
+  depends_on 'libevent' if ARGV.include? '--with-fpm'
+  depends_on 'libxml2'
+  depends_on 'mcrypt'
+  depends_on 'readline' unless ARGV.include? '--without-readline'
 
+  # Sanity Checks
   if ARGV.include? '--with-mysql' and ARGV.include? '--with-mariadb'
     raise "Cannot specify more than one MySQL variant to build against."
   elsif ARGV.include? '--with-mysql'
@@ -44,6 +46,18 @@ class Php < Formula
 
   if ARGV.include? '--with-pgsql'
     depends_on 'postgresql' => :recommended unless postgres_installed?
+  end
+
+  if ARGV.include? '--with-cgi' and ARGV.include? '--with-fpm'
+    raise "Cannot specify more than one executable to build."
+  end
+
+  if ARGV.include? '--with-cgi' or ARGV.include? '--with-fpm'
+    ARGV << '--without-apache' unless ARGV.include? '--without-apache'
+  end
+
+  if ARGV.build_head? or ARGV.build_devel?
+    raise "Cannot apply Suhosin Patch to unstable builds" if ARGV.include? '--with-suhosin'
   end
 
   def options
@@ -118,48 +132,46 @@ class Php < Formula
       "--mandir=#{man}"
     ]
 
-    args.push "--with-gmp" if ARGV.include? '--with-gmp'
+    args << "--with-gmp" if ARGV.include? '--with-gmp'
 
-    if ARGV.include? '--with-fpm' and ARGV.include? '--with-cgi'
-      raise "Cannot specify more than one executable to build."
-    elsif ARGV.include? '--with-fpm'
-      args.push "--enable-fpm"
+    if ARGV.include? '--with-fpm'
+      args << "--enable-fpm"
     elsif ARGV.include? '--with-cgi'
-      args.push "--enable-cgi"
+      args << "--enable-cgi"
     end
 
     # Build Apache module by default
-    unless ARGV.include? '--with-fpm' or ARGV.include? '--with-cgi' or ARGV.include? '--without-apache'
-      args.push "--with-apxs2=/usr/sbin/apxs"
-      args.push "--libexecdir=#{libexec}"
+    unless ARGV.include? '--without-apache'
+      args << "--with-apxs2=/usr/sbin/apxs"
+      args << "--libexecdir=#{libexec}"
     end
 
     if ARGV.include? '--with-mysql' or ARGV.include? '--with-mariadb'
-      args.push "--with-mysql-sock=/tmp/mysql.sock"
-      args.push "--with-mysqli=mysqlnd"
-      args.push "--with-mysql=mysqlnd"
-      args.push "--with-pdo-mysql=mysqlnd"
+      args << "--with-mysql-sock=/tmp/mysql.sock"
+      args << "--with-mysqli=mysqlnd"
+      args << "--with-mysql=mysqlnd"
+      args << "--with-pdo-mysql=mysqlnd"
     end
 
     if ARGV.include? '--with-pgsql'
-      args.push "--with-pgsql=#{Formula.factory('postgresql').prefix}"
-      args.push "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
+      args << "--with-pgsql=#{Formula.factory('postgresql').prefix}"
+      args << "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
     end
 
     if ARGV.include? '--with-mssql'
-      args.push "--with-mssql=#{Formula.factory('freetds').prefix}"
+      args << "--with-mssql=#{Formula.factory('freetds').prefix}"
     end
 
     if ARGV.include? '--with-intl'
-      args.push "--enable-intl"
-      args.push "--with-icu-dir=#{Formula.factory('icu4c').prefix}"
+      args << "--enable-intl"
+      args << "--with-icu-dir=#{Formula.factory('icu4c').prefix}"
     end
 
-    args.push "--with-readline=#{Formula.factory('readline').prefix}" unless ARGV.include? '--without-readline'
+    args << "--with-readline=#{Formula.factory('readline').prefix}" unless ARGV.include? '--without-readline'
 
     system "./configure", *args
 
-    unless ARGV.include? '--without-apache' or ARGV.include? '--with-cgi' or ARGV.include? '--with-fpm'
+    unless ARGV.include? '--without-apache'
       # Use Homebrew prefix for the Apache libexec folder
       inreplace "Makefile",
         "INSTALL_IT = $(mkinstalldirs) '$(INSTALL_ROOT)/usr/libexec/apache2' && $(mkinstalldirs) '$(INSTALL_ROOT)/private/etc/apache2' && /usr/sbin/apxs -S LIBEXECDIR='$(INSTALL_ROOT)/usr/libexec/apache2' -S SYSCONFDIR='$(INSTALL_ROOT)/private/etc/apache2' -i -a -n php5 libs/libphp5.so",
