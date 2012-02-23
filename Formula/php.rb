@@ -33,7 +33,7 @@ class Php < Formula
   depends_on 'libevent' if ARGV.include? '--with-fpm'
   depends_on 'libxml2'
   depends_on 'mcrypt'
-  depends_on 'readline' unless ARGV.include? '--without-readline'
+  depends_on 'readline' unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
 
   # Sanity Checks
   if ARGV.include? '--with-mysql' and ARGV.include? '--with-mariadb'
@@ -167,7 +167,10 @@ class Php < Formula
       args << "--with-icu-dir=#{Formula.factory('icu4c').prefix}"
     end
 
-    args << "--with-readline=#{Formula.factory('readline').prefix}" unless ARGV.include? '--without-readline'
+    args << "--with-readline=#{Formula.factory('readline').prefix}" unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
+
+    # Use libedit instead of readline for 5.4
+    args << "--with-libedit" if ARGV.build_devel? or ARGV.build_head?
 
     system "./buildconf" if ARGV.build_head?
     system "./configure", *args
@@ -204,6 +207,8 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
 
 The php.ini file can be found in:
     #{etc}/php.ini
+
+Development and head builds will use libedit in place of readline.
    EOS
  end
 end
