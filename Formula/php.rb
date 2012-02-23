@@ -14,7 +14,7 @@ class Php < Formula
   md5 '816259e5ca7d0a7e943e56a3bb32b17f'
   version '5.3.10'
 
-  head 'http://snaps.php.net/php-trunk-latest.tar.bz2'
+  head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
 
   devel do
     url 'http://downloads.php.net/stas/php-5.4.0RC8.tar.gz'
@@ -169,6 +169,7 @@ class Php < Formula
 
     args << "--with-readline=#{Formula.factory('readline').prefix}" unless ARGV.include? '--without-readline'
 
+    system "./buildconf" if ARGV.build_head?
     system "./configure", *args
 
     unless ARGV.include? '--without-apache'
