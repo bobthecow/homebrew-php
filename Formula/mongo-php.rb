@@ -1,9 +1,9 @@
 require 'formula'
 
 class MongoPhp < Formula
-  url 'http://pecl.php.net/get/mongo-1.2.6.tgz'
+  url 'http://pecl.php.net/get/mongo-1.2.9.tgz'
   homepage 'http://pecl.php.net/package/mongo'
-  md5 'b471f3d9309c2caa52ea90122042d3f4'
+  md5 'ca0155e1dcb817ca5d6797d40aa19da7'
 
   def install
     Dir.chdir "mongo-#{version}" do

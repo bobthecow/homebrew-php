@@ -2,8 +2,9 @@ require 'formula'
 
 class PspellPhp < Formula
   homepage 'http://php.net/manual/en/book.pspell.php'
-  url 'http://museum.php.net/php5/php-5.3.6.tar.gz'
-  md5 '88a2b00047bc53afbbbdf10ebe28a57e'
+  url 'http://www.php.net/get/php-5.3.10.tar.bz2/from/this/mirror'
+  md5 '816259e5ca7d0a7e943e56a3bb32b17f'
+  version '5.3.10'
 
   depends_on 'aspell'
 
@@ -12,7 +13,7 @@ class PspellPhp < Formula
       system "phpize"
       system "./configure", "--disable-debug",
                             "--prefix=#{prefix}",
-                            "--with-pspell=#{HOMEBREW_PREFIX}"
+                            "--with-pspell=#{Formula.factory('aspell').prefix}"
       system "make"
       prefix.install 'modules/pspell.so'
     end

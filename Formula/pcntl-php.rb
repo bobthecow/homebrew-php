@@ -1,9 +1,10 @@
 require 'formula'
 
 class PcntlPhp < Formula
-  url 'http://museum.php.net/php5/php-5.3.6.tar.gz'
+  url 'http://www.php.net/get/php-5.3.10.tar.bz2/from/this/mirror'
   homepage 'http://php.net/manual/en/book.pcntl.php'
-  md5 '88a2b00047bc53afbbbdf10ebe28a57e'
+  md5 '816259e5ca7d0a7e943e56a3bb32b17f'
+  version '5.3.10'
 
   def install
     Dir.chdir "ext/pcntl"

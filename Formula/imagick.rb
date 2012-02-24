@@ -12,14 +12,14 @@ class Imagick < Formula
       system "phpize"
       system "./configure", "--prefix=#{prefix}"
       system "make"
-      (lib+'php/extensions').install 'modules/imagick.so'
+      prefix.install 'modules/imagick.so'
     end
   end
 
   def caveats; <<-EOS.undent
     To finish installing Imagick:
       Edit php.ini file
-      extension="#{lib}/php/extensions/imagick.so"
+      extension="#{prefix}/imagick.so"
       Restart your webserver
     EOS
   end

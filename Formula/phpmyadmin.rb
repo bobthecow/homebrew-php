@@ -1,10 +1,10 @@
 require 'formula'
 
 class Phpmyadmin < Formula
-  url 'http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.4.7/phpMyAdmin-3.4.7-all-languages.tar.gz'
+  url 'http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.4.10.1/phpMyAdmin-3.4.10.1-all-languages.tar.bz2'
   homepage 'http://www.phpmyadmin.net/documentation'
-  md5 'b422d003ed6239bc9f96c02af6c66405'
-  version '3.4.7'
+  md5 '9eed98427c27685d665630b1aded1d85'
+  version '3.4.10.1'
 
   depends_on 'mcrypt-php'
 

@@ -1,9 +1,9 @@
 require 'formula'
 
 class Xcache < Formula
-  url 'http://xcache.lighttpd.net/pub/Releases/1.3.1/xcache-1.3.1.tar.gz'
+  url 'http://xcache.lighttpd.net/pub/Releases/1.3.2/xcache-1.3.2.tar.bz2'
   homepage 'http://xcache.lighttpd.net/'
-  md5 'aff79b19c7623ba923233ae193e9537a'
+  md5 '56ff8139c9773216dd6e2a85860aad94'
 
   def install
     # See https://github.com/mxcl/homebrew/issues/issue/69
