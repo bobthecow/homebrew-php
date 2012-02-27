@@ -29,6 +29,7 @@ class Php < Formula
   depends_on 'gettext'
   depends_on 'gmp' if ARGV.include? '--with-gmp'
   depends_on 'icu4c' if ARGV.include? '--with-intl'
+  depends_on 'imap-uw' if ARGV.include? '--with-imap'
   depends_on 'jpeg'
   depends_on 'libevent' if ARGV.include? '--with-fpm'
   depends_on 'mcrypt'
@@ -69,6 +70,7 @@ class Php < Formula
      ['--with-fpm', 'Enable building of the fpm SAPI executable (implies --without-apache)'],
      ['--without-apache', 'Build without shared Apache 2.0 Handler module'],
      ['--with-intl', 'Include internationalization support'],
+     ['--with-imap', 'Include IMAP extension'],
      ['--without-readline', 'Build without readline support'],
      ['--with-gmp', 'Include GMP support'],
      ['--with-suhosin', 'Include Suhosin patch']
@@ -163,6 +165,11 @@ class Php < Formula
     if ARGV.include? '--with-intl'
       args << "--enable-intl"
       args << "--with-icu-dir=#{Formula.factory('icu4c').prefix}"
+    end
+
+    if ARGV.include? '--with-imap'
+      args << "--with-imap=#{Formula.factory('imap-uw').prefix}"
+      args << "--with-imap-ssl=/usr"
     end
 
     args << "--with-readline=#{Formula.factory('readline').prefix}" unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
