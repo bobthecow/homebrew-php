@@ -25,7 +25,8 @@ class Php < Formula
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
 
-  depends_on 'freetds'if ARGV.include? '--with-mssql'
+  depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
+  depends_on 'freetds' if ARGV.include? '--with-mssql'
   depends_on 'gettext'
   depends_on 'gmp' if ARGV.include? '--with-gmp'
   depends_on 'icu4c' if ARGV.include? '--with-intl'
@@ -67,6 +68,7 @@ class Php < Formula
      ['--with-mariadb', 'Include MariaDB support'],
      ['--with-pgsql', 'Include PostgreSQL support'],
      ['--with-mssql', 'Include MSSQL-DB support'],
+     ['--with-unixodbc', 'Include unixODBC support'],
      ['--with-cgi', 'Enable building of the CGI executable (implies --without-apache)'],
      ['--with-fpm', 'Enable building of the fpm SAPI executable (implies --without-apache)'],
      ['--without-apache', 'Build without shared Apache 2.0 Handler module'],
@@ -116,7 +118,6 @@ class Php < Formula
       "--with-ldap",
       "--with-ldap-sasl=/usr",
       "--with-xmlrpc",
-      "--with-iodbc",
       "--with-kerberos=/usr",
       "--with-libxml-dir=#{Formula.factory('libxml2').prefix}",
       "--with-xsl=/usr",
@@ -162,6 +163,13 @@ class Php < Formula
 
     if ARGV.include? '--with-mssql'
       args << "--with-mssql=#{Formula.factory('freetds').prefix}"
+    end
+    
+    if ARGV.include? '--with-unixodbc'
+      args << "--with-unixODBC=#{Formula.factory('unixodbc').prefix}"
+      args << "--with-pdo-odbc=unixODBC,#{Formula.factory('unixodbc').prefix}"
+    else
+      args << "--with-iodbc"
     end
 
     if ARGV.include? '--with-intl'
