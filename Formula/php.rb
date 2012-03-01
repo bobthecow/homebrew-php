@@ -32,6 +32,7 @@ class Php < Formula
   depends_on 'imap-uw' if ARGV.include? '--with-imap'
   depends_on 'jpeg'
   depends_on 'libevent' if ARGV.include? '--with-fpm'
+  depends_on 'libxml2'
   depends_on 'mcrypt'
   depends_on 'readline' unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
 
@@ -117,6 +118,7 @@ class Php < Formula
       "--with-xmlrpc",
       "--with-iodbc",
       "--with-kerberos=/usr",
+      "--with-libxml-dir=#{Formula.factory('libxml2').prefix}",
       "--with-xsl=/usr",
       "--with-curl=/usr",
       "--with-gd",
