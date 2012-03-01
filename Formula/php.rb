@@ -139,6 +139,10 @@ class Php < Formula
 
     if ARGV.include? '--with-fpm'
       args << "--enable-fpm"
+      (var+'log').mkpath
+      touch var+'log/php-fpm.log'
+      (prefix+'org.php-fpm.plist').write php_fpm_startup_plist
+      (prefix+'org.php-fpm.plist').chmod 0644
     elsif ARGV.include? '--with-cgi'
       args << "--enable-cgi"
     end
@@ -211,6 +215,15 @@ class Php < Formula
     etc.install "./php.ini-production" => "php.ini" unless File.exists? etc+"php.ini"
     chmod_R 0775, lib+"php"
     system bin+"pear", "config-set", "php_ini", etc+"php.ini"
+    if ARGV.include?('--with-fpm') and not File.exists? etc+"php-fpm.conf"
+      etc.install "sapi/fpm/php-fpm.conf"
+      inreplace etc+"php-fpm.conf" do |s|
+        s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
+        s.sub!(/^;?pm\.start_servers\s*=.+$/,'pm.start_servers = 20')
+        s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 5')
+        s.sub!(/^;?pm\.max_spare_servers\s*=.+$/,'pm.max_spare_servers = 35')
+      end
+    end
   end
 
  def caveats; <<-EOS
@@ -225,10 +238,56 @@ The php.ini file can be found in:
     #{etc}/php.ini
 
 Development and head builds will use libedit in place of readline.
+
+If you have installed the formula with --with-fpm, to launch php-fpm on startup:
+ * If this is your first install:
+     mkdir -p ~/Library/LaunchAgents
+     cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
+     launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
+
+ * If this is an upgrade and you already have the org.php-fpm.plist loaded:
+     launchctl unload -w ~/Library/LaunchAgents/org.php-fpm.plist
+     cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
+     launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
+
+You may also need to edit the plist to use the correct "UserName".
    EOS
  end
-end
 
+  def test
+    if ARGV.include?('--with-fpm')
+      system "#{sbin}/php-fpm -y #{etc}/php-fpm.conf -t"
+    end
+  end
+
+  def php_fpm_startup_plist; <<-EOPLIST.undent
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+    <plist version="1.0">
+    <dict>
+      <key>KeepAlive</key>
+      <true/>
+      <key>Label</key>
+      <string>org.php-fpm</string>
+      <key>ProgramArguments</key>
+      <array>
+        <string>#{sbin}/php-fpm</string>
+        <string>--fpm-config</string>
+        <string>#{etc}/php-fpm.conf</string>
+      </array>
+      <key>RunAtLoad</key>
+      <true/>
+      <key>UserName</key>
+      <string>#{`whoami`.chomp}</string>
+      <key>WorkingDirectory</key>
+      <string>#{var}</string>
+      <key>StandardErrorPath</key>
+      <string>#{prefix}/var/log/php-fpm.log</string>
+    </dict>
+    </plist>
+    EOPLIST
+  end
+end
 
 __END__
 diff -Naur php-5.3.2/ext/tidy/tidy.c php/ext/tidy/tidy.c 
