@@ -10,7 +10,7 @@ class RedisPhp < Formula
     system "phpize"
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    system "make install"
+    prefix.install 'modules/redis.so'
   end
 
   def caveats; <<-EOS.undent
