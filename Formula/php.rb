@@ -240,15 +240,15 @@ The php.ini file can be found in:
 Development and head builds will use libedit in place of readline.
 
 If you have installed the formula with --with-fpm, to launch php-fpm on startup:
- * If this is your first install:
-     mkdir -p ~/Library/LaunchAgents
-     cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
-     launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
+    * If this is your first install:
+        mkdir -p ~/Library/LaunchAgents
+        cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
+        launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
 
- * If this is an upgrade and you already have the org.php-fpm.plist loaded:
-     launchctl unload -w ~/Library/LaunchAgents/org.php-fpm.plist
-     cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
-     launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
+    * If this is an upgrade and you already have the org.php-fpm.plist loaded:
+        launchctl unload -w ~/Library/LaunchAgents/org.php-fpm.plist
+        cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
+        launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
 
 You may also need to edit the plist to use the correct "UserName".
    EOS
