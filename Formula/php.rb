@@ -25,7 +25,6 @@ class Php < Formula
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
 
-  depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
   depends_on 'freetds' if ARGV.include? '--with-mssql'
   depends_on 'gettext'
   depends_on 'gmp' if ARGV.include? '--with-gmp'
@@ -36,6 +35,7 @@ class Php < Formula
   depends_on 'libxml2'
   depends_on 'mcrypt'
   depends_on 'readline' unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
+  depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
 
   # Sanity Checks
   if ARGV.include? '--with-mysql' and ARGV.include? '--with-mariadb'
@@ -135,8 +135,6 @@ class Php < Formula
       "--mandir=#{man}"
     ]
 
-    args << "--with-gmp" if ARGV.include? '--with-gmp'
-
     if ARGV.include? '--with-fpm'
       args << "--enable-fpm"
       (var+'log').mkpath
@@ -153,6 +151,29 @@ class Php < Formula
       args << "--libexecdir=#{libexec}"
     end
 
+    unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
+      args << "--with-readline=#{Formula.factory('readline').prefix}" 
+    end
+
+    if ARGV.include? '--with-gmp'
+      args << "--with-gmp" 
+    end
+
+    if ARGV.include? '--with-imap'
+      args << "--with-imap=#{Formula.factory('imap-uw').prefix}"
+      args << "--with-imap-ssl=/usr"
+    end
+
+    if ARGV.include? '--with-intl'
+      args << "--enable-intl"
+      args << "--with-icu-dir=#{Formula.factory('icu4c').prefix}"
+    end
+
+    if ARGV.include? '--with-mssql'
+      args << "--with-mssql=#{Formula.factory('freetds').prefix}"
+      args << "--with-pdo-dblib=#{Formula.factory('freetds').prefix}"
+    end
+
     if ARGV.include? '--with-mysql' or ARGV.include? '--with-mariadb'
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=mysqlnd"
@@ -165,29 +186,12 @@ class Php < Formula
       args << "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
     end
 
-    if ARGV.include? '--with-mssql'
-      args << "--with-mssql=#{Formula.factory('freetds').prefix}"
-      args << "--with-pdo-dblib=#{Formula.factory('freetds').prefix}"
-    end
-
     if ARGV.include? '--with-unixodbc'
       args << "--with-unixODBC=#{Formula.factory('unixodbc').prefix}"
       args << "--with-pdo-odbc=unixODBC,#{Formula.factory('unixodbc').prefix}"
     else
       args << "--with-iodbc"
     end
-
-    if ARGV.include? '--with-intl'
-      args << "--enable-intl"
-      args << "--with-icu-dir=#{Formula.factory('icu4c').prefix}"
-    end
-
-    if ARGV.include? '--with-imap'
-      args << "--with-imap=#{Formula.factory('imap-uw').prefix}"
-      args << "--with-imap-ssl=/usr"
-    end
-
-    args << "--with-readline=#{Formula.factory('readline').prefix}" unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
 
     # Use libedit instead of readline for 5.4
     args << "--with-libedit" if ARGV.build_devel? or ARGV.build_head?
