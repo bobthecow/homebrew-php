@@ -164,7 +164,7 @@ class Php < Formula
     if ARGV.include? '--with-mssql'
       args << "--with-mssql=#{Formula.factory('freetds').prefix}"
     end
-    
+
     if ARGV.include? '--with-unixodbc'
       args << "--with-unixODBC=#{Formula.factory('unixodbc').prefix}"
       args << "--with-pdo-odbc=unixODBC,#{Formula.factory('unixodbc').prefix}"
