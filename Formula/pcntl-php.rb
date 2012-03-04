@@ -1,8 +1,8 @@
 require 'formula'
 
 class PcntlPhp < Formula
-  url 'http://www.php.net/get/php-5.3.10.tar.bz2/from/this/mirror'
   homepage 'http://php.net/manual/en/book.pcntl.php'
+  url 'http://www.php.net/get/php-5.3.10.tar.bz2/from/this/mirror'
   md5 '816259e5ca7d0a7e943e56a3bb32b17f'
   version '5.3.10'
 

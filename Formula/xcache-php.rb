@@ -1,8 +1,8 @@
 require 'formula'
 
 class XcachePhp < Formula
+  homepage 'http://xcache.lighttpd.net'
   url 'http://xcache.lighttpd.net/pub/Releases/1.3.2/xcache-1.3.2.tar.bz2'
-  homepage 'http://xcache.lighttpd.net/'
   md5 '56ff8139c9773216dd6e2a85860aad94'
 
   def install

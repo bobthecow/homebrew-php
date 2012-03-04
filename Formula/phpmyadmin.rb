@@ -1,8 +1,8 @@
 require 'formula'
 
 class Phpmyadmin < Formula
+  homepage 'http://www.phpmyadmin.net'
   url 'http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.4.10.1/phpMyAdmin-3.4.10.1-all-languages.tar.bz2'
-  homepage 'http://www.phpmyadmin.net/documentation'
   md5 '9eed98427c27685d665630b1aded1d85'
   version '3.4.10.1'
 

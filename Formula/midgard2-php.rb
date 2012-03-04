@@ -1,9 +1,9 @@
 require 'formula'
 
 class Midgard2Php < Formula
+  homepage 'http://www.midgard-project.org'
   url 'http://www.midgard-project.org/midcom-serveattachmentguid-025abaac43f811e0b064792d116f21f421f4/php5-midgard2-10.05.4.tar.gz'
   head 'https://github.com/midgardproject/midgard-php5.git', :branch => 'ratatoskr'
-  homepage 'http://www.midgard-project.org/'
   md5 'a715d76abdb6ef1bb5eb8c9973fbba16'
 
   depends_on 'pkg-config' => :build
