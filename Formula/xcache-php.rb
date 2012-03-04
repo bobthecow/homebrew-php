@@ -1,6 +1,6 @@
 require 'formula'
 
-class Xcache < Formula
+class XcachePhp < Formula
   url 'http://xcache.lighttpd.net/pub/Releases/1.3.2/xcache-1.3.2.tar.bz2'
   homepage 'http://xcache.lighttpd.net/'
   md5 '56ff8139c9773216dd6e2a85860aad94'
@@ -17,7 +17,7 @@ class Xcache < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing xcache:
+    To finish installing xcache-php:
       * Add the following line to #{etc}/php.ini:
         zend_extension="#{prefix}/xcache.so"
       * Restart your webserver.

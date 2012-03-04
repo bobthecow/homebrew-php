@@ -1,6 +1,6 @@
 require 'formula'
 
-class Xdebug < Formula
+class XdebugPhp < Formula
   homepage 'http://xdebug.org'
   url 'http://www.xdebug.org/files/xdebug-2.1.3.tgz'
   md5 '779f4a66acdccd673553769e403674c4'
@@ -20,7 +20,7 @@ class Xdebug < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing xdebug:
+    To finish installing xdebug-php:
       * Add the following line to #{etc}/php.ini:
         zend_extension="#{prefix}/xdebug.so"
       * Restart your webserver.
