@@ -15,10 +15,13 @@ class MemcachePhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing memcache:
-      * Add the following line to php.ini:
+    To finish installing memcache-php:
+      * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/memcache.so"
-      * Restart your webserver
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the memcache module.
+      * If you see it, you have been successful!
     EOS
   end
 end

@@ -25,8 +25,8 @@ class Apc < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing APC:
-     * Add the following lines to php.ini:
+    To finish installing apc:
+      * Add the following lines to #{etc}/php.ini:
         [apc]
         extension="#{prefix}/apc.so"
         apc.enabled=1
@@ -37,8 +37,11 @@ class Apc < Formula
         apc.num_files_hint=1024
         apc.mmap_file_mask=/tmp/apc.XXXXXX
         apc.enable_cli=1
-     * Restart your webserver
-     * Copy "#{prefix}/apc.php" to any site to see APC's usage.
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the apc module.
+      * If you see it, you have been successful!
+      * You can copy "#{prefix}/apc.php" to any site to see APC's usage.
     EOS
   end
 end

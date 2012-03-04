@@ -16,11 +16,13 @@ class PcntlPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish pcntl-php installation, you need to add the
-    following line into php.ini:
-      extension="#{prefix}/pcntl.so"
-    Then, restart your webserver and check in phpinfo if
-    you're able to see something about pcntl.
+    To finish installing pcntl-php:
+      * Add the following line to #{etc}/php.ini:
+        extension="#{prefix}/pcntl.so"
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the pcntl module.
+      * If you see it, you have been successful!
     EOS
   end
 end

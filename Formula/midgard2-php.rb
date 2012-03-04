@@ -17,14 +17,14 @@ class Midgard2Php < Formula
     prefix.install 'modules/midgard2.so'
   end
 
-  def caveats
-   <<-END_CAVEATS
- * Add the following line to php.ini:
-    extension="#{prefix}/midgard2.so"
- * Restart your webserver.
- * Write a PHP page that calls "phpinfo();"
- * Load it in a browser and look for the info on the midgard2 module.
- * If you see it, you have been successful!
-    END_CAVEATS
+  def caveats; <<-EOS.undent
+    To finish installing midgard2-php:
+      * Add the following line to #{etc}/php.ini:
+        extension="#{prefix}/midgard2.so"
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the midgard2 module.
+      * If you see it, you have been successful!
+    EOS
   end
 end

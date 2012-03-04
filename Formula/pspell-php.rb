@@ -20,11 +20,13 @@ class PspellPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing the pspell module:
-      * Add the following line to php.ini:
+    To finish installing pspell-php:
+      * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/pspell.so"
-      * To verify, run "php -m" and look for the pspell module.
-      * Restart your webserver
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the pspell module.
+      * If you see it, you have been successful!
     EOS
   end
 end

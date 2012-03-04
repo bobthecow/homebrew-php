@@ -17,10 +17,13 @@ class Imagick < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing Imagick:
-      Edit php.ini file
-      extension="#{prefix}/imagick.so"
-      Restart your webserver
+    To finish installing imagick:
+      * Add the following line to #{etc}/php.ini:
+        extension="#{prefix}/imagick.so"
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the imagick module.
+      * If you see it, you have been successful!
     EOS
   end
 end

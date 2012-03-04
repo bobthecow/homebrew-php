@@ -15,11 +15,14 @@ class MongoPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing MongoDB extension:
-     * Add the following lines to #{etc}/php.ini:
+    To finish installing mongo-php:
+      * Add the following lines to #{etc}/php.ini:
         [mongo]
         extension="#{prefix}/mongo.so"
-     * Restart your webserver
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the mongo module.
+      * If you see it, you have been successful!
     EOS
   end
 end

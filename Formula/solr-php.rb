@@ -15,11 +15,14 @@ class SolrPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing Solr extension:
-     * Add the following lines to #{etc}/php.ini:
+    To finish installing solr-php:
+      * Add the following lines to #{etc}/php.ini:
         [solr]
         extension="#{prefix}/solr.so"
-     * Restart your webserver
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the solr module.
+      * If you see it, you have been successful!
     EOS
   end
 end

@@ -20,8 +20,8 @@ class Xdebug < Formula
   end
 
   def caveats; <<-EOS.undent
-    To use this software:
-      * Add the following line to php.ini:
+    To finish installing xdebug:
+      * Add the following line to #{etc}/php.ini:
         zend_extension="#{prefix}/xdebug.so"
       * Restart your webserver.
       * Write a PHP page that calls "phpinfo();"

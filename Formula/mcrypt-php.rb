@@ -19,11 +19,13 @@ class McryptPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish mcrypt-php installation, you need to add the
-    following line into php.ini:
-      extension="#{prefix}/mcrypt.so"
-    Then, restart your webserver and check in phpinfo if
-    you're able to see something about mcrypt
+    To finish installing mcrypt-php:
+      * Add the following line to #{etc}/php.ini:
+        extension="#{prefix}/mcrypt.so"
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the mcrypt module.
+      * If you see it, you have been successful!
     EOS
   end
 end

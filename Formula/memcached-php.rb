@@ -18,10 +18,13 @@ class MemcachedPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing memcached:
-      * Add the following line to php.ini:
+    To finish installing memcached-php:
+      * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/memcached.so"
-      * Restart your webserver
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the memcached module.
+      * If you see it, you have been successful!
     EOS
   end
 end

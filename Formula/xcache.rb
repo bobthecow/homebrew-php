@@ -17,13 +17,13 @@ class Xcache < Formula
   end
 
   def caveats; <<-EOS.undent
-    To use this software:
-     * Add the following line to php.ini:
+    To finish installing xcache:
+      * Add the following line to #{etc}/php.ini:
         zend_extension="#{prefix}/xcache.so"
-     * Restart your webserver.
-     * Write a PHP page that calls "phpinfo();"
-     * Load it in a browser and look for the info on the xcache module.
-     * If you see it, you have been successful!
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the xcache module.
+      * If you see it, you have been successful!
     EOS
   end
 end
