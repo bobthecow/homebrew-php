@@ -16,7 +16,7 @@ class RedisPhp < Formula
   def caveats; <<-EOS.undent
     To finish installing redis-php:
       * Add the following line to php.ini:
-        extension="#{prefix}/imagick.so"
+        extension="#{prefix}/redis.so"
       * Restart your webserver
       * Write a PHP page that calls "phpinfo();"
       * Load it in a browser and look for the info on the redis module.
