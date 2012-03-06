@@ -4,16 +4,19 @@ class ImagickPhp < Formula
   homepage 'http://pecl.php.net/package/imagick'
   url 'http://pecl.php.net/get/imagick-3.0.1.tgz'
   md5 'e2167713316639705202cf9b6cb1fdb1'
+  head 'https://svn.php.net/repository/pecl/imagick/trunk/', :using => :svn
 
   depends_on 'imagemagick'
 
   def install
-    Dir.chdir "imagick-#{version}" do
-      system "phpize"
-      system "./configure", "--prefix=#{prefix}"
-      system "make"
-      prefix.install 'modules/imagick.so'
+    if not ARGV.build_head?
+      Dir.chdir "imagick-#{version}"
     end
+
+    system "phpize"
+    system "./configure", "--prefix=#{prefix}"
+    system "make"
+    prefix.install 'modules/imagick.so'
   end
 
   def caveats; <<-EOS.undent
