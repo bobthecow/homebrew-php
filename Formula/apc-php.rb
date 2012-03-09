@@ -17,7 +17,7 @@ class ApcPhp < Formula
   def install
     Dir.chdir "APC-#{version}" do
       system "phpize"
-      system "./configure", "--prefix=#{prefix}"
+      system "./configure", "--prefix=#{prefix}", "--enable-apc-pthreadmutex"
       system "make"
 
       prefix.install %w(modules/apc.so apc.php)
