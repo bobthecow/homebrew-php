@@ -3,8 +3,8 @@ require 'formula'
 class YamlPhp < Formula
   homepage 'http://pecl.php.net/package/yaml'
   url 'http://pecl.php.net/get/yaml-1.0.1.tgz'
-  md5 'd8a965479d919e1526dd43295783c7f7'
   head 'https://svn.php.net/repository/pecl/yaml/trunk', :using => :svn
+  md5 'd8a965479d919e1526dd43295783c7f7'
 
   depends_on 'libyaml'
 

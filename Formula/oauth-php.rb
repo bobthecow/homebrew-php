@@ -3,10 +3,8 @@ require 'formula'
 class OauthPhp < Formula
   homepage 'http://pecl.php.net/package/oauth'
   url 'http://pecl.php.net/get/oauth-1.2.2.tgz'
-  md5 '9a9f35e45786534d8580abfffc8c273c'
   head 'https://svn.php.net/repository/pecl/oauth/trunk', :using => :svn
-
-  depends_on 'libyaml'
+  md5 '9a9f35e45786534d8580abfffc8c273c'
 
   def install
     if not ARGV.build_head?
