@@ -73,6 +73,16 @@ Once you've got your clone, simply use `brew install [full path to formula]`.
 For example, to install `php`:
 
     brew install /usr/local/LibraryPHP/Formula/php.rb
+    
+#### Method 3: Tap
+
+Tap the repository into your brew installation
+
+    brew tap josegonzalez/homebrew-php
+    
+Then install php
+
+	brew install php
 
 That's it!
 
