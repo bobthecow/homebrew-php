@@ -6,6 +6,7 @@ class McryptPhp < Formula
   md5 '816259e5ca7d0a7e943e56a3bb32b17f'
   version '5.3.10'
 
+  depends_on 'autoconf'
   depends_on 'mcrypt'
 
   def install
