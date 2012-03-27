@@ -17,8 +17,8 @@ class Php < Formula
   head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
 
   devel do
-    url 'http://downloads.php.net/stas/php-5.4.0RC8.tar.gz'
-    md5 'b659032842fcb495c6203738f2cf5e38'
+    url 'http://www.php.net/get/php-5.4.0.tar.bz2/from/this/mirror'
+    md5 '04bb6f9d71ea86ba05685439d50db074'
     version '5.4.0'
   end
 
