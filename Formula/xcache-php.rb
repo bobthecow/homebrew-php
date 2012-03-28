@@ -5,6 +5,8 @@ class XcachePhp < Formula
   url 'http://xcache.lighttpd.net/pub/Releases/1.3.2/xcache-1.3.2.tar.bz2'
   md5 '56ff8139c9773216dd6e2a85860aad94'
 
+  depends_on 'autoconf'
+
   def install
     # See https://github.com/mxcl/homebrew/issues/issue/69
     ENV.universal_binary unless Hardware.is_64_bit?

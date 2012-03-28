@@ -6,6 +6,7 @@ class MemcachedPhp < Formula
   md5 'f81a5261be1c9848ed5c071a4ebe5e05'
   head 'https://github.com/php-memcached-dev/php-memcached.git'
 
+  depends_on 'autoconf'
   depends_on 'libmemcached'
 
   def install

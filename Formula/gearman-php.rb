@@ -5,6 +5,7 @@ class GearmanPhp < Formula
   url 'http://pecl.php.net/get/gearman-1.0.1.tgz'
   md5 'dc576593f18e73aacf3b4430ba9d47d5'
 
+  depends_on 'autoconf'
   depends_on 'gearman'
 
   def install

@@ -6,6 +6,8 @@ class PhpBuild < Formula
   md5 'dd785277472d21ad1282a6d50efffc55'
   head 'https://github.com/CHH/php-build.git'
 
+  depends_on 'autoconf'
+
   def install
     bin.install Dir['bin/php-build']
     share.install Dir['share/php-build']

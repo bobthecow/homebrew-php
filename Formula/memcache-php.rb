@@ -5,6 +5,8 @@ class MemcachePhp < Formula
   url 'http://pecl.php.net/get/memcache-2.2.6.tgz'
   md5 '9542f1886b72ffbcb039a5c21796fe8a'
 
+  depends_on 'autoconf'
+
   def install
     Dir.chdir "memcache-#{version}" do
       system "phpize"

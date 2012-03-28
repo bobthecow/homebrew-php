@@ -6,6 +6,8 @@ class RedisPhp < Formula
   head 'https://github.com/nicolasff/phpredis.git'
   md5 'eb2bee7e42f7a32a38c2a45377f21086'
 
+  depends_on 'autoconf'
+
   def install
     system "phpize"
     system "./configure", "--prefix=#{prefix}"

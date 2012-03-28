@@ -7,6 +7,7 @@ class Midgard2Php < Formula
   md5 'a715d76abdb6ef1bb5eb8c9973fbba16'
 
   depends_on 'pkg-config' => :build
+  depends_on 'autoconf'
   depends_on 'midgard2'
 
   def install
