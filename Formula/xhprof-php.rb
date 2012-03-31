@@ -22,7 +22,7 @@ class XhprofPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-     To finish installing XHProf:
+     To finish installing xhprof-php:
        * Add the following line to #{etc}/php.ini:
          [xhprof]
          extension="#{prefix}/xhprof.so"
