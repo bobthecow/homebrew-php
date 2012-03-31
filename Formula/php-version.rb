@@ -1,10 +1,9 @@
 require 'formula'
 
 class PhpVersion < Formula
-  url 'https://github.com/wilmoore/php-version/tarball/0.7.1'
   homepage 'https://github.com/wilmoore/php-version'
+  url 'https://github.com/wilmoore/php-version/tarball/0.7.1'
   md5 '83bd52b6a674568db314e5f9ecb88ea3'
-
   head 'https://github.com/wilmoore/php-version.git'
 
   def install
