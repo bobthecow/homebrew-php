@@ -6,12 +6,12 @@ class Midgard2Php < Formula
   head 'https://github.com/midgardproject/midgard-php5.git', :branch => 'ratatoskr'
   md5 'a715d76abdb6ef1bb5eb8c9973fbba16'
 
-  depends_on 'pkg-config' => :build
   depends_on 'autoconf'
+  depends_on 'pkg-config' => :build
   depends_on 'midgard2'
 
   def install
-    system "/usr/bin/phpize"
+    system "phpize"
     system "./configure", "--with-php-config=/usr/bin/php-config"
 
     system "make"
