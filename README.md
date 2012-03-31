@@ -86,6 +86,21 @@ Then install php
 
 That's it!
 
+## Bug Reports
+
+Please include the following information in your bug report:
+
+- OS X Version: ex. 10.7.3, 10.6.3
+- Homebrew Version: `brew -v`
+- PHP Version in use: stock-apple, homebrew-php stable, homebrew-php devel, homebrew-php head, custom
+- XCode Version: 4.3, 4.0, 3 etc.
+  - If using 4.3, verify whether you have the `Command Line Tools` installed as well
+- Output of `gcc -v`
+- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com)
+- Output of `brew doctor` within a [gist](http://gist.github.com)
+
+This will help us diagnose your issues much quicker, as well as find commonalities between different reported issues.
+
 ## Contributing
 
 The following kinds of brews are allowed:
