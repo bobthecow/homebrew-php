@@ -6,6 +6,7 @@ class XhprofPhp < Formula
   md5 'ae40b153d157e6369a32e2c1a59a61ec'
   version '0.9.2'
 
+  depends_on 'autoconf'
   depends_on 'pcre'
 
   def install
@@ -15,11 +16,11 @@ class XhprofPhp < Formula
       system "make"
       prefix.install %w(modules/xhprof.so)
     end
-    Dir.chdir "xhprof-#{version}" do 
+    Dir.chdir "xhprof-#{version}" do
       prefix.install %w(xhprof_html xhprof_lib)
     end
   end
-    
+
   def caveats; <<-EOS.undent
      To finish installing XHProf:
        * Add the following line to #{etc}/php.ini:
