@@ -73,23 +73,81 @@ Once you've got your clone, simply use `brew install [full path to formula]`.
 For example, to install `php`:
 
     brew install /usr/local/LibraryPHP/Formula/php.rb
-    
+
 #### Method 3: Tap
 
 Tap the repository into your brew installation
 
     brew tap josegonzalez/homebrew-php
-    
+
 Then install php
 
 	brew install php
 
 That's it!
 
+## Contributing
+
+The following kinds of brews are allowed:
+
+- PHP Extensions: They may be built with PECL, but installation via homebrew is sometimes much easier.
+- PHP Utilities: php-version, php-build fall under this category
+- Common PHP Web Applications: phpmyadmin goes here. Note that Wordpress would not because it requires other migration steps, such as database migrations etc.
+- PHP Frameworks: These are to be reviewed on a case-by-case basis. Generally, only a recent, stable version of a popular framework will be allowed.
+
+If you have any concerns as to whether your formula belongs in PHP, just open a pull request with the formula and we'll take it from there.
+
+### PHP Extension definitions
+
+PHP Extensions MUST be suffixed with `php`. For example, instead of the `Solr` formula in `solr.rb`, we would have `SolrPHP` inside of `solr-php.rb`. This is to remove any possible conflicts with mainline homebrew formulae.
+
+The template for the `example-php` extension would be as follows. Please use it as an example for any new extension formulae:
+
+    require 'formula'
+
+    class ExamplePhp < Formula
+      homepage 'http://example.com/'
+      url 'http://example.com/get/example-1.0.tgz'
+      md5 'SOMEHASHHERE'
+      version '1.0'
+      head 'http://example.com/get/example-head.tgz'
+
+      depends_on 'autoconf'
+
+      def install
+        if not ARGV.build_head?
+          Dir.chdir "example-#{version}"
+        end
+
+        system "phpize"
+        system "./configure", "--prefix=#{prefix}"
+        system "make"
+        prefix.install 'modules/example.so'
+      end
+
+      def caveats; <<-EOS.undent
+         To finish installing example-php:
+           * Add the following line to #{etc}/php.ini:
+             [example]
+             extension="#{prefix}/example.so"
+           * Restart your webserver.
+           * Write a PHP page that calls "phpinfo();"
+           * Load it in a browser and look for the info on the example module.
+           * If you see it, you have been successful!
+         EOS
+      end
+    end
+
+Please note that your formula installation may deviate significantly from the above; caveats should more or less stay the same, as they give explicit instructions to users as to how to ensure the extension is properly installed.
+
+The ordering of Formula attributes, such as the `homepage`, `url`, `md5`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
+
+All official PHP extensions should be derived from the latest PHP stable version included in `homebrew-php`. As of this writing, the version is `5.3.10`.
+
 ## Todo
 
 * Proper PHP Versioning? See issue [#1](https://github.com/josegonzalez/homebrew-php/issues/8)
-* Pull out all PHP-related brews from Homebrew
+* ~~Pull out all PHP-related brews from Homebrew~~
 
 ## License
 
