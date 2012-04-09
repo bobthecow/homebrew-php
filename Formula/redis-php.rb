@@ -2,8 +2,8 @@ require 'formula'
 
 class RedisPhp < Formula
   homepage 'https://github.com/nicolasff/phpredis'
-  url 'https://github.com/nicolasff/phpredis/tarball/2.1.3'
-  md5 'eb2bee7e42f7a32a38c2a45377f21086'
+  url 'https://github.com/nicolasff/phpredis/tarball/2.2.0'
+  md5 '9a89b0aeae1906bcfdc8a80d14d62405'
   head 'https://github.com/nicolasff/phpredis.git'
 
   depends_on 'autoconf'
