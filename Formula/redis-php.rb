@@ -7,6 +7,14 @@ class RedisPhp < Formula
   head 'https://github.com/nicolasff/phpredis.git'
 
   depends_on 'autoconf'
+  
+  fails_with :clang do
+    build 318
+    cause <<-EOS.undent
+      argument to 'va_arg' is of incomplete type 'void'
+      This is fixed in HEAD, and can be removed for the next release.
+      EOS
+  end unless ARGV.build_head?
 
   def install
     system "phpize"
