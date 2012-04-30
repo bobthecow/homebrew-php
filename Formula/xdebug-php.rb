@@ -5,7 +5,7 @@ class XdebugPhp < Formula
   url 'http://xdebug.org/files/xdebug-2.2.0.tgz'
   md5 '27d8ad8224ffab04d12eecb5997a4f5d'
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
 
   def install
     Dir.chdir "xdebug-#{version}" do

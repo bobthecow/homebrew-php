@@ -6,7 +6,7 @@ class Midgard2Php < Formula
   md5 'a715d76abdb6ef1bb5eb8c9973fbba16'
   head 'https://github.com/midgardproject/midgard-php5.git', :branch => 'ratatoskr'
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
   depends_on 'pkg-config' => :build
   depends_on 'midgard2'
 

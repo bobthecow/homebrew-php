@@ -6,7 +6,7 @@ class YamlPhp < Formula
   md5 'd8a965479d919e1526dd43295783c7f7'
   head 'https://svn.php.net/repository/pecl/yaml/trunk', :using => :svn
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
   depends_on 'libyaml'
 
   def install

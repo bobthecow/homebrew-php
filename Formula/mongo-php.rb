@@ -5,7 +5,7 @@ class MongoPhp < Formula
   url 'http://pecl.php.net/get/mongo-1.2.9.tgz'
   md5 'ca0155e1dcb817ca5d6797d40aa19da7'
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
 
   def install
     Dir.chdir "mongo-#{version}" do

@@ -6,7 +6,7 @@ class PhpBuild < Formula
   md5 '953beb9f7744852701821da2a8864e87'
   head 'https://github.com/CHH/php-build.git'
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
 
   def install
     bin.install Dir['bin/php-build']

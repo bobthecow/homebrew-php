@@ -6,7 +6,7 @@ class OauthPhp < Formula
   md5 '9a9f35e45786534d8580abfffc8c273c'
   head 'https://svn.php.net/repository/pecl/oauth/trunk', :using => :svn
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
 
   def install
     if not ARGV.build_head?

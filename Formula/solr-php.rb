@@ -5,7 +5,7 @@ class SolrPhp < Formula
   url 'http://pecl.php.net/get/solr-1.0.2.tgz'
   md5 '1632144b462ab22b91d03e4d59704fab'
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
 
   def install
     Dir.chdir "solr-#{version}" do

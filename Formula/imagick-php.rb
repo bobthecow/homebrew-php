@@ -6,7 +6,7 @@ class ImagickPhp < Formula
   md5 'e2167713316639705202cf9b6cb1fdb1'
   head 'https://svn.php.net/repository/pecl/imagick/trunk/', :using => :svn
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
   depends_on 'imagemagick'
 
   def install

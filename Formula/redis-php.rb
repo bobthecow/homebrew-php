@@ -6,8 +6,8 @@ class RedisPhp < Formula
   md5 '9a89b0aeae1906bcfdc8a80d14d62405'
   head 'https://github.com/nicolasff/phpredis.git'
 
-  depends_on 'autoconf'
-  
+  depends_on 'autoconf' => :build
+
   fails_with :clang do
     build 318
     cause <<-EOS.undent

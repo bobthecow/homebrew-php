@@ -6,7 +6,7 @@ class XhprofPhp < Formula
   md5 'ae40b153d157e6369a32e2c1a59a61ec'
   version '0.9.2'
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
   depends_on 'pcre'
 
   def install

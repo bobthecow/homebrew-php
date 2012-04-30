@@ -5,7 +5,7 @@ class ApcPhp < Formula
   url 'http://pecl.php.net/get/APC-3.1.9.tgz'
   md5 'a2cf7fbf6f3a87f190d897a53260ddaa'
 
-  depends_on 'autoconf'
+  depends_on 'autoconf' => :build
   depends_on 'pcre'
 
   def patches
