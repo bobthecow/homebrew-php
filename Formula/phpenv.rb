@@ -11,9 +11,10 @@ class Phpenv < Formula
   end
 
   def install
-    prefix.install Dir['*']
-    system "mkdir #{prefix}/share && mv #{prefix}/man #{prefix}/share"
-    system("#{prefix}/bin/phpenv-install.sh") unless ARGV.include? '--skip-install'
+    bin.install 'bin/phpenv-install.sh'
+    man1.install 'man/phpenv-install.1'
+    doc.install 'man/phpenv-install.1.html'
+    system("#{bin}/phpenv-install.sh") unless ARGV.include? '--skip-install'
   end
 
   def caveats;
