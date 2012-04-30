@@ -2,7 +2,7 @@ require 'formula'
 
 class Phpsh < Formula
   homepage 'http://www.phpsh.org/'
-  url 'git://github.com/facebook/phpsh.git'
+  url 'https://github.com/facebook/phpsh.git'
   version "1.3"
 
   depends_on 'python'
