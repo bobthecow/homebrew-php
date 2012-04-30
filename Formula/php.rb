@@ -153,11 +153,11 @@ class Php < Formula
     end
 
     unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
-      args << "--with-readline=#{Formula.factory('readline').prefix}" 
+      args << "--with-readline=#{Formula.factory('readline').prefix}"
     end
 
     if ARGV.include? '--with-gmp'
-      args << "--with-gmp" 
+      args << "--with-gmp"
     end
 
     if ARGV.include? '--with-imap'
