@@ -38,7 +38,7 @@ class ComposerPhp < Formula
       "composer --version".
 
     You can read more about composer and packagist by running:
-      "brew home composer".
+      "brew home composer-php".
     EOS
   end
 
