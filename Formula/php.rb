@@ -76,7 +76,8 @@ class Php < Formula
      ['--with-imap', 'Include IMAP extension'],
      ['--without-readline', 'Build without readline support'],
      ['--with-gmp', 'Include GMP support'],
-     ['--with-suhosin', 'Include Suhosin patch']
+     ['--with-suhosin', 'Include Suhosin patch'],
+     ['--without-pear', 'Build without PEAR']
    ]
   end
 
@@ -212,13 +213,17 @@ class Php < Formula
       end
     end
 
+    if ARGV.include? '--without-pear'
+      args << "--without-pear"
+    end
+
     system "make"
     ENV.deparallelize # parallel install fails on some systems
     system "make install"
 
     etc.install "./php.ini-production" => "php.ini" unless File.exists? etc+"php.ini"
     chmod_R 0775, lib+"php"
-    system bin+"pear", "config-set", "php_ini", etc+"php.ini"
+    system bin+"pear", "config-set", "php_ini", etc+"php.ini" unless ARGV.include? '--without-pear'
     if ARGV.include?('--with-fpm') and not File.exists? etc+"php-fpm.conf"
       etc.install "sapi/fpm/php-fpm.conf"
       inreplace etc+"php-fpm.conf" do |s|
