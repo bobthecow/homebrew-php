@@ -2,8 +2,8 @@ require 'formula'
 
 class MongoPhp < Formula
   homepage 'http://pecl.php.net/package/mongo'
-  url 'http://pecl.php.net/get/mongo-1.2.9.tgz'
-  md5 'ca0155e1dcb817ca5d6797d40aa19da7'
+  url 'http://pecl.php.net/get/mongo-1.2.10.tgz'
+  md5 'e74fd1b235278a895795f19692923a16'
 
   depends_on 'autoconf' => :build
 
