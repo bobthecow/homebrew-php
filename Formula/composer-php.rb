@@ -5,7 +5,7 @@ def php_installed?
 end
 
 def composer_reqs?
-  `curl -s http://getcomposer.org/installer | /usr/bin/env php -- --check`.include? "All settings correct"
+  `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -- --check`.include? "All settings correct"
 end
 
 class ComposerPhp < Formula
@@ -18,12 +18,16 @@ class ComposerPhp < Formula
 
   def install
     unless composer_reqs?
-      raise "Composer PHP requirements check has failed. Please run `curl -s http://getcomposer.org/installer | /usr/bin/env php -- --check` to identify and fix any issues"
+      raise <<-EOS.undent
+        Composer PHP requirements check has failed. Please run
+        `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -- --check`
+        to identify and fix any issues
+      EOS
     end
 
     libexec.install "composer.phar"
     sh = libexec + "composer"
-    sh.write("/usr/bin/env php #{libexec}/composer.phar $*")
+    sh.write("/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/composer.phar $*")
     chmod 0755, sh
     bin.install_symlink sh
 
