@@ -2,8 +2,8 @@ require 'formula'
 
 class XcachePhp < Formula
   homepage 'http://xcache.lighttpd.net'
-  url 'http://xcache.lighttpd.net/pub/Releases/1.3.2/xcache-1.3.2.tar.bz2'
-  md5 '56ff8139c9773216dd6e2a85860aad94'
+  url 'http://xcache.lighttpd.net/pub/Releases/2.0.0/xcache-2.0.0.tar.bz2'
+  md5 '0e30cdff075c635e475d70a5c37d0252'
 
   depends_on 'autoconf' => :build
 
