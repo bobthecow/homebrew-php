@@ -157,7 +157,7 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of Formula attributes, such as the `homepage`, `url`, `md5`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be derived from the latest PHP stable version included in `homebrew-php`. As of this writing, the version is `5.3.10`.
+All official PHP extensions should be derived from the latest PHP stable version included in `homebrew-php`. As of this writing, the version is `5.3.13`.
 
 ## Todo
 

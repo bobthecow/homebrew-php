@@ -10,9 +10,9 @@ end
 
 class Php < Formula
   homepage 'http://php.net'
-  url 'http://www.php.net/get/php-5.3.10.tar.bz2/from/this/mirror'
-  md5 '816259e5ca7d0a7e943e56a3bb32b17f'
-  version '5.3.10'
+  url 'http://www.php.net/get/php-5.3.13.tar.bz2/from/this/mirror'
+  md5 '370be99c5cdc2e756c82c44d774933c8'
+  version '5.3.13'
 
   head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
 
