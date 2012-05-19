@@ -4,7 +4,6 @@ class XhprofPhp < Formula
   homepage 'http://mirror.facebook.net/facebook/xhprof/doc.html'
   url 'http://pecl.php.net/get/xhprof-0.9.2.tgz'
   md5 'ae40b153d157e6369a32e2c1a59a61ec'
-  version '0.9.2'
 
   depends_on 'autoconf' => :build
   depends_on 'pcre'
