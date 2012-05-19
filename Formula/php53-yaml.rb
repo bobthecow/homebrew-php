@@ -1,6 +1,6 @@
 require 'formula'
 
-class YamlPhp < Formula
+class Php53Yaml < Formula
   homepage 'http://pecl.php.net/package/yaml'
   url 'http://pecl.php.net/get/yaml-1.0.1.tgz'
   md5 'd8a965479d919e1526dd43295783c7f7'
@@ -22,7 +22,7 @@ class YamlPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing yaml-php:
+    To finish installing php53-yaml:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/yaml.so"
       * Restart your webserver.

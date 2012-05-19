@@ -1,6 +1,6 @@
 require 'formula'
 
-class GearmanPhp < Formula
+class Php53Gearman < Formula
   homepage 'http://pecl.php.net/package/gearman'
   url 'http://pecl.php.net/get/gearman-1.0.2.tgz'
   md5 '98464746d1de660f15a25b1bc8fcbc8a'
@@ -23,7 +23,7 @@ class GearmanPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing gearman-php:
+    To finish installing php53-gearman:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/gearman.so"
       * Restart your webserver.

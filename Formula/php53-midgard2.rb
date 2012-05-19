@@ -1,6 +1,6 @@
 require 'formula'
 
-class Midgard2Php < Formula
+class Php53Midgard2 < Formula
   homepage 'http://www.midgard-project.org'
   url 'http://www.midgard-project.org/midcom-serveattachmentguid-025abaac43f811e0b064792d116f21f421f4/php5-midgard2-10.05.4.tar.gz'
   md5 'a715d76abdb6ef1bb5eb8c9973fbba16'
@@ -22,7 +22,7 @@ class Midgard2Php < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing midgard2-php:
+    To finish installing php53-midgard2:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/midgard2.so"
       * Restart your webserver.

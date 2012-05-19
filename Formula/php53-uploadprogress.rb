@@ -1,6 +1,6 @@
 require 'formula'
 
-class UploadprogressPhp < Formula
+class Php53Uploadprogress < Formula
   homepage 'http://pecl.php.net/package/uploadprogress'
   url 'http://pecl.php.net/get/uploadprogress-1.0.3.1.tgz'
   md5 '13fdc39d68e131f37c4e18c3f75aeeda'
@@ -22,7 +22,7 @@ class UploadprogressPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing uploadprogress-php:
+    To finish installing php53-uploadprogress:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/uploadprogress.so"
       * Restart your webserver.

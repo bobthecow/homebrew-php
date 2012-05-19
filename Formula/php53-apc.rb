@@ -1,6 +1,6 @@
 require 'formula'
 
-class ApcPhp < Formula
+class Php53Apc < Formula
   homepage 'http://pecl.php.net/package/apc'
   url 'http://pecl.php.net/get/APC-3.1.10.tgz'
   md5 'f4a6b91903d6ba9dce89fc87bb6f26c9'
@@ -29,7 +29,7 @@ class ApcPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing apc-php:
+    To finish installing php53-apc:
       * Add the following lines to #{etc}/php.ini:
         [apc]
         extension="#{prefix}/apc.so"

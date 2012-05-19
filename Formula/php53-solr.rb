@@ -1,6 +1,6 @@
 require 'formula'
 
-class SolrPhp < Formula
+class Php53Solr < Formula
   homepage 'http://pecl.php.net/package/solr'
   url 'http://pecl.php.net/get/solr-1.0.2.tgz'
   md5 '1632144b462ab22b91d03e4d59704fab'
@@ -21,7 +21,7 @@ class SolrPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing solr-php:
+    To finish installing php53-solr:
       * Add the following lines to #{etc}/php.ini:
         [solr]
         extension="#{prefix}/solr.so"

@@ -1,6 +1,6 @@
 require 'formula'
 
-class ImagickPhp < Formula
+class Php53Imagick < Formula
   homepage 'http://pecl.php.net/package/imagick'
   url 'http://pecl.php.net/get/imagick-3.0.1.tgz'
   md5 'e2167713316639705202cf9b6cb1fdb1'
@@ -22,7 +22,7 @@ class ImagickPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing imagick-php:
+    To finish installing php53-imagick:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/imagick.so"
       * Restart your webserver.

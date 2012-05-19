@@ -114,13 +114,13 @@ If you have any concerns as to whether your formula belongs in PHP, just open a 
 
 ### PHP Extension definitions
 
-PHP Extensions MUST be suffixed with `php`. For example, instead of the `Solr` formula in `solr.rb`, we would have `SolrPHP` inside of `solr-php.rb`. This is to remove any possible conflicts with mainline homebrew formulae.
+PHP Extensions MUST be prefixed with `phpVERSION`. For example, instead of the `Solr` formula for PHP53 in `solr.rb`, we would have `Php53Solr` inside of `php53-solr.rb`. This is to remove any possible conflicts with mainline homebrew formulae.
 
-The template for the `example-php` pecl extension would be as follows. Please use it as an example for any new extension formulae:
+The template for the `php53-example` pecl extension would be as follows. Please use it as an example for any new extension formulae:
 
     require 'formula'
 
-    class ExamplePhp < Formula
+    class Php53Example < Formula
       homepage 'http://pecl.php.net/package/example'
       url 'http://pecl.php.net/get/example-1.0.tgz'
       md5 'SOMEHASHHERE'
@@ -142,7 +142,7 @@ The template for the `example-php` pecl extension would be as follows. Please us
       end
 
       def caveats; <<-EOS.undent
-         To finish installing example-php:
+         To finish installing php53-example:
            * Add the following line to #{etc}/php.ini:
              [example]
              extension="#{prefix}/example.so"

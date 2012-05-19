@@ -1,6 +1,6 @@
 require 'formula'
 
-class XhprofPhp < Formula
+class Php53Xhprof < Formula
   homepage 'http://mirror.facebook.net/facebook/xhprof/doc.html'
   url 'http://pecl.php.net/get/xhprof-0.9.2.tgz'
   md5 'ae40b153d157e6369a32e2c1a59a61ec'
@@ -25,7 +25,7 @@ class XhprofPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-     To finish installing xhprof-php:
+     To finish installing php53-xhprof:
        * Add the following line to #{etc}/php.ini:
          [xhprof]
          extension="#{prefix}/xhprof.so"

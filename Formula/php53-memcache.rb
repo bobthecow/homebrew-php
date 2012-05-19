@@ -1,6 +1,6 @@
 require 'formula'
 
-class MemcachePhp < Formula
+class Php53Memcache < Formula
   homepage 'http://pecl.php.net/package/memcache'
   url 'http://pecl.php.net/get/memcache-2.2.6.tgz'
   md5 '9542f1886b72ffbcb039a5c21796fe8a'
@@ -21,7 +21,7 @@ class MemcachePhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing memcache-php:
+    To finish installing php53-memcache:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/memcache.so"
       * Restart your webserver.

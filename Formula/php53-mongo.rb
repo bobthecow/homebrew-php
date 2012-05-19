@@ -1,6 +1,6 @@
 require 'formula'
 
-class MongoPhp < Formula
+class Php53Mongo < Formula
   homepage 'http://pecl.php.net/package/mongo'
   url 'http://pecl.php.net/get/mongo-1.2.10.tgz'
   md5 'e74fd1b235278a895795f19692923a16'
@@ -21,7 +21,7 @@ class MongoPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing mongo-php:
+    To finish installing php53-mongo:
       * Add the following lines to #{etc}/php.ini:
         [mongo]
         extension="#{prefix}/mongo.so"

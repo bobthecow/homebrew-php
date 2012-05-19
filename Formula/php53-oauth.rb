@@ -1,6 +1,6 @@
 require 'formula'
 
-class OauthPhp < Formula
+class Php53Oauth < Formula
   homepage 'http://pecl.php.net/package/oauth'
   url 'http://pecl.php.net/get/oauth-1.2.2.tgz'
   md5 '9a9f35e45786534d8580abfffc8c273c'
@@ -21,7 +21,7 @@ class OauthPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish installing oauth-php:
+    To finish installing php53-oauth:
       * Add the following line to #{etc}/php.ini:
         extension="#{prefix}/oauth.so"
       * Restart your webserver.

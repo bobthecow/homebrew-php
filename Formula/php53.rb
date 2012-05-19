@@ -8,7 +8,7 @@ def postgres_installed?
   `which pg_config`.length > 0
 end
 
-class Php < Formula
+class Php53 < Formula
   homepage 'http://php.net'
   url 'http://www.php.net/get/php-5.3.13.tar.bz2/from/this/mirror'
   md5 '370be99c5cdc2e756c82c44d774933c8'
@@ -83,17 +83,21 @@ class Php < Formula
 
   def patches
     # Tidy extension and Makefile (for OS 10.5.x) patches in DATA.
-    p = [DATA]
-    p << "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if ARGV.include? '--with-suhosin'
+    p = "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if ARGV.include? '--with-suhosin'
+    p << [DATA] if MacOS.leopard?
     return p
+  end
+
+  def config_path
+    etc+"php/5.3"
   end
 
   def install
     args = [
       "--prefix=#{prefix}",
       "--disable-debug",
-      "--with-config-file-path=#{etc}",
-      "--with-config-file-scan-dir=#{etc}/php5/conf.d",
+      "--with-config-file-path=#{config_path}",
+      "--with-config-file-scan-dir=#{config_path}/conf.d",
       "--with-iconv-dir=/usr",
       "--enable-dba",
       "--with-ndbm=/usr",
@@ -141,8 +145,8 @@ class Php < Formula
       args << "--enable-fpm"
       (prefix+'var/log').mkpath
       touch prefix+'var/log/php-fpm.log'
-      (prefix+'homebrew-php.josegonzalez.php.plist').write php_fpm_startup_plist
-      (prefix+'homebrew-php.josegonzalez.php.plist').chmod 0644
+      (prefix+'homebrew-php.josegonzalez.php53.plist').write php_fpm_startup_plist
+      (prefix+'homebrew-php.josegonzalez.php53.plist').chmod 0644
     elsif ARGV.include? '--with-cgi'
       args << "--enable-cgi"
     end
@@ -222,12 +226,12 @@ class Php < Formula
     ENV.deparallelize # parallel install fails on some systems
     system "make install"
 
-    etc.install "./php.ini-production" => "php.ini" unless File.exists? etc+"php.ini"
+    config_path.install "./php.ini-development" => "php.ini" unless File.exists? config_path+"php.ini"
     chmod_R 0775, lib+"php"
-    system bin+"pear", "config-set", "php_ini", etc+"php.ini" unless ARGV.include? '--without-pear'
-    if ARGV.include?('--with-fpm') and not File.exists? etc+"php-fpm.conf"
-      etc.install "sapi/fpm/php-fpm.conf"
-      inreplace etc+"php-fpm.conf" do |s|
+    system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless ARGV.include? '--without-pear'
+    if ARGV.include?('--with-fpm') and not File.exists? config_path+"php-fpm.conf"
+      config_path.install "sapi/fpm/php-fpm.conf"
+      inreplace config_path+"php-fpm.conf" do |s|
         s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
         s.sub!(/^;?pm\.start_servers\s*=.+$/,'pm.start_servers = 20')
         s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 5')
@@ -245,7 +249,7 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
     LoadModule php5_module    #{libexec}/apache2/libphp5.so
 
 The php.ini file can be found in:
-    #{etc}/php.ini
+    #{config_path}/php.ini
 
 Development and head builds will use libedit in place of readline.
 
@@ -269,7 +273,7 @@ of this formula.
 
   def test
     if ARGV.include?('--with-fpm')
-      system "#{sbin}/php-fpm -y #{etc}/php-fpm.conf -t"
+      system "#{sbin}/php-fpm -y #{config_path}/php-fpm.conf -t"
     end
   end
 
@@ -286,7 +290,7 @@ of this formula.
       <array>
         <string>#{sbin}/php-fpm</string>
         <string>--fpm-config</string>
-        <string>#{etc}/php-fpm.conf</string>
+        <string>#{config_path}/php-fpm.conf</string>
       </array>
       <key>RunAtLoad</key>
       <true/>
@@ -303,25 +307,25 @@ of this formula.
 end
 
 __END__
-diff -Naur php-5.3.2/ext/tidy/tidy.c php/ext/tidy/tidy.c 
+diff -Naur php-5.3.2/ext/tidy/tidy.c php/ext/tidy/tidy.c
 --- php-5.3.2/ext/tidy/tidy.c	2010-02-12 04:36:40.000000000 +1100
 +++ php/ext/tidy/tidy.c	2010-05-23 19:49:47.000000000 +1000
 @@ -22,6 +22,8 @@
  #include "config.h"
  #endif
- 
+
 +#include "tidy.h"
 +
  #include "php.h"
  #include "php_tidy.h"
- 
+
 @@ -31,7 +33,6 @@
  #include "ext/standard/info.h"
  #include "safe_mode.h"
- 
+
 -#include "tidy.h"
  #include "buffio.h"
- 
+
  /* compatibility with older versions of libtidy */
 diff --git a/Makefile.global b/Makefile.global
 index 8dad0e4..f6d460b 100644
@@ -329,9 +333,9 @@ index 8dad0e4..f6d460b 100644
 +++ b/Makefile.global
 @@ -18,7 +18,7 @@ libphp$(PHP_MAJOR_VERSION).la: $(PHP_GLOBAL_OBJS) $(PHP_SAPI_OBJS)
  	-@$(LIBTOOL) --silent --mode=install cp $@ $(phptempdir)/$@ >/dev/null 2>&1
- 
+
  libs/libphp$(PHP_MAJOR_VERSION).bundle: $(PHP_GLOBAL_OBJS) $(PHP_SAPI_OBJS)
 -	$(CC) $(MH_BUNDLE_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(PHP_GLOBAL_OBJS:.lo=.o) $(PHP_SAPI_OBJS:.lo=.o) $(PHP_FRAMEWORKS) $(EXTRA_LIBS) $(ZEND_EXTRA_LIBS) -o $@ && cp $@ libs/libphp$(PHP_MAJOR_VERSION).so
 +	$(CC) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(MH_BUNDLE_FLAGS) $(PHP_GLOBAL_OBJS:.lo=.o) $(PHP_SAPI_OBJS:.lo=.o) $(PHP_FRAMEWORKS) $(EXTRA_LIBS) $(ZEND_EXTRA_LIBS) -o $@ && cp $@ libs/libphp$(PHP_MAJOR_VERSION).so
- 
+
  install: $(all_targets) $(install_targets)
