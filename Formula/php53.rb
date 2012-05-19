@@ -14,14 +14,6 @@ class Php53 < Formula
   md5 '370be99c5cdc2e756c82c44d774933c8'
   version '5.3.13'
 
-  head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
-
-  devel do
-    url 'http://www.php.net/get/php-5.4.0.tar.bz2/from/this/mirror'
-    md5 '04bb6f9d71ea86ba05685439d50db074'
-    version '5.4.0'
-  end
-
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
 
@@ -34,7 +26,7 @@ class Php53 < Formula
   depends_on 'libevent' if ARGV.include? '--with-fpm'
   depends_on 'libxml2'
   depends_on 'mcrypt'
-  depends_on 'readline' unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
+  depends_on 'readline' unless ARGV.include? '--without-readline'
   depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
 
   # Sanity Checks
@@ -56,10 +48,6 @@ class Php53 < Formula
 
   if ARGV.include? '--with-cgi' or ARGV.include? '--with-fpm'
     ARGV << '--without-apache' unless ARGV.include? '--without-apache'
-  end
-
-  if ARGV.build_head? or ARGV.build_devel?
-    raise "Cannot apply Suhosin Patch to unstable builds" if ARGV.include? '--with-suhosin'
   end
 
   def options
@@ -143,6 +131,8 @@ class Php53 < Formula
 
     if ARGV.include? '--with-fpm'
       args << "--enable-fpm"
+      args << "--with-fpm-user=_www"
+      args << "--with-fpm-group=_www"
       (prefix+'var/log').mkpath
       touch prefix+'var/log/php-fpm.log'
       (prefix+'homebrew-php.josegonzalez.php53.plist').write php_fpm_startup_plist
@@ -157,7 +147,7 @@ class Php53 < Formula
       args << "--libexecdir=#{libexec}"
     end
 
-    unless ARGV.include? '--without-readline' or ARGV.build_devel? or ARGV.build_head?
+    unless ARGV.include? '--without-readline'
       args << "--with-readline=#{Formula.factory('readline').prefix}"
     end
 
@@ -199,10 +189,6 @@ class Php53 < Formula
       args << "--with-iodbc"
     end
 
-    # Use libedit instead of readline for 5.4
-    args << "--with-libedit" if ARGV.build_devel? or ARGV.build_head?
-
-    system "./buildconf" if ARGV.build_head?
     system "./configure", *args
 
     unless ARGV.include? '--without-apache'
@@ -233,9 +219,10 @@ class Php53 < Formula
       config_path.install "sapi/fpm/php-fpm.conf"
       inreplace config_path+"php-fpm.conf" do |s|
         s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
+        s.sub!(/^;?pm\.max_children\s*=.+$/,'pm.max_children = 50')
         s.sub!(/^;?pm\.start_servers\s*=.+$/,'pm.start_servers = 20')
-        s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 5')
-        s.sub!(/^;?pm\.max_spare_servers\s*=.+$/,'pm.max_spare_servers = 35')
+        s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 10')
+        s.sub!(/^;?pm\.max_spare_servers\s*=.+$/,'pm.max_spare_servers = 30')
       end
     end
   end
@@ -250,8 +237,6 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
 
 The php.ini file can be found in:
     #{config_path}/php.ini
-
-Development and head builds will use libedit in place of readline.
 
 If you have installed the formula with --with-fpm, to launch php-fpm on startup:
     * If this is your first install:
