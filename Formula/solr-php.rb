@@ -4,6 +4,7 @@ class SolrPhp < Formula
   homepage 'http://pecl.php.net/package/solr'
   url 'http://pecl.php.net/get/solr-1.0.2.tgz'
   md5 '1632144b462ab22b91d03e4d59704fab'
+  head 'https://svn.php.net/repository/pecl/solr/trunk/', :using => :svn
 
   depends_on 'autoconf' => :build
 

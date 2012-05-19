@@ -4,6 +4,7 @@ class GearmanPhp < Formula
   homepage 'http://pecl.php.net/package/gearman'
   url 'http://pecl.php.net/get/gearman-1.0.2.tgz'
   md5 '98464746d1de660f15a25b1bc8fcbc8a'
+  head 'https://svn.php.net/repository/pecl/gearman/trunk/', :using => :svn
 
   depends_on 'autoconf' => :build
   depends_on 'gearman'
