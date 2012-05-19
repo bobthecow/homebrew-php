@@ -2,16 +2,15 @@ require 'formula'
 
 class ApcPhp < Formula
   homepage 'http://pecl.php.net/package/apc'
-  url 'http://pecl.php.net/get/APC-3.1.9.tgz'
-  md5 'a2cf7fbf6f3a87f190d897a53260ddaa'
+  url 'http://pecl.php.net/get/APC-3.1.10.tgz'
+  md5 'f4a6b91903d6ba9dce89fc87bb6f26c9'
 
   depends_on 'autoconf' => :build
   depends_on 'pcre'
 
   def patches
-    # fixes "PHP Fatal error:  Unknown: apc_fcntl_unlock failed: in Unknown on line 0"
-    # this has been fixed in the APC trunk but has not been released yet (as of 3.1.9)
-    # https://bugs.php.net/bug.php?id=59750
+    # fixes "Incorrect version tag: APC 3.1.10 shows 3.1.9"
+    # https://bugs.php.net/bug.php?id=61695
     DATA
   end
 
@@ -48,16 +47,16 @@ class ApcPhp < Formula
 end
 
 __END__
-diff --git a/APC-3.1.9/apc_lock.h b/APC-3.1.9/apc_lock.h
+diff --git a/APC-3.1.10/php_apc.h b/APC-3.1.10/php_apc.h
 index 77f66d5..aafa3b7 100644
---- a/APC-3.1.9/apc_lock.h
-+++ b/APC-3.1.9/apc_lock.h
-@@ -154,7 +154,7 @@
- # define apc_lck_nb_lock(a)    apc_fcntl_nonblocking_lock(a TSRMLS_CC)
- # define apc_lck_rdlock(a)     apc_fcntl_rdlock(a TSRMLS_CC)
- # define apc_lck_unlock(a)     apc_fcntl_unlock(a TSRMLS_CC)
--# define apc_lck_rdunlock(a)   apc_fcntl_unlock(&a TSRMLS_CC)
-+# define apc_lck_rdunlock(a)   apc_fcntl_unlock(a TSRMLS_CC)
- #endif
- 
- #endif
+--- a/APC-3.1.10/php_apc.h
++++ b/APC-3.1.10/php_apc.h
+@@ -35,7 +35,7 @@
+  #include "apc_php.h"
+  #include "apc_globals.h"
+
+-#define PHP_APC_VERSION "3.1.9"
++#define PHP_APC_VERSION "3.1.10"
+
+  extern zend_module_entry apc_module_entry;
+  #define apc_module_ptr &apc_module_entry
