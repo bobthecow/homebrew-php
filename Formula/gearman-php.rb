@@ -2,8 +2,8 @@ require 'formula'
 
 class GearmanPhp < Formula
   homepage 'http://pecl.php.net/package/gearman'
-  url 'http://pecl.php.net/get/gearman-1.0.1.tgz'
-  md5 'dc576593f18e73aacf3b4430ba9d47d5'
+  url 'http://pecl.php.net/get/gearman-1.0.2.tgz'
+  md5 '98464746d1de660f15a25b1bc8fcbc8a'
 
   depends_on 'autoconf' => :build
   depends_on 'gearman'
