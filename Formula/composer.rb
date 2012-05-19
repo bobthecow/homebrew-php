@@ -8,7 +8,7 @@ def composer_reqs?
   `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -- --check`.include? "All settings correct"
 end
 
-class ComposerPhp < Formula
+class Composer < Formula
   homepage 'http://getcomposer.org'
   url 'http://getcomposer.org/download/1.0.0-alpha3/composer.phar'
   md5 '82fa6b15cc95b667d695489e39a9fceb'
@@ -42,7 +42,7 @@ class ComposerPhp < Formula
       "composer --version".
 
     You can read more about composer and packagist by running:
-      "brew home composer-php".
+      "brew home composer".
     EOS
   end
 
