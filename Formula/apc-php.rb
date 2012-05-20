@@ -12,7 +12,7 @@ class ApcPhp < Formula
   def patches
     # fixes "Incorrect version tag: APC 3.1.10 shows 3.1.9"
     # https://bugs.php.net/bug.php?id=61695
-    DATA
+    DATA unless ARGV.build_head?
   end
 
   def install
