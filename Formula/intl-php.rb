@@ -19,13 +19,13 @@ class IntlPhp < Formula
   end
 
   def caveats; <<-EOS.undent
-    To finish intl-php installation, you need to add the
-    following line into #{etc}/php.ini:
-
-      extension=#{prefix}/intl.so
-
-    Then, restart your webserver and check in phpinfo if
-    you're able to see something about intl
+    To finish installing intl-php:
+      * Add the following line to #{etc}/php.ini:
+        extension="#{prefix}/intl.so"
+      * Restart your webserver.
+      * Write a PHP page that calls "phpinfo();"
+      * Load it in a browser and look for the info on the intl module.
+      * If you see it, you have been successful!
     EOS
   end
 end
