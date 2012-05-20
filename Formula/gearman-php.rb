@@ -10,13 +10,16 @@ class GearmanPhp < Formula
   depends_on 'gearman'
 
   def install
-    cd "gearman-#{version}" do
-      system "phpize"
-      system "./configure", "--prefix=#{prefix}",
-                            "--with-gearman=#{Formula.factory('gearman').prefix}"
-      system "make"
-      prefix.install 'modules/gearman.so'
-    end
+    Dir.chdir "gearman-#{version}" unless ARGV.build_head?
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
+    system "phpize"
+    system "./configure", "--prefix=#{prefix}",
+                          "--with-gearman=#{Formula.factory('gearman').prefix}"
+    system "make"
+    prefix.install "modules/gearman.so"
   end
 
   def caveats; <<-EOS.undent

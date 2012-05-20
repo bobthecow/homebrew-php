@@ -11,11 +11,15 @@ class XhprofPhp < Formula
 
   def install
     Dir.chdir "xhprof-#{version}/extension" do
+      # See https://github.com/mxcl/homebrew/pull/5947
+      ENV.universal_binary
+
       system "phpize"
       system "./configure", "--prefix=#{prefix}"
       system "make"
-      prefix.install %w(modules/xhprof.so)
+      prefix.install "modules/xhprof.so"
     end
+
     Dir.chdir "xhprof-#{version}" do
       prefix.install %w(xhprof_html xhprof_lib)
     end

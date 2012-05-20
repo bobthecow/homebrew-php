@@ -9,12 +9,15 @@ class SolrPhp < Formula
   depends_on 'autoconf' => :build
 
   def install
-    Dir.chdir "solr-#{version}" do
-      system "phpize"
-      system "./configure", "--prefix=#{prefix}"
-      system "make"
-      prefix.install "modules/solr.so"
-    end
+    Dir.chdir "solr-#{version}" unless ARGV.build_head?
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
+    system "phpize"
+    system "./configure", "--prefix=#{prefix}"
+    system "make"
+    prefix.install "modules/solr.so"
   end
 
   def caveats; <<-EOS.undent

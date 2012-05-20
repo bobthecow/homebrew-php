@@ -10,14 +10,15 @@ class YamlPhp < Formula
   depends_on 'libyaml'
 
   def install
-    if not ARGV.build_head?
-      Dir.chdir "yaml-#{version}"
-    end
+    Dir.chdir "yaml-#{version}" unless ARGV.build_head?
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
 
     system "phpize"
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install 'modules/yaml.so'
+    prefix.install "modules/yaml.so"
   end
 
   def caveats; <<-EOS.undent

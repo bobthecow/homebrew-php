@@ -10,14 +10,15 @@ class ImagickPhp < Formula
   depends_on 'imagemagick'
 
   def install
-    if not ARGV.build_head?
-      Dir.chdir "imagick-#{version}"
-    end
+    Dir.chdir "imagick-#{version}" unless ARGV.build_head?
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
 
     system "phpize"
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install 'modules/imagick.so'
+    prefix.install "modules/imagick.so"
   end
 
   def caveats; <<-EOS.undent

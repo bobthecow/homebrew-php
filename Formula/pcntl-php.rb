@@ -10,6 +10,10 @@ class PcntlPhp < Formula
 
   def install
     Dir.chdir "ext/pcntl"
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
     system "phpize"
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}"

@@ -9,12 +9,15 @@ class MongoPhp < Formula
   depends_on 'autoconf' => :build
 
   def install
-    Dir.chdir "mongo-#{version}" do
-      system "phpize"
-      system "./configure", "--prefix=#{prefix}"
-      system "make"
-      prefix.install "modules/mongo.so"
-    end
+    Dir.chdir "mongo-#{version}" unless ARGV.build_head?
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
+    system "phpize"
+    system "./configure", "--prefix=#{prefix}"
+    system "make"
+    prefix.install "modules/mongo.so"
   end
 
   def caveats; <<-EOS.undent

@@ -10,13 +10,16 @@ class UploadprogressPhp < Formula
   depends_on 'pcre'
 
   def install
-    Dir.chdir "uploadprogress-#{version}" do
-      system "phpize"
-      system "./configure", "--prefix=#{prefix}"
-      system "make"
+    Dir.chdir "uploadprogress-#{version}" unless ARGV.build_head?
 
-      prefix.install %w(modules/uploadprogress.so)
-    end
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
+    system "phpize"
+    system "./configure", "--prefix=#{prefix}"
+    system "make"
+    prefix.install "modules/uploadprogress.so"
+
   end
 
   def caveats; <<-EOS.undent

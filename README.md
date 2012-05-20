@@ -137,7 +137,7 @@ The template for the `example-php` extension would be as follows. Please use it 
         system "phpize"
         system "./configure", "--prefix=#{prefix}"
         system "make"
-        prefix.install 'modules/example.so'
+        prefix.install "modules/example.so"
       end
 
       def caveats; <<-EOS.undent

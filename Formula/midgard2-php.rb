@@ -11,11 +11,13 @@ class Midgard2Php < Formula
   depends_on 'midgard2'
 
   def install
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
     system "phpize"
     system "./configure", "--with-php-config=/usr/bin/php-config"
-
     system "make"
-    prefix.install 'modules/midgard2.so'
+    prefix.install "modules/midgard2.so"
   end
 
   def caveats; <<-EOS.undent

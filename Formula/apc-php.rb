@@ -16,13 +16,15 @@ class ApcPhp < Formula
   end
 
   def install
-    Dir.chdir "APC-#{version}" do
-      system "phpize"
-      system "./configure", "--prefix=#{prefix}", "--enable-apc-pthreadmutex"
-      system "make"
+    Dir.chdir "APC-#{version}" unless ARGV.build_head?
 
-      prefix.install %w(modules/apc.so apc.php)
-    end
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
+    system "phpize"
+    system "./configure", "--prefix=#{prefix}", "--enable-apc-pthreadmutex"
+    system "make"
+    prefix.install %w(modules/apc.so apc.php)
   end
 
   def caveats; <<-EOS.undent

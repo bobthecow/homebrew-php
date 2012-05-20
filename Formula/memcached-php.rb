@@ -10,14 +10,13 @@ class MemcachedPhp < Formula
   depends_on 'libmemcached'
 
   def install
-    if not ARGV.build_head?
-      cd "memcached-#{version}"
-    end
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
 
     system "phpize"
     system "./configure", "--prefix=#{prefix}", "--with-libmemcached-dir=#{Formula.factory('libmemcached').prefix}"
     system "make"
-    prefix.install 'modules/memcached.so'
+    prefix.install "modules/memcached.so"
   end
 
   def caveats; <<-EOS.undent

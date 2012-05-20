@@ -17,10 +17,13 @@ class RedisPhp < Formula
   end unless ARGV.build_head?
 
   def install
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
     system "phpize"
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install 'modules/redis.so'
+    prefix.install "modules/redis.so"
   end
 
   def caveats; <<-EOS.undent

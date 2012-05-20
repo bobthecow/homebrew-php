@@ -8,17 +8,18 @@ class XdebugPhp < Formula
   depends_on 'autoconf' => :build
 
   def install
-    Dir.chdir "xdebug-#{version}" do
-      # See https://github.com/mxcl/homebrew/issues/issue/69
-      ENV.universal_binary
+    Dir.chdir "xdebug-#{version}"
 
-      system "phpize"
-      system "./configure", "--disable-debug", "--disable-dependency-tracking",
-                            "--prefix=#{prefix}",
-                            "--enable-xdebug"
-      system "make"
-      prefix.install 'modules/xdebug.so'
-    end
+    # See https://github.com/mxcl/homebrew/issues/issue/69
+    ENV.universal_binary
+
+    system "phpize"
+    system "./configure", "--prefix=#{prefix}",
+                          "--disable-debug",
+                          "--disable-dependency-tracking",
+                          "--enable-xdebug"
+    system "make"
+    prefix.install "modules/xdebug.so"
   end
 
   def caveats; <<-EOS.undent

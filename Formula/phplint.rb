@@ -19,7 +19,7 @@ class Phplint < Formula
     system "gcc -fnested-functions src/phplint.c -o src/phplint"
     bin.install 'src/phplint'
     bin.install 'phpl'
-    prefix.install 'modules'
+    prefix.install "modules'
   end
 end
 
@@ -40,10 +40,10 @@ index 03a55eb..f195fba 100755
 @@ -6,13 +6,10 @@
  #
  # Try phplint --help for more.
- 
+
 -d=$(dirname "$0")
 +d=$(brew --prefix phplint)
- 
+
 -"$d/src/phplint" \
 -	--tab-size 8 \
 +"$d/bin/phplint" \

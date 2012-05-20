@@ -9,14 +9,15 @@ class OauthPhp < Formula
   depends_on 'autoconf' => :build
 
   def install
-    if not ARGV.build_head?
-      Dir.chdir "oauth-#{version}"
-    end
+    Dir.chdir "oauth-#{version}" unless ARGV.build_head?
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
 
     system "phpize"
     system "./configure", "--prefix=#{prefix}"
     system "make"
-    prefix.install 'modules/oauth.so'
+    prefix.install "modules/oauth.so"
   end
 
   def caveats; <<-EOS.undent

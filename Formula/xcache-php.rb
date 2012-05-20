@@ -12,10 +12,11 @@ class XcachePhp < Formula
     ENV.universal_binary unless Hardware.is_64_bit?
 
     system "phpize"
-    system "./configure", "--disable-debug", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          "--disable-debug",
+                          "--disable-dependency-tracking"
     system "make"
-    prefix.install 'modules/xcache.so'
+    prefix.install "modules/xcache.so"
   end
 
   def caveats; <<-EOS.undent

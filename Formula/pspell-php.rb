@@ -10,14 +10,17 @@ class PspellPhp < Formula
   depends_on 'aspell'
 
   def install
-    cd "ext/pspell" do
-      system "phpize"
-      system "./configure", "--disable-debug",
-                            "--prefix=#{prefix}",
-                            "--with-pspell=#{Formula.factory('aspell').prefix}"
-      system "make"
-      prefix.install 'modules/pspell.so'
-    end
+    Dir.chdir "ext/pcntl"
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
+    system "phpize"
+    system "./configure", "--disable-debug",
+                          "--prefix=#{prefix}",
+                          "--with-pspell=#{Formula.factory('aspell').prefix}"
+    system "make"
+    prefix.install "modules/pspell.so"
   end
 
   def caveats; <<-EOS.undent

@@ -11,12 +11,16 @@ class McryptPhp < Formula
 
   def install
     Dir.chdir "ext/mcrypt"
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary unless Hardware.is_64_bit?
+
     system "phpize"
     system "./configure", "--disable-dependency-tracking",
                           "--prefix=#{prefix}",
                           "--with-mcrypt=#{Formula.factory('mcrypt').prefix}"
     system "make"
-    prefix.install 'modules/mcrypt.so'
+    prefix.install "modules/mcrypt.so"
   end
 
   def caveats; <<-EOS.undent

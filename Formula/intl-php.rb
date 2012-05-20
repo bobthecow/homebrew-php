@@ -11,11 +11,15 @@ class IntlPhp < Formula
 
   def install
     Dir.chdir "ext/intl"
+
+    # See https://github.com/mxcl/homebrew/pull/5947
+    ENV.universal_binary
+
     system "phpize"
     system "./configure", "--enable-intl",
                           "--prefix=#{prefix}"
     system "make"
-    prefix.install 'modules/intl.so'
+    prefix.install "modules/intl.so"
   end
 
   def caveats; <<-EOS.undent
