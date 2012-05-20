@@ -19,7 +19,7 @@ class Phplint < Formula
     system "gcc -fnested-functions src/phplint.c -o src/phplint"
     bin.install 'src/phplint'
     bin.install 'phpl'
-    prefix.install "modules'
+    prefix.install 'modules'
   end
 end
 
