@@ -16,8 +16,8 @@ class McryptPhp < Formula
     ENV.universal_binary unless Hardware.is_64_bit?
 
     system "phpize"
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}",
+    system "./configure", "--prefix=#{prefix}",
+                          "--disable-dependency-tracking",
                           "--with-mcrypt=#{Formula.factory('mcrypt').prefix}"
     system "make"
     prefix.install "modules/mcrypt.so"

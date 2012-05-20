@@ -15,8 +15,8 @@ class PcntlPhp < Formula
     ENV.universal_binary
 
     system "phpize"
-    system "./configure", "--disable-dependency-tracking",
-                          "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          "--disable-dependency-tracking"
     system "make"
     prefix.install "modules/pcntl.so"
   end

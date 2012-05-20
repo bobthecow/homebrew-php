@@ -19,7 +19,6 @@ class UploadprogressPhp < Formula
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/uploadprogress.so"
-
   end
 
   def caveats; <<-EOS.undent

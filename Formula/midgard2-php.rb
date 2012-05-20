@@ -15,7 +15,8 @@ class Midgard2Php < Formula
     ENV.universal_binary
 
     system "phpize"
-    system "./configure", "--with-php-config=/usr/bin/php-config"
+    system "./configure", "--prefix=#{prefix}",
+                          "--with-php-config=/usr/bin/php-config"
     system "make"
     prefix.install "modules/midgard2.so"
   end

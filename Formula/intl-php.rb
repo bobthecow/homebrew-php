@@ -16,8 +16,8 @@ class IntlPhp < Formula
     ENV.universal_binary
 
     system "phpize"
-    system "./configure", "--enable-intl",
-                          "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          "--enable-intl"
     system "make"
     prefix.install "modules/intl.so"
   end

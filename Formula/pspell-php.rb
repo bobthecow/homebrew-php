@@ -16,8 +16,8 @@ class PspellPhp < Formula
     ENV.universal_binary
 
     system "phpize"
-    system "./configure", "--disable-debug",
-                          "--prefix=#{prefix}",
+    system "./configure", "--prefix=#{prefix}",
+                          "--disable-debug",
                           "--with-pspell=#{Formula.factory('aspell').prefix}"
     system "make"
     prefix.install "modules/pspell.so"

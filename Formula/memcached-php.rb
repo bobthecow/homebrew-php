@@ -14,7 +14,8 @@ class MemcachedPhp < Formula
     ENV.universal_binary
 
     system "phpize"
-    system "./configure", "--prefix=#{prefix}", "--with-libmemcached-dir=#{Formula.factory('libmemcached').prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          "--with-libmemcached-dir=#{Formula.factory('libmemcached').prefix}"
     system "make"
     prefix.install "modules/memcached.so"
   end

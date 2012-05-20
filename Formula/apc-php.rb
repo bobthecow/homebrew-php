@@ -22,7 +22,8 @@ class ApcPhp < Formula
     ENV.universal_binary
 
     system "phpize"
-    system "./configure", "--prefix=#{prefix}", "--enable-apc-pthreadmutex"
+    system "./configure", "--prefix=#{prefix}",
+                          "--enable-apc-pthreadmutex"
     system "make"
     prefix.install %w(modules/apc.so apc.php)
   end
