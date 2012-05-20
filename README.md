@@ -116,23 +116,24 @@ If you have any concerns as to whether your formula belongs in PHP, just open a 
 
 PHP Extensions MUST be suffixed with `php`. For example, instead of the `Solr` formula in `solr.rb`, we would have `SolrPHP` inside of `solr-php.rb`. This is to remove any possible conflicts with mainline homebrew formulae.
 
-The template for the `example-php` extension would be as follows. Please use it as an example for any new extension formulae:
+The template for the `example-php` pecl extension would be as follows. Please use it as an example for any new extension formulae:
 
     require 'formula'
 
     class ExamplePhp < Formula
-      homepage 'http://example.com/'
-      url 'http://example.com/get/example-1.0.tgz'
+      homepage 'http://pecl.php.net/package/example'
+      url 'http://pecl.php.net/get/example-1.0.tgz'
       md5 'SOMEHASHHERE'
       version '1.0'
-      head 'http://example.com/get/example-head.tgz'
+      head 'https://svn.php.net/repository/pecl/example/trunk', :using => :svn
 
-      depends_on 'autoconf'
+      depends_on 'autoconf' => :build
 
       def install
-        if not ARGV.build_head?
-          Dir.chdir "example-#{version}"
-        end
+        Dir.chdir "example-#{version}" unless ARGV.build_head?
+
+        # See https://github.com/mxcl/homebrew/pull/5947
+        ENV.universal_binary
 
         system "phpize"
         system "./configure", "--prefix=#{prefix}"
