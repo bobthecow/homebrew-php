@@ -139,8 +139,8 @@ class Php < Formula
 
     if ARGV.include? '--with-fpm'
       args << "--enable-fpm"
-      (var+'log').mkpath
-      touch var+'log/php-fpm.log'
+      (prefix+'var/log').mkpath
+      touch prefix+'var/log/php-fpm.log'
       (prefix+'homebrew-php.josegonzalez.php.plist').write php_fpm_startup_plist
       (prefix+'homebrew-php.josegonzalez.php.plist').chmod 0644
     elsif ARGV.include? '--with-cgi'
