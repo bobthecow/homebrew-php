@@ -141,8 +141,8 @@ class Php < Formula
       args << "--enable-fpm"
       (var+'log').mkpath
       touch var+'log/php-fpm.log'
-      (prefix+'org.php-fpm.plist').write php_fpm_startup_plist
-      (prefix+'org.php-fpm.plist').chmod 0644
+      (prefix+'homebrew-php.josegonzalez.php.plist').write php_fpm_startup_plist
+      (prefix+'homebrew-php.josegonzalez.php.plist').chmod 0644
     elsif ARGV.include? '--with-cgi'
       args << "--enable-cgi"
     end
@@ -252,15 +252,18 @@ Development and head builds will use libedit in place of readline.
 If you have installed the formula with --with-fpm, to launch php-fpm on startup:
     * If this is your first install:
         mkdir -p ~/Library/LaunchAgents
-        cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
-        launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
+        cp #{prefix}/homebrew-php.josegonzalez.php.plist ~/Library/LaunchAgents/
+        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php.plist
 
-    * If this is an upgrade and you already have the org.php-fpm.plist loaded:
-        launchctl unload -w ~/Library/LaunchAgents/org.php-fpm.plist
-        cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
-        launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
+    * If this is an upgrade and you already have the homebrew-php.josegonzalez.php.plist loaded:
+        launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php.plist
+        cp #{prefix}/homebrew-php.josegonzalez.php.plist ~/Library/LaunchAgents/
+        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php.plist
 
 You may also need to edit the plist to use the correct "UserName".
+
+Please note that the plist was called 'org.php-fpm.plist' in old versions
+of this formula.
    EOS
  end
 
@@ -278,7 +281,7 @@ You may also need to edit the plist to use the correct "UserName".
       <key>KeepAlive</key>
       <true/>
       <key>Label</key>
-      <string>org.php-fpm</string>
+      <string>homebrew-php.josegonzalez.php</string>
       <key>ProgramArguments</key>
       <array>
         <string>#{sbin}/php-fpm</string>
