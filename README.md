@@ -96,7 +96,7 @@ Please include the following information in your bug report:
 - XCode Version: 4.3, 4.0, 3 etc.
   - If using 4.3, verify whether you have the `Command Line Tools` installed as well
 - Output of `gcc -v`
-- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com)
+- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
 - Output of `brew doctor` within a [gist](http://gist.github.com)
 
 This will help us diagnose your issues much quicker, as well as find commonalities between different reported issues.
