@@ -10,6 +10,8 @@ class MemcachedPhp < Formula
   depends_on 'libmemcached'
 
   def install
+    Dir.chdir "memcached-#{version}" unless ARGV.build_head?
+
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
