@@ -152,7 +152,7 @@ class Php53 < Formula
     end
 
     if ARGV.include? '--with-gmp'
-      args << "--with-gmp"
+      args << "--with-gmp=#{Formula.factory('gmp').prefix}"
     end
 
     if ARGV.include? '--with-imap'
