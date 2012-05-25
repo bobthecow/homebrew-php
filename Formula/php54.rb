@@ -250,15 +250,18 @@ The php.ini file can be found in:
 If you have installed the formula with --with-fpm, to launch php-fpm on startup:
     * If this is your first install:
         mkdir -p ~/Library/LaunchAgents
-        cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
-        launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
+        cp #{prefix}/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
 
-    * If this is an upgrade and you already have the org.php-fpm.plist loaded:
-        launchctl unload -w ~/Library/LaunchAgents/org.php-fpm.plist
-        cp #{prefix}/org.php-fpm.plist ~/Library/LaunchAgents/
-        launchctl load -w ~/Library/LaunchAgents/org.php-fpm.plist
+    * If this is an upgrade and you already have the homebrew-php.josegonzalez.php54.plist loaded:
+        launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
+        cp #{prefix}/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
 
 You may also need to edit the plist to use the correct "UserName".
+
+Please note that the plist was called 'org.php-fpm.plist' in old versions
+of this formula.
    EOS
  end
 
@@ -276,7 +279,7 @@ You may also need to edit the plist to use the correct "UserName".
       <key>KeepAlive</key>
       <true/>
       <key>Label</key>
-      <string>org.php-fpm</string>
+      <string>homebrew-php.josegonzalez.php54</string>
       <key>ProgramArguments</key>
       <array>
         <string>#{sbin}/php-fpm</string>

@@ -241,13 +241,13 @@ The php.ini file can be found in:
 If you have installed the formula with --with-fpm, to launch php-fpm on startup:
     * If this is your first install:
         mkdir -p ~/Library/LaunchAgents
-        cp #{prefix}/homebrew-php.josegonzalez.php.plist ~/Library/LaunchAgents/
-        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php.plist
+        cp #{prefix}/homebrew-php.josegonzalez.php53.plist ~/Library/LaunchAgents/
+        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
 
-    * If this is an upgrade and you already have the homebrew-php.josegonzalez.php.plist loaded:
-        launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php.plist
-        cp #{prefix}/homebrew-php.josegonzalez.php.plist ~/Library/LaunchAgents/
-        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php.plist
+    * If this is an upgrade and you already have the homebrew-php.josegonzalez.php53.plist loaded:
+        launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
+        cp #{prefix}/homebrew-php.josegonzalez.php53.plist ~/Library/LaunchAgents/
+        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
 
 You may also need to edit the plist to use the correct "UserName".
 
@@ -270,7 +270,7 @@ of this formula.
       <key>KeepAlive</key>
       <true/>
       <key>Label</key>
-      <string>homebrew-php.josegonzalez.php</string>
+      <string>homebrew-php.josegonzalez.php53</string>
       <key>ProgramArguments</key>
       <array>
         <string>#{sbin}/php-fpm</string>
