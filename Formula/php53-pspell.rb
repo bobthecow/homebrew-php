@@ -10,7 +10,7 @@ class Php53Pspell < Formula
   depends_on 'aspell'
 
   def install
-    Dir.chdir "ext/pcntl"
+    Dir.chdir "ext/pspell"
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
