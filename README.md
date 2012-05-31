@@ -80,9 +80,9 @@ Tap the repository into your brew installation
 
     brew tap josegonzalez/homebrew-php
 
-Then install php
+Then install php53 or php54
 
-	brew install php
+	brew install php54
 
 That's it!
 
