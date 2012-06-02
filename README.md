@@ -21,68 +21,21 @@ this repository.
 
 ## Installation
 
-_[Manual]_
+_[Brew Tap]_
 
-* Download this: `http://github.com/josegonzalez/homebrew-php/zipball/master`
-* Unzip that download.
-* Copy the resulting folder to `/usr/local`
-* Rename the folder you just copied to `LibraryPHP`
+Run the following in your commandline:
 
-_[GIT Clone]_
-
-In your `/usr/local` directory type
-
-    git clone git://github.com/josegonzalez/homebrew-php.git LibraryPHP
+    brew tap josegonzalez/php
 
 ## Usage
 
-### Quick Start
+Tap the repository into your brew installation:
 
-To install homebrew-php formulae, use one of the following:
+    brew tap josegonzalez/php
 
- * `brew install [raw GitHub URL]`
- * `brew install [full path to formula from your local homebrew-php clone]`
+Then install php53, php54, or any formulae you might need:
 
-For more details, see below: "Installing homebrew-php Formulae".
-
-### Installing homebrew-php Formulae
-
-There are two methods to install packages from this repository.
-
-#### Method 1: Raw URL
-
-First, find the raw URL for the formula you want. For example, the raw URL for
-the `php` formula is:
-
-    https://github.com/josegonzalez/homebrew-php/raw/master/Formula/php.rb
-
-Once you know the raw URL, simply use `brew install [raw URL]`, like so:
-
-    brew install https://github.com/josegonzalez/homebrew-php/raw/master/Formula/php.rb
-
-#### Method 2: Repository Clone
-
-First, clone this repository.  Be sure to choose a good location!
-
-For example, clone to `LibraryPHP` under `/usr/local`:
-
-    git clone https://github.com/josegonzalez/homebrew-php.git /usr/local/LibraryPHP
-
-Once you've got your clone, simply use `brew install [full path to formula]`.
-
-For example, to install `php`:
-
-    brew install /usr/local/LibraryPHP/Formula/php.rb
-
-#### Method 3: Tap
-
-Tap the repository into your brew installation
-
-    brew tap josegonzalez/homebrew-php
-
-Then install php53 or php54
-
-	brew install php54
+    brew install php54
 
 That's it!
 
@@ -158,11 +111,11 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of Formula attributes, such as the `homepage`, `url`, `md5`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be derived from the latest PHP stable version included in `homebrew-php`. As of this writing, the version is `5.3.13`.
+All official PHP extensions should be built for the latest, stable version of PHP included in `homebrew-php`. As of this writing, these version are `5.3.13` and `5.4.3`.
 
 ## Todo
 
-* Proper PHP Versioning? See issue [#1](https://github.com/josegonzalez/homebrew-php/issues/8)
+* ~~Proper PHP Versioning? See issue [#1](https://github.com/josegonzalez/homebrew-php/issues/8)~~
 * ~~Pull out all PHP-related brews from Homebrew~~
 
 ## License
