@@ -187,6 +187,7 @@ class Php53 < Formula
       args << "--with-pdo-odbc=unixODBC,#{Formula.factory('unixodbc').prefix}"
     else
       args << "--with-iodbc"
+      args << "--with-pdo-odbc=generic,/usr,iodbc"
     end
 
     system "./configure", *args

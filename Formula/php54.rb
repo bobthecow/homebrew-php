@@ -192,6 +192,7 @@ class Php54 < Formula
       args << "--with-pdo-odbc=unixODBC,#{Formula.factory('unixodbc').prefix}"
     else
       args << "--with-iodbc"
+      args << "--with-pdo-odbc=generic,/usr,iodbc"
     end
 
     # Use libedit instead of readline for 5.4
