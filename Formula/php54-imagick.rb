@@ -2,8 +2,8 @@ require 'formula'
 
 class Php54Imagick < Formula
   homepage 'http://pecl.php.net/package/imagick'
-  url 'http://pecl.php.net/get/imagick-3.0.1.tgz'
-  md5 'e2167713316639705202cf9b6cb1fdb1'
+  url 'http://pecl.php.net/get/imagick-3.1.0RC2.tgz'
+  md5 'de9cca809fb2db61f4cbd9fac4f69314'
   head 'https://svn.php.net/repository/pecl/imagick/trunk/', :using => :svn
 
   depends_on 'autoconf' => :build
