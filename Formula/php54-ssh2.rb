@@ -28,7 +28,7 @@ class Php54Ssh2 < Formula
         extension="#{prefix}/ssh2.so"
       * Restart your webserver.
       * Write a PHP page that calls "phpinfo();"
-      * Load it in a browser and look for the info on the solr module.
+      * Load it in a browser and look for the info on the ssh2 module.
       * If you see it, you have been successful!
     EOS
   end
