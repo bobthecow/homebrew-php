@@ -39,6 +39,22 @@ Then install php53, php54, or any formulae you might need:
 
 That's it!
 
+### PEAR Extensions
+
+If installing `php53` or `php54`, please note that all extensions installed with the included `pear` will be installed to the respective php's bin path. For example, supposing you installed `PHP_CodeSniffer` as follows:
+
+    pear install PHP_CodeSniffer
+
+It would be nice to be able to use the `phpcs` command via commandline, or other utilities. You will need to add the installed php's `bin` directory to your path. The following would be added to your `.bashrc` or `.bash_profile` when running the `php54` brew:
+
+    export PATH="$(brew --prefix php54)/bin:$PATH"
+
+Some caveats:
+
+- Remember to use the proper php version in that export. So if you installed the `php53` formula, use `php53` instead of `php43` in the export.
+- Updating your installed php will result in the binaries no longer existing within your path. In such cases, you will need to reinstall the pear extensions. Alternatives include installing `pear` outside of `homebrew-php` or using the `homebrew-php` version of your extension.
+- Uninstalling your `homebrew-php` php formula will also remove the extensions.
+
 ## Bug Reports
 
 Please include the following information in your bug report:
