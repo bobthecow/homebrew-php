@@ -49,6 +49,7 @@ Please include the following information in your bug report:
 - XCode Version: 4.3, 4.0, 3 etc.
   - If using 4.3, verify whether you have the `Command Line Tools` installed as well
 - Output of `gcc -v`
+- Output of `php -v`
 - Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
 - Output of `brew doctor` within a [gist](http://gist.github.com)
 
@@ -96,7 +97,7 @@ The template for the `php53-example` pecl extension would be as follows. Please 
 
       def caveats; <<-EOS.undent
          To finish installing php53-example:
-           * Add the following line to #{etc}/php.ini:
+           * Add the following lines to #{etc}/php.ini:
              [example]
              extension="#{prefix}/example.so"
            * Restart your webserver.
@@ -111,7 +112,7 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of Formula attributes, such as the `homepage`, `url`, `md5`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for the latest, stable version of PHP included in `homebrew-php`. As of this writing, these version are `5.3.13` and `5.4.3`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.13` and `5.4.3`.
 
 ## Todo
 
