@@ -4,7 +4,7 @@ class Php54Xhprof < Formula
   homepage 'https://github.com/facebook/xhprof'
   url 'https://github.com/facebook/xhprof/tarball/270b75dddf871271fe81ed416e122bd158a883f6'
   md5 '7a33371d7aeea57a808919deade28028'
-  head 'https://github.com/preinheimer/xhprof.git'
+  head 'https://github.com/facebook/xhprof.git'
   version '270b75d'
 
   depends_on 'autoconf' => :build
