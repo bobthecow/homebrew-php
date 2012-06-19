@@ -1,15 +1,17 @@
 require 'formula'
 
 class Php54Xhprof < Formula
-  homepage 'http://mirror.facebook.net/facebook/xhprof/doc.html'
-  url 'http://pecl.php.net/get/xhprof-0.9.2.tgz'
-  md5 'ae40b153d157e6369a32e2c1a59a61ec'
+  homepage 'https://github.com/facebook/xhprof'
+  url 'https://github.com/facebook/xhprof/tarball/270b75dddf871271fe81ed416e122bd158a883f6'
+  md5 '7a33371d7aeea57a808919deade28028'
+  head 'https://github.com/preinheimer/xhprof.git'
+  version '270b75d'
 
   depends_on 'autoconf' => :build
   depends_on 'pcre'
 
   def install
-    Dir.chdir "xhprof-#{version}/extension" do
+    Dir.chdir "extension" do
       # See https://github.com/mxcl/homebrew/pull/5947
       ENV.universal_binary
 
@@ -19,9 +21,7 @@ class Php54Xhprof < Formula
       prefix.install "modules/xhprof.so"
     end
 
-    Dir.chdir "xhprof-#{version}" do
-      prefix.install %w(xhprof_html xhprof_lib)
-    end
+    prefix.install %w(xhprof_html xhprof_lib)
   end
 
   def caveats; <<-EOS.undent
