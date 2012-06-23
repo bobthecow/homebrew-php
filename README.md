@@ -25,13 +25,13 @@ _[Brew Tap]_
 
 Run the following in your commandline:
 
-    brew tap josegonzalez/php
+    brew tap josegonzalez/homebrew-php
 
 ## Usage
 
 Tap the repository into your brew installation:
 
-    brew tap josegonzalez/php
+    brew tap josegonzalez/homebrew-php
 
 Then install php53, php54, or any formulae you might need:
 
