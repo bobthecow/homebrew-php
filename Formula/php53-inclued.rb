@@ -4,7 +4,6 @@ class Php53Inclued < Formula
   homepage 'http://pecl.php.net/package/inclued'
   url 'http://pecl.php.net/get/inclued-0.1.3.tgz'
   md5 '303f6ddba800be23d0e06a7259b75a2e'
-  version '0.1.3'
   head 'https://svn.php.net/repository/pecl/inclued/trunk', :using => :svn
 
   depends_on 'autoconf' => :build
