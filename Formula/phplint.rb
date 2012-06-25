@@ -15,8 +15,9 @@ class Phplint < Formula
   end
 
   def install
+    ENV.llvm
     # See: http://www.icosaedro.it/phplint/download.html (Note 1)
-    system "gcc -fnested-functions src/phplint.c -o src/phplint"
+    system "#{ENV.cc} -fnested-functions src/phplint.c -o src/phplint"
     bin.install 'src/phplint'
     bin.install 'phpl'
     prefix.install 'modules'
