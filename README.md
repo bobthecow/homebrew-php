@@ -51,7 +51,7 @@ It would be nice to be able to use the `phpcs` command via commandline, or other
 
 Some caveats:
 
-- Remember to use the proper php version in that export. So if you installed the `php53` formula, use `php53` instead of `php43` in the export.
+- Remember to use the proper php version in that export. So if you installed the `php53` formula, use `php53` instead of `php54` in the export.
 - Updating your installed php will result in the binaries no longer existing within your path. In such cases, you will need to reinstall the pear extensions. Alternatives include installing `pear` outside of `homebrew-php` or using the `homebrew-php` version of your extension.
 - Uninstalling your `homebrew-php` php formula will also remove the extensions.
 
