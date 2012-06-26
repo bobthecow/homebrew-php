@@ -70,7 +70,6 @@ class Php54 < Formula
      ['--without-apache', 'Build without shared Apache 2.0 Handler module'],
      ['--with-intl', 'Include internationalization support'],
      ['--with-imap', 'Include IMAP extension'],
-     ['--without-readline', 'Build without readline support'],
      ['--with-gmp', 'Include GMP support'],
      ['--with-suhosin', 'Include Suhosin patch'],
      ['--without-pear', 'Build without PEAR']
