@@ -4,7 +4,6 @@ class Ezcomponents < Formula
   url 'http://ezcomponents.org/files/downloads/ezcomponents-2009.2.1-lite.tar.bz2'
   homepage 'http://ezcomponents.org'
   md5 '1f75f04942534d157df9121fadb33672'
-  version '2009.2.1'
 
   def install
     (lib+'ezc').install Dir['*']
