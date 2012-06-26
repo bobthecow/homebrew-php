@@ -26,7 +26,6 @@ class Php53 < Formula
   depends_on 'libevent' if ARGV.include? '--with-fpm'
   depends_on 'libxml2'
   depends_on 'mcrypt'
-  depends_on 'readline' unless ARGV.include? '--without-readline'
   depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
 
   # Sanity Checks
@@ -62,7 +61,6 @@ class Php53 < Formula
      ['--without-apache', 'Build without shared Apache 2.0 Handler module'],
      ['--with-intl', 'Include internationalization support'],
      ['--with-imap', 'Include IMAP extension'],
-     ['--without-readline', 'Build without readline support'],
      ['--with-gmp', 'Include GMP support'],
      ['--with-suhosin', 'Include Suhosin patch'],
      ['--without-pear', 'Build without PEAR']
@@ -126,6 +124,7 @@ class Php53 < Formula
       "--with-snmp=/usr",
       "--with-tidy",
       "--with-mhash",
+      "--with-libedit",
       "--mandir=#{man}"
     ]
 
@@ -145,10 +144,6 @@ class Php53 < Formula
     unless ARGV.include? '--without-apache'
       args << "--with-apxs2=/usr/sbin/apxs"
       args << "--libexecdir=#{libexec}"
-    end
-
-    unless ARGV.include? '--without-readline'
-      args << "--with-readline=#{Formula.factory('readline').prefix}"
     end
 
     if ARGV.include? '--with-gmp'
