@@ -1,9 +1,5 @@
 require 'formula'
 
-def redis_installed?
-  `which redis-server`.length > 0
-end
-
 class Php53Redis < Formula
   homepage 'https://github.com/nicolasff/phpredis'
   url 'https://github.com/nicolasff/phpredis/tarball/2.2.0'
@@ -11,7 +7,6 @@ class Php53Redis < Formula
   head 'https://github.com/nicolasff/phpredis.git'
 
   depends_on 'autoconf' => :build
-  depends_on 'redis' => :recommended unless redis_installed?
 
   fails_with :clang do
     build 318

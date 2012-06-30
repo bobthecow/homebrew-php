@@ -1,9 +1,5 @@
 require 'formula'
 
-def mysql_installed?
-  `which mysql_config`.length > 0
-end
-
 def postgres_installed?
   `which pg_config`.length > 0
 end
@@ -32,10 +28,6 @@ class Php54 < Formula
   # Sanity Checks
   if ARGV.include? '--with-mysql' and ARGV.include? '--with-mariadb'
     raise "Cannot specify more than one MySQL variant to build against."
-  elsif ARGV.include? '--with-mysql'
-    depends_on 'mysql' => :recommended unless mysql_installed?
-  elsif ARGV.include? '--with-mariadb'
-    depends_on 'mariadb' => :recommended unless mysql_installed?
   end
 
   if ARGV.include? '--with-pgsql'
@@ -181,9 +173,12 @@ class Php54 < Formula
       args << "--with-pdo-mysql=mysqlnd"
     end
 
-    if ARGV.include? '--with-pgsql'
+    if ARGV.include? '--with-pgsql' and File.directory? Formula.factory('postgresql').prefix.to_s
       args << "--with-pgsql=#{Formula.factory('postgresql').prefix}"
       args << "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
+    elsif ARGV.include? '--with-pgsql'
+      args << "--with-pgsql=#{`pg_config --includedir`}"
+      args << "--with-pdo-pgsql=#{`which pg_config`}"
     end
 
     if ARGV.include? '--with-unixodbc'
