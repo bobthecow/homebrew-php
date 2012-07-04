@@ -10,9 +10,9 @@ end
 
 class Composer < Formula
   homepage 'http://getcomposer.org'
-  url 'http://getcomposer.org/download/1.0.0-alpha3/composer.phar'
-  md5 'b221f8b0c3a211d909a2dc76b63ba75d'
-  version '1.0.0-alpha3'
+  url 'http://getcomposer.org/download/1.0.0-alpha4/composer.phar'
+  md5 '2052bd7e7374aaa1136ee2cb3f6ce8ad'
+  version '1.0.0-alpha4'
 
   depends_on 'php' => :recommended unless php_installed?
 
