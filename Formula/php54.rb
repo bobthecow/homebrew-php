@@ -244,7 +244,7 @@ The php.ini file can be found in:
 
 If pear complains about permissions, 'Fix' the default PEAR permissions and config:
     chmod -R ug+w #{lib}/php
-    pear config-set php_ini #{etc}/php.ini
+    pear config-set php_ini #{etc}/php/5.4/php.ini
 
 If you have installed the formula with --with-fpm, to launch php-fpm on startup:
     * If this is your first install:
