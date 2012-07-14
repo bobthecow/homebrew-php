@@ -2,6 +2,22 @@
 
 A centralized repository for PHP-related brews.
 
+## Bug Reports
+
+Please include the following information in your bug report:
+
+- OS X Version: ex. 10.7.3, 10.6.3
+- Homebrew Version: `brew -v`
+- PHP Version in use: stock-apple, homebrew-php stable, homebrew-php devel, homebrew-php head, custom
+- XCode Version: 4.3, 4.0, 3 etc.
+  - If using 4.3, verify whether you have the `Command Line Tools` installed as well
+- Output of `gcc -v`
+- Output of `php -v`
+- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
+- Output of `brew doctor` within a [gist](http://gist.github.com)
+
+This will help us diagnose your issues much quicker, as well as find commonalities between different reported issues.
+
 ## Background
 
 This repository contains **PHP-related** formulae for [Homebrew](https://github.com/mxcl/homebrew).
@@ -54,22 +70,6 @@ Some caveats:
 - Remember to use the proper php version in that export. So if you installed the `php53` formula, use `php53` instead of `php54` in the export.
 - Updating your installed php will result in the binaries no longer existing within your path. In such cases, you will need to reinstall the pear extensions. Alternatives include installing `pear` outside of `homebrew-php` or using the `homebrew-php` version of your extension.
 - Uninstalling your `homebrew-php` php formula will also remove the extensions.
-
-## Bug Reports
-
-Please include the following information in your bug report:
-
-- OS X Version: ex. 10.7.3, 10.6.3
-- Homebrew Version: `brew -v`
-- PHP Version in use: stock-apple, homebrew-php stable, homebrew-php devel, homebrew-php head, custom
-- XCode Version: 4.3, 4.0, 3 etc.
-  - If using 4.3, verify whether you have the `Command Line Tools` installed as well
-- Output of `gcc -v`
-- Output of `php -v`
-- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
-- Output of `brew doctor` within a [gist](http://gist.github.com)
-
-This will help us diagnose your issues much quicker, as well as find commonalities between different reported issues.
 
 ## Contributing
 
