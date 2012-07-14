@@ -6,9 +6,9 @@ end
 
 class Php54 < Formula
   homepage 'http://php.net'
-  url 'http://www.php.net/get/php-5.4.3.tar.bz2/from/this/mirror'
-  md5 '51f9488bf8682399b802c48656315cac'
-  version '5.4.3'
+  url 'http://www.php.net/get/php-5.4.4.tar.bz2/from/this/mirror'
+  md5 '1fd98dc3f6f3805cd67bff12a26ed77f'
+  version '5.4.4'
 
   head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
 
