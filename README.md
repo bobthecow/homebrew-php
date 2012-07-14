@@ -2,7 +2,20 @@
 
 A centralized repository for PHP-related brews.
 
-## Bug Reports
+## Bugs
+
+Bugs inevitably happen - none of us is running EVERY conceivable setup - but hopefully the install process can be made smoother through the following tips:
+
+- Upgrade your Mac to the latest patch version. So if you are on `10.7.0`, upgrade to `10.7.4` etc.
+- Ensure XCode is installed and up to date.
+- If you are using XCode 4, install the `Command Line Tools`.
+- If you already have the `Command Line Tools`, try installing the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/). Many users have reported success after doing so.
+- Delete your `~/.pearrc` file before attempting to install a `PHP` version, as the pear step will fail if an existing, incompatible version exists.
+- File an awesome bug report, using the information in the next section.
+
+Doing all of these might be a hassle, but will more than likely ensure you either have a working install or get help as soon as possible.
+
+### Filing Bug Reports
 
 Please include the following information in your bug report:
 
@@ -11,6 +24,7 @@ Please include the following information in your bug report:
 - PHP Version in use: stock-apple, homebrew-php stable, homebrew-php devel, homebrew-php head, custom
 - XCode Version: 4.3, 4.0, 3 etc.
   - If using 4.3, verify whether you have the `Command Line Tools` installed as well
+  - If on Snow Leopard, you may want to install the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/)
 - Output of `gcc -v`
 - Output of `php -v`
 - Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
