@@ -210,6 +210,7 @@ class Php53 < Formula
       config_path.install "sapi/fpm/php-fpm.conf"
       inreplace config_path+"php-fpm.conf" do |s|
         s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
+        s.sub!(/^;include\s*=.+$/,";include=#{config_path}/fpm.d/*.conf")
         s.sub!(/^;?pm\.max_children\s*=.+$/,'pm.max_children = 50')
         s.sub!(/^;?pm\.start_servers\s*=.+$/,'pm.start_servers = 20')
         s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 10')
