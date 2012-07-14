@@ -74,6 +74,8 @@ class Php53 < Formula
     args = [
       "--prefix=#{prefix}",
       "--disable-debug",
+      "--localstatedir=#{var}",
+      "--sysconfdir=#{config_path}",
       "--with-config-file-path=#{config_path}",
       "--with-config-file-scan-dir=#{config_path}/conf.d",
       "--with-iconv-dir=/usr",

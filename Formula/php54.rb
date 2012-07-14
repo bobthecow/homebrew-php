@@ -83,6 +83,8 @@ class Php54 < Formula
     args = [
       "--prefix=#{prefix}",
       "--disable-debug",
+      "--localstatedir=#{var}",
+      "--sysconfdir=#{config_path}",
       "--with-config-file-path=#{config_path}",
       "--with-config-file-scan-dir=#{config_path}/php5/conf.d",
       "--with-iconv-dir=/usr",
