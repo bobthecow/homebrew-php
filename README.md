@@ -55,6 +55,34 @@ Then install php53, php54, or any formulae you might need:
 
 That's it!
 
+Please also follow the instructions from brew info at the end of the install to ensure you properly installed your PHP version.
+
+### Installing Multiple Versions
+
+Using multiple PHP versions from `homebrew-php` is pretty straightforward.
+
+If using Apache, you will need to update the `LoadModule` call. For convenience, simply comment out the old PHP version:
+
+    # /etc/apache2/httpd.conf
+    # Swapping from PHP53 to PHP54
+    # LoadModule php5_module    /usr/local/Cellar/php53/5.3.14/libexec/apache2/libphp5.so
+    LoadModule php5_module    /usr/local/Cellar/php54/5.4.4/libexec/apache2/libphp5.so
+
+If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
+
+    # Swapping from PHP53 to PHP54
+    cp /usr/local/Cellar/php54/5.4.4/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+    launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
+    launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
+
+If you would like to swap the PHP you use on the command line, you should update the `$PATH` variable in either your `.bashrc` or `.bash_profile`:
+
+    # Swapping from PHP53 to PHP54
+    # export PATH="$(brew --prefix josegonzalez/php/php53)/bin:$PATH"
+    export PATH="$(brew --prefix josegonzalez/php/php54)/bin:$PATH"
+
+Please be aware that you must make this type of change EACH time you swap between PHP `minor` versions. You will typically only need to update the Apache/FPM when upgrading your php `patch` version.
+
 ### PEAR Extensions
 
 If installing `php53` or `php54`, please note that all extensions installed with the included `pear` will be installed to the respective php's bin path. For example, supposing you installed `PHP_CodeSniffer` as follows:
