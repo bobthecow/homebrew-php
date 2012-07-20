@@ -2,8 +2,8 @@ require 'formula'
 
 class Php54Xdebug < Formula
   homepage 'http://xdebug.org'
-  url 'http://xdebug.org/files/xdebug-2.2.0.tgz'
-  md5 '27d8ad8224ffab04d12eecb5997a4f5d'
+  url 'http://xdebug.org/files/xdebug-2.2.1.tgz'
+  md5 '5e5c467e920240c20f165687d7ac3709'
 
   depends_on 'autoconf' => :build
 
