@@ -63,6 +63,10 @@ Tap the repository into your brew installation:
 
     brew tap josegonzalez/homebrew-php
 
+**Note:** For a list of available configuration options run:
+
+    brew options php54
+
 Then install php53, php54, or any formulae you might need:
 
     brew install php54
