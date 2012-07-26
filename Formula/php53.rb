@@ -26,7 +26,8 @@ class Php53 < Formula
   depends_on 'openssl' if ARGV.include? '--with-brew-openssl'
 
   # Sanity Checks
-  if ARGV.include? '--with-mysql' and ARGV.include? '--with-mariadb'
+  mysql_opts = [ '--with-libmysql', '--with-mariadb', '--with-mysql' ]
+  if ARGV.length - (ARGV - mysql_opts).length > 1
     raise "Cannot specify more than one MySQL variant to build against."
   end
 
@@ -44,8 +45,9 @@ class Php53 < Formula
 
   def options
    [
-     ['--with-mysql', 'Include MySQL support'],
+     ['--with-libmysql', 'Include (old-style) libmysql support'],
      ['--with-mariadb', 'Include MariaDB support'],
+     ['--with-mysql', 'Include MySQL support'],
      ['--with-pgsql', 'Include PostgreSQL support'],
      ['--with-mssql', 'Include MSSQL-DB support'],
      ['--with-unixodbc', 'Include unixODBC support'],
@@ -164,6 +166,13 @@ class Php53 < Formula
     if ARGV.include? '--with-mssql'
       args << "--with-mssql=#{Formula.factory('freetds').prefix}"
       args << "--with-pdo-dblib=#{Formula.factory('freetds').prefix}"
+    end
+
+    if ARGV.include? '--with-libmysql'
+      args << "--with-mysql-sock=/tmp/mysql.sock"
+      args << "--with-mysqli=/usr/local/bin/mysql_config"
+      args << "--with-mysql=/usr/local"
+      args << "--with-pdo-mysql=/usr/local"
     end
 
     if ARGV.include? '--with-mysql' or ARGV.include? '--with-mariadb'
