@@ -23,6 +23,7 @@ class Php53 < Formula
   depends_on 'libxml2'
   depends_on 'mcrypt'
   depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
+  depends_on 'openssl' if ARGV.include? '--with-brew-openssl'
 
   # Sanity Checks
   if ARGV.include? '--with-mysql' and ARGV.include? '--with-mariadb'
@@ -55,7 +56,8 @@ class Php53 < Formula
      ['--with-imap', 'Include IMAP extension'],
      ['--with-gmp', 'Include GMP support'],
      ['--with-suhosin', 'Include Suhosin patch'],
-     ['--without-pear', 'Build without PEAR']
+     ['--without-pear', 'Build without PEAR'],
+     ['--with-brew-openssl', 'Include OpenSSL support via Homebrew'],
    ]
   end
 
@@ -98,7 +100,6 @@ class Php53 < Formula
       "--enable-zend-multibyte",
       "--enable-bcmath",
       "--enable-calendar",
-      "--with-openssl=/usr",
       "--with-zlib=/usr",
       "--with-bz2=/usr",
       "--with-ldap",
@@ -119,8 +120,14 @@ class Php53 < Formula
       "--with-tidy",
       "--with-mhash",
       "--with-libedit",
-      "--mandir=#{man}"
+      "--mandir=#{man}",
     ]
+
+    if ARGV.include? '--with-brew-openssl'
+      args << "--with-openssl=" + Formula.factory('openssl').prefix.to_s
+    else
+      args << "--with-openssl=/usr"
+    end
 
     if ARGV.include? '--with-fpm'
       args << "--enable-fpm"
