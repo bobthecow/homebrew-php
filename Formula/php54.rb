@@ -6,9 +6,9 @@ end
 
 class Php54 < Formula
   homepage 'http://php.net'
-  url 'http://www.php.net/get/php-5.4.4.tar.bz2/from/this/mirror'
-  md5 '1fd98dc3f6f3805cd67bff12a26ed77f'
-  version '5.4.4'
+  url 'http://www.php.net/get/php-5.4.5.tar.bz2/from/this/mirror'
+  md5 'ffcc7f4dcf2b79d667fe0c110e6cb724'
+  version '5.4.5'
 
   head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
 
@@ -47,7 +47,7 @@ class Php54 < Formula
   end
 
   if ARGV.include? '--with-suhosin'
-    raise "Cannot build PHP 5.4.3 with Suhosin at this time"
+    raise "Cannot build PHP 5.4.5 with Suhosin at this time"
   end
 
   def options
