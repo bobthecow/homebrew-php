@@ -25,6 +25,7 @@ class Php54 < Formula
   depends_on 'mcrypt'
   depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
   depends_on 'openssl' if ARGV.include? '--with-brew-openssl'
+  depends_on 'zlib'
 
   # Sanity Checks
   mysql_opts = [ '--with-libmysql', '--with-mariadb', '--with-mysql' ]
@@ -112,7 +113,7 @@ class Php54 < Formula
       "--enable-dtrace",
       "--enable-bcmath",
       "--enable-calendar",
-      "--with-zlib=/usr",
+      "--with-zlib=#{Formula.factory('zlib').prefix}",
       "--with-bz2=/usr",
       "--with-ldap",
       "--with-ldap-sasl=/usr",
