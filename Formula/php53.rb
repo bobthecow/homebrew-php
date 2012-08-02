@@ -6,9 +6,9 @@ end
 
 class Php53 < Formula
   homepage 'http://php.net'
-  url 'http://www.php.net/get/php-5.3.14.tar.bz2/from/this/mirror'
-  md5 '7caac4f71e2f21426c11ac153e538392'
-  version '5.3.14'
+  url 'http://www.php.net/get/php-5.3.15.tar.bz2/from/this/mirror'
+  md5 '5cfcfd0fa4c4da7576f397073e7993cc'
+  version '5.3.15'
 
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
