@@ -2,7 +2,7 @@
 
 A centralized repository for PHP-related brews.
 
-## Bugs
+## Common Issues
 
 Bugs inevitably happen - none of us is running EVERY conceivable setup - but hopefully the install process can be made smoother through the following tips:
 
