@@ -22,8 +22,9 @@ class Php53 < Formula
   depends_on 'libevent' if ARGV.include? '--with-fpm'
   depends_on 'libxml2'
   depends_on 'mcrypt'
-  depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
   depends_on 'openssl' if ARGV.include? '--with-brew-openssl'
+  depends_on 'tidy' if ARGV.include? '--with-tidy'
+  depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
   depends_on 'zlib'
 
   # Sanity Checks
@@ -59,16 +60,14 @@ class Php53 < Formula
      ['--with-imap', 'Include IMAP extension'],
      ['--with-gmp', 'Include GMP support'],
      ['--with-suhosin', 'Include Suhosin patch'],
+     ['--with-tidy', 'Include Tidy support'],
      ['--without-pear', 'Build without PEAR'],
      ['--with-brew-openssl', 'Include OpenSSL support via Homebrew'],
    ]
   end
 
   def patches
-    # Tidy extension and Makefile (for OS 10.5.x) patches in DATA.
-    p = "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if ARGV.include? '--with-suhosin'
-    p << [DATA] if MacOS.leopard?
-    return p
+    "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if ARGV.include? '--with-suhosin'
   end
 
   def config_path
@@ -120,7 +119,6 @@ class Php53 < Formula
       "--with-png-dir=/usr/X11",
       "--with-gettext=#{Formula.factory('gettext').prefix}",
       "--with-snmp=/usr",
-      "--with-tidy",
       "--with-mhash",
       "--with-libedit",
       "--mandir=#{man}",
@@ -189,6 +187,10 @@ class Php53 < Formula
     elsif ARGV.include? '--with-pgsql'
       args << "--with-pgsql=#{`pg_config --includedir`}"
       args << "--with-pdo-pgsql=#{`which pg_config`}"
+    end
+
+    if ARGV.include? '--with-tidy'
+      args << "--with-tidy=#{Formula.factory('tidy').prefix}"
     end
 
     if ARGV.include? '--with-unixodbc'
@@ -305,37 +307,3 @@ of this formula.
     EOPLIST
   end
 end
-
-__END__
-diff -Naur php-5.3.2/ext/tidy/tidy.c php/ext/tidy/tidy.c
---- php-5.3.2/ext/tidy/tidy.c	2010-02-12 04:36:40.000000000 +1100
-+++ php/ext/tidy/tidy.c	2010-05-23 19:49:47.000000000 +1000
-@@ -22,6 +22,8 @@
- #include "config.h"
- #endif
-
-+#include "tidy.h"
-+
- #include "php.h"
- #include "php_tidy.h"
-
-@@ -31,7 +33,6 @@
- #include "ext/standard/info.h"
- #include "safe_mode.h"
-
--#include "tidy.h"
- #include "buffio.h"
-
- /* compatibility with older versions of libtidy */
-diff --git a/Makefile.global b/Makefile.global
-index 8dad0e4..f6d460b 100644
---- a/Makefile.global
-+++ b/Makefile.global
-@@ -18,7 +18,7 @@ libphp$(PHP_MAJOR_VERSION).la: $(PHP_GLOBAL_OBJS) $(PHP_SAPI_OBJS)
- 	-@$(LIBTOOL) --silent --mode=install cp $@ $(phptempdir)/$@ >/dev/null 2>&1
-
- libs/libphp$(PHP_MAJOR_VERSION).bundle: $(PHP_GLOBAL_OBJS) $(PHP_SAPI_OBJS)
--	$(CC) $(MH_BUNDLE_FLAGS) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(PHP_GLOBAL_OBJS:.lo=.o) $(PHP_SAPI_OBJS:.lo=.o) $(PHP_FRAMEWORKS) $(EXTRA_LIBS) $(ZEND_EXTRA_LIBS) -o $@ && cp $@ libs/libphp$(PHP_MAJOR_VERSION).so
-+	$(CC) $(CFLAGS_CLEAN) $(EXTRA_CFLAGS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(MH_BUNDLE_FLAGS) $(PHP_GLOBAL_OBJS:.lo=.o) $(PHP_SAPI_OBJS:.lo=.o) $(PHP_FRAMEWORKS) $(EXTRA_LIBS) $(ZEND_EXTRA_LIBS) -o $@ && cp $@ libs/libphp$(PHP_MAJOR_VERSION).so
-
- install: $(all_targets) $(install_targets)
