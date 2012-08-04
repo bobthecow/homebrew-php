@@ -255,6 +255,10 @@ If pear complains about permissions, 'Fix' the default PEAR permissions and conf
     chmod -R ug+w #{lib}/php
     pear config-set php_ini #{etc}/php/5.3/php.ini
 
+If you are having issues with custom extension compiling, ensure that this php is
+in your PATH:
+    PATH="$(brew --prefix josegonzalez/php/php53)/bin:$PATH"
+
 If you have installed the formula with --with-fpm, to launch php-fpm on startup:
     * If this is your first install:
         mkdir -p ~/Library/LaunchAgents
