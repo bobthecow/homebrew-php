@@ -11,6 +11,7 @@ Bugs inevitably happen - none of us is running EVERY conceivable setup - but hop
 - If you are using XCode 4, install the `Command Line Tools`.
 - If you already have the `Command Line Tools`, try installing the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/). Many users have reported success after doing so.
 - Delete your `~/.pearrc` file before attempting to install a `PHP` version, as the pear step will fail if an existing, incompatible version exists.
+- If you are using Mountain Lion `10.8.x`, please install [XQuartz](http://xquartz.macosforge.org/landing/) so that the `png.h` header exists for compilation of certain brews. Mountain Lion removes X11, which contained numerous headers. A permanent fix is forthcoming.
 - File an awesome bug report, using the information in the next section.
 
 Doing all of these might be a hassle, but will more than likely ensure you either have a working install or get help as soon as possible.
