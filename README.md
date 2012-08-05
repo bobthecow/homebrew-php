@@ -137,16 +137,14 @@ PHP Extensions MUST be prefixed with `phpVERSION`. For example, instead of the `
 
 The template for the `php53-example` pecl extension would be as follows. Please use it as an example for any new extension formulae:
 
-    require 'formula'
+    require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-    class Php53Example < Formula
+    class Php53Example < AbstractPhpExtension
       homepage 'http://pecl.php.net/package/example'
       url 'http://pecl.php.net/get/example-1.0.tgz'
       md5 'SOMEHASHHERE'
       version '1.0'
       head 'https://svn.php.net/repository/pecl/example/trunk', :using => :svn
-
-      depends_on 'autoconf' => :build
 
       def install
         Dir.chdir "example-#{version}" unless ARGV.build_head?
@@ -158,20 +156,11 @@ The template for the `php53-example` pecl extension would be as follows. Please 
         system "./configure", "--prefix=#{prefix}"
         system "make"
         prefix.install "modules/example.so"
-      end
-
-      def caveats; <<-EOS.undent
-         To finish installing php53-example:
-           * Add the following lines to #{etc}/php.ini:
-             [example]
-             extension="#{prefix}/example.so"
-           * Restart your webserver.
-           * Write a PHP page that calls "phpinfo();"
-           * Load it in a browser and look for the info on the example module.
-           * If you see it, you have been successful!
-         EOS
+        write_config_file unless ARGV.include? "--without-config-file"
       end
     end
+
+Defining extensions inheriting AbstractPhp5 will provide a `write_config_file` which add `ext-{extension}.ini` to `conf.d`, don’t forget to remove it manually upon extension removal. Please see [AbstractPhpExtension.rb](Formula/AbstractPhpExtension.rb) for more details.
 
 Please note that your formula installation may deviate significantly from the above; caveats should more or less stay the same, as they give explicit instructions to users as to how to ensure the extension is properly installed.
 

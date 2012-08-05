@@ -1,12 +1,11 @@
-require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Pspell < Formula
+class Php54Pspell < AbstractPhpExtension
   homepage 'http://php.net/manual/en/book.pspell.php'
   url 'http://www.php.net/get/php-5.4.3.tar.bz2/from/this/mirror'
   md5 '51f9488bf8682399b802c48656315cac'
   version '5.4.3'
 
-  depends_on 'autoconf' => :build
   depends_on 'aspell'
 
   def install
@@ -21,16 +20,6 @@ class Php54Pspell < Formula
                           "--with-pspell=#{Formula.factory('aspell').prefix}"
     system "make"
     prefix.install "modules/pspell.so"
-  end
-
-  def caveats; <<-EOS.undent
-    To finish installing php54-pspell:
-      * Add the following line to #{etc}/php.ini:
-        extension="#{prefix}/pspell.so"
-      * Restart your webserver.
-      * Write a PHP page that calls "phpinfo();"
-      * Load it in a browser and look for the info on the pspell module.
-      * If you see it, you have been successful!
-    EOS
+    write_config_file unless ARGV.include? "--without-config-file"
   end
 end

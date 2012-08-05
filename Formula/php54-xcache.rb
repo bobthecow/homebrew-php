@@ -1,11 +1,11 @@
-require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Xcache < Formula
+class Php54Xcache < AbstractPhpExtension
   homepage 'http://xcache.lighttpd.net'
   url 'http://xcache.lighttpd.net/pub/Releases/2.0.0/xcache-2.0.0.tar.bz2'
   md5 '0e30cdff075c635e475d70a5c37d0252'
 
-  depends_on 'autoconf' => :build
+  def extension_type; "zend_extension"; end
 
   def install
     # See https://github.com/mxcl/homebrew/issues/issue/69
@@ -17,16 +17,6 @@ class Php54Xcache < Formula
                           "--disable-dependency-tracking"
     system "make"
     prefix.install "modules/xcache.so"
-  end
-
-  def caveats; <<-EOS.undent
-    To finish installing php54-xcache:
-      * Add the following line to #{etc}/php.ini:
-        zend_extension="#{prefix}/xcache.so"
-      * Restart your webserver.
-      * Write a PHP page that calls "phpinfo();"
-      * Load it in a browser and look for the info on the xcache module.
-      * If you see it, you have been successful!
-    EOS
+    write_config_file unless ARGV.include? "--without-config-file"
   end
 end

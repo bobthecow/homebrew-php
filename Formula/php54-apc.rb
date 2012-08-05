@@ -1,12 +1,11 @@
-require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Apc < Formula
+class Php54Apc < AbstractPhpExtension
   homepage 'http://pecl.php.net/package/apc'
   url 'http://pecl.php.net/get/APC-3.1.10.tgz'
   md5 'f4a6b91903d6ba9dce89fc87bb6f26c9'
   head 'https://svn.php.net/repository/pecl/apc/trunk/', :using => :svn
 
-  depends_on 'autoconf' => :build
   depends_on 'pcre'
 
   def patches
@@ -26,26 +25,19 @@ class Php54Apc < Formula
                           "--enable-apc-pthreadmutex"
     system "make"
     prefix.install %w(modules/apc.so apc.php)
+    write_config_file unless ARGV.include? "--without-config-file"
   end
 
-  def caveats; <<-EOS.undent
-    To finish installing php54-apc:
-      * Add the following lines to #{etc}/php.ini:
-        [apc]
-        extension="#{prefix}/apc.so"
-        apc.enabled=1
-        apc.shm_segments=1
-        apc.shm_size=64M
-        apc.ttl=7200
-        apc.user_ttl=7200
-        apc.num_files_hint=1024
-        apc.mmap_file_mask=/tmp/apc.XXXXXX
-        apc.enable_cli=1
-      * Restart your webserver.
-      * Write a PHP page that calls "phpinfo();"
-      * Load it in a browser and look for the info on the apc module.
-      * If you see it, you have been successful!
-      * You can copy "#{prefix}/apc.php" to any site to see APC's usage.
+  def config_file
+    super + <<-EOS.undent
+      apc.enabled=1
+      apc.shm_segments=1
+      apc.shm_size=64M
+      apc.ttl=7200
+      apc.user_ttl=7200
+      apc.num_files_hint=1024
+      apc.mmap_file_mask=/tmp/apc.XXXXXX
+      apc.enable_cli=1
     EOS
   end
 end

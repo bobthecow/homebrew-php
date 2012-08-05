@@ -1,6 +1,6 @@
-require 'formula'
+require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Zenddebugger < Formula
+class Php53Zenddebugger < AbstractPhpExtension
   homepage 'http://www.zend.com/community/pdt/downloads'
   if Hardware.is_64_bit? and not ARGV.build_32_bit?
     url 'http://downloads.zend.com/studio_debugger/20100729/ZendDebugger-20100729-darwin9.5-x86_64.tar.gz'
@@ -13,6 +13,8 @@ class Php53Zenddebugger < Formula
   end
 
   skip_clean :all
+
+  def extension_type; "zend_extension"; end
 
   def options
     [['--32-bit', 'Build 32-bit only.']]
