@@ -4,7 +4,8 @@ class AbstractPhpExtension < Formula
   depends_on 'autoconf' => :build
 
   def initialize name='__UNKNOWN__', path=nil
-    raise "One does not simply install an AbstractPhpExtension"
+    raise "One does not simply install an AbstractPhpExtension" if name == "abstract-php-extension"
+    super
   end
 
   def php_branch
