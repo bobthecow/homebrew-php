@@ -241,10 +241,10 @@ class Php54 < Formula
       inreplace config_path+"php-fpm.conf" do |s|
         s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
         s.sub!(/^;include\s*=.+$/,";include=#{config_path}/fpm.d/*.conf")
-        s.sub!(/^;?pm\.max_children\s*=.+$/,'pm.max_children = 50')
-        s.sub!(/^;?pm\.start_servers\s*=.+$/,'pm.start_servers = 20')
-        s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 10')
-        s.sub!(/^;?pm\.max_spare_servers\s*=.+$/,'pm.max_spare_servers = 30')
+        s.sub!(/^;?pm\.max_children\s*=.+$/,'pm.max_children = 10')
+        s.sub!(/^;?pm\.start_servers\s*=.+$/,'pm.start_servers = 3')
+        s.sub!(/^;?pm\.min_spare_servers\s*=.+$/,'pm.min_spare_servers = 2')
+        s.sub!(/^;?pm\.max_spare_servers\s*=.+$/,'pm.max_spare_servers = 5')
       end
     end
   end
