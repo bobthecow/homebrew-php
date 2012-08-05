@@ -23,7 +23,7 @@ class Php54 < Formula
   depends_on 'jpeg'
   depends_on 'libxml2'
   depends_on 'mcrypt'
-  depends_on 'openssl' if ARGV.include? '--with-brew-openssl'
+  depends_on 'openssl' if ARGV.include? '--with-homebrew-openssl'
   depends_on 'tidy' if ARGV.include? '--with-tidy'
   depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
   depends_on 'zlib'
@@ -71,7 +71,7 @@ class Php54 < Formula
      ['--with-suhosin', 'Include Suhosin patch'],
      ['--with-tidy', 'Include Tidy support'],
      ['--without-pear', 'Build without PEAR'],
-     ['--with-brew-openssl', 'Include OpenSSL support via Homebrew'],
+     ['--with-homebrew-openssl', 'Include OpenSSL support via Homebrew'],
    ]
   end
 
@@ -129,7 +129,7 @@ class Php54 < Formula
       "--mandir=#{man}",
     ]
 
-    if ARGV.include? '--with-brew-openssl'
+    if ARGV.include? '--with-homebrew-openssl'
       args << "--with-openssl=" + Formula.factory('openssl').prefix.to_s
     else
       args << "--with-openssl=/usr"
