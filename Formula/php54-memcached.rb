@@ -6,7 +6,9 @@ class Php54Memcached < AbstractPhpExtension
   md5 'f81a5261be1c9848ed5c071a4ebe5e05'
   head 'https://github.com/php-memcached-dev/php-memcached.git'
 
+  depends_on 'autoconf' => :build
   depends_on 'libmemcached'
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     Dir.chdir "memcached-#{version}" unless ARGV.build_head?
@@ -14,7 +16,7 @@ class Php54Memcached < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--with-libmemcached-dir=#{Formula.factory('libmemcached').prefix}"
     system "make"

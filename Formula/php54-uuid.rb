@@ -6,6 +6,9 @@ class Php54Uuid < AbstractPhpExtension
   md5 'c45246bccdaf5e77934be47637627e7f'
   head 'https://svn.php.net/repository/pecl/uuid/trunk', :using => :svn
 
+  depends_on 'autoconf' => :build
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+
   def patches
     # fixes build errors on OSX 10.6 and 10.7
     # https://bugs.php.net/bug.php?id=62009
@@ -27,7 +30,7 @@ class Php54Uuid < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/uuid.so"

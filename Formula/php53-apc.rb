@@ -6,6 +6,8 @@ class Php53Apc < AbstractPhpExtension
   md5 'f4a6b91903d6ba9dce89fc87bb6f26c9'
   head 'https://svn.php.net/repository/pecl/apc/trunk/', :using => :svn
 
+  depends_on 'autoconf' => :build
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
   depends_on 'pcre'
 
   def patches
@@ -20,7 +22,7 @@ class Php53Apc < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--enable-apc-pthreadmutex"
     system "make"

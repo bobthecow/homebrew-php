@@ -7,14 +7,16 @@ class Php54Xhprof < AbstractPhpExtension
   head 'https://github.com/facebook/xhprof.git'
   version '270b75d'
 
+  depends_on 'autoconf' => :build
   depends_on 'pcre'
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     Dir.chdir "extension" do
       # See https://github.com/mxcl/homebrew/pull/5947
       ENV.universal_binary
 
-      system "phpize"
+      safe_phpize
       system "./configure", "--prefix=#{prefix}"
       system "make"
       prefix.install "modules/xhprof.so"

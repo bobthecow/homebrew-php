@@ -6,13 +6,16 @@ class Php54Pcntl < AbstractPhpExtension
   md5 '51f9488bf8682399b802c48656315cac'
   version '5.4.3'
 
+  depends_on 'autoconf' => :build
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+
   def install
     Dir.chdir "ext/pcntl"
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--disable-dependency-tracking"
     system "make"

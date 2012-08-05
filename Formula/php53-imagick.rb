@@ -6,7 +6,9 @@ class Php53Imagick < AbstractPhpExtension
   md5 'e2167713316639705202cf9b6cb1fdb1'
   head 'https://svn.php.net/repository/pecl/imagick/trunk/', :using => :svn
 
+  depends_on 'autoconf' => :build
   depends_on 'imagemagick'
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "imagick-#{version}" unless ARGV.build_head?
@@ -14,7 +16,7 @@ class Php53Imagick < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/imagick.so"

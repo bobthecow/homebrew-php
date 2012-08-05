@@ -6,13 +6,16 @@ class Php53Igbinary < AbstractPhpExtension
   md5 '4ad53115ed7d1d452cbe50b45dcecdf2'
   head 'git://github.com/igbinary/igbinary.git', :using => :git
 
+  depends_on 'autoconf' => :build
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+
   def install
     Dir.chdir "igbinary-#{version}" unless ARGV.build_head?
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install %w(modules/igbinary.so)

@@ -1,11 +1,53 @@
 require 'formula'
 
-class AbstractPhpExtension < Formula
-  depends_on 'autoconf' => :build
+class UnsupportedPhpApiError < RuntimeError
+  attr :name
 
+  def initialize name
+    @name = name
+    super "Unsupported PHP API Version"
+  end
+end
+
+class InvalidPhpizeError < RuntimeError
+  attr :name
+
+  def initialize (installed_php_version, required_php_version)
+    @name = name
+    super <<-EOS.undent
+      Version of phpize (PHP#{installed_php_version}) in $PATH does not support building this extension
+             version (PHP#{required_php_version}). Consider installing  with the `--with-homebrew-php` flag.
+    EOS
+  end
+end
+
+class AbstractPhpExtension < Formula
   def initialize name='__UNKNOWN__', path=nil
     raise "One does not simply install an AbstractPhpExtension" if name == "abstract-php-extension"
-    super
+    init = super
+
+    unless ARGV.include? '--with-homebrew-php'
+      installed_php_version = nil
+      i = IO.popen("#{phpize} -v")
+      out = i.readlines.join("")
+      i.close
+      { 53 => 20090626, 54 => 20100412 }.each do |v, api|
+        installed_php_version = v.to_s if out.match(/#{api}/)
+      end
+
+      raise UnsupportedPhpApiError.new if installed_php_version.nil?
+
+      required_php_version = php_branch.sub('.', '').to_s
+      unless installed_php_version == required_php_version
+        raise InvalidPhpizeError.new(installed_php_version, required_php_version)
+      end
+    end
+
+    init
+  end
+
+  def options
+    [ ['--with-homebrew-php', 'Ignore default PHP and use homebrew-php54 instead'] ]
   end
 
   def php_branch
@@ -14,6 +56,30 @@ class AbstractPhpExtension < Formula
       "5." + matches[1]
     else
       raise "Unable to guess PHP branch for #{self.class.name}"
+    end
+  end
+
+  def php_formula
+    'php' + php_branch.sub('.', '')
+  end
+
+  def safe_phpize
+    system phpize
+  end
+
+  def phpize
+    if ARGV.include? '--with-homebrew-php'
+      "#{(Formula.factory php_formula).bin}/phpize"
+    else
+      "phpize"
+    end
+  end
+
+  def phpini
+    if ARGV.include? '--with-homebrew-php'
+      "#{(Formula.factory php_formula).config_path}/php.ini"
+    else
+      "php.ini presented by \"php --ini\""
     end
   end
 
@@ -50,7 +116,7 @@ class AbstractPhpExtension < Formula
     caveats = [ "To finish installing #{extension} for PHP #{php_branch}:" ]
 
     if ARGV.include? "--without-config-file"
-      caveats << "  * Add the following line to #{etc}/php.ini:\n\n"
+      caveats << "  * Add the following line to #{phpini}:\n"
       caveats << config_file
     else
       caveats << "  * #{config_scandir_path}/#{config_filename} was created,"
@@ -95,4 +161,12 @@ EOS
     options << ["--without-config-file", "Do not add #{config_filename} to #{config_scandir_path}"] if config_file
     options
   end
+end
+
+class AbstractPhp53Extension < AbstractPhpExtension
+  depends_on "php53" if ARGV.include? '--with-homebrew-php'
+end
+
+class AbstractPhp54Extension < AbstractPhpExtension
+  depends_on "php54" if ARGV.include? '--with-homebrew-php'
 end

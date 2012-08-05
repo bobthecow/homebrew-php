@@ -6,7 +6,9 @@ class Php54Apc < AbstractPhpExtension
   md5 'f4a6b91903d6ba9dce89fc87bb6f26c9'
   head 'https://svn.php.net/repository/pecl/apc/trunk/', :using => :svn
 
+  depends_on 'autoconf' => :build
   depends_on 'pcre'
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def patches
     # fixes "Incorrect version tag: APC 3.1.10 shows 3.1.9"
@@ -20,7 +22,7 @@ class Php54Apc < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--enable-apc-pthreadmutex"
     system "make"

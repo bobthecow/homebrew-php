@@ -7,6 +7,8 @@ class Php53Pspell < AbstractPhpExtension
   version '5.3.13'
 
   depends_on 'aspell'
+  depends_on 'autoconf' => :build
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "ext/pspell"
@@ -14,7 +16,7 @@ class Php53Pspell < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--disable-debug",
                           "--with-pspell=#{Formula.factory('aspell').prefix}"

@@ -12,6 +12,9 @@ class Php53Zenddebugger < AbstractPhpExtension
     version '20110410'
   end
 
+  depends_on 'autoconf' => :build
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+
   skip_clean :all
 
   def extension_type; "zend_extension"; end

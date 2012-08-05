@@ -6,7 +6,9 @@ class Php54Mcrypt < AbstractPhpExtension
   md5 '51f9488bf8682399b802c48656315cac'
   version '5.4.3'
 
+  depends_on 'autoconf' => :build
   depends_on 'mcrypt'
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     Dir.chdir "ext/mcrypt"
@@ -14,7 +16,7 @@ class Php54Mcrypt < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary unless Hardware.is_64_bit?
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--disable-dependency-tracking",
                           "--with-mcrypt=#{Formula.factory('mcrypt').prefix}"

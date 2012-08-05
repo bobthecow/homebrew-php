@@ -6,13 +6,16 @@ class Php53Oauth < AbstractPhpExtension
   md5 '9a9f35e45786534d8580abfffc8c273c'
   head 'https://svn.php.net/repository/pecl/oauth/trunk', :using => :svn
 
+  depends_on 'autoconf' => :build
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+
   def install
     Dir.chdir "oauth-#{version}" unless ARGV.build_head?
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/oauth.so"

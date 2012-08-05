@@ -6,7 +6,9 @@ class Php53Gearman < AbstractPhpExtension
   md5 '98464746d1de660f15a25b1bc8fcbc8a'
   head 'https://svn.php.net/repository/pecl/gearman/trunk/', :using => :svn
 
+  depends_on 'autoconf' => :build
   depends_on 'gearman'
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "gearman-#{version}" unless ARGV.build_head?
@@ -14,7 +16,7 @@ class Php53Gearman < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--with-gearman=#{Formula.factory('gearman').prefix}"
     system "make"

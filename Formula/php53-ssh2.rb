@@ -6,7 +6,9 @@ class Php53Ssh2 < AbstractPhpExtension
   md5 'd295c966adf1352cad187604b312c687'
   head 'https://svn.php.net/repository/pecl/ssh2/trunk/', :using => :svn
 
+  depends_on 'autoconf' => :build
   depends_on 'libssh2'
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "ssh2-#{version}" unless ARGV.build_head?
@@ -14,7 +16,7 @@ class Php53Ssh2 < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary unless Hardware.is_64_bit?
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/ssh2.so"

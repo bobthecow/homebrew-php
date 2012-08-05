@@ -86,13 +86,13 @@ If using Apache, you will need to update the `LoadModule` call. For convenience,
 
     # /etc/apache2/httpd.conf
     # Swapping from PHP53 to PHP54
-    # LoadModule php5_module    /usr/local/Cellar/php53/5.3.14/libexec/apache2/libphp5.so
-    LoadModule php5_module    /usr/local/Cellar/php54/5.4.4/libexec/apache2/libphp5.so
+    # LoadModule php5_module    /usr/local/Cellar/php53/5.3.15/libexec/apache2/libphp5.so
+    LoadModule php5_module    /usr/local/Cellar/php54/5.4.5/libexec/apache2/libphp5.so
 
 If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
 
     # Swapping from PHP53 to PHP54
-    cp /usr/local/Cellar/php54/5.4.4/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+    cp /usr/local/Cellar/php54/5.4.5/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
     launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
     launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
 
@@ -133,18 +133,22 @@ If you have any concerns as to whether your formula belongs in PHP, just open a 
 
 ### PHP Extension definitions
 
-PHP Extensions MUST be prefixed with `phpVERSION`. For example, instead of the `Solr` formula for PHP53 in `solr.rb`, we would have `Php53Solr` inside of `php53-solr.rb`. This is to remove any possible conflicts with mainline homebrew formulae.
+PHP Extensions MUST be prefixed with `phpVERSION`. For example, instead of the `Solr` formula for PHP54 in `solr.rb`, we would have `Php54Solr` inside of `php54-solr.rb`. This is to remove any possible conflicts with mainline homebrew formulae.
 
-The template for the `php53-example` pecl extension would be as follows. Please use it as an example for any new extension formulae:
+The template for the `php54-example` pecl extension would be as follows. Please use it as an example for any new extension formulae:
 
     require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-    class Php53Example < AbstractPhpExtension
+    class Php54Example < AbstractPhpExtension
       homepage 'http://pecl.php.net/package/example'
       url 'http://pecl.php.net/get/example-1.0.tgz'
       md5 'SOMEHASHHERE'
       version '1.0'
       head 'https://svn.php.net/repository/pecl/example/trunk', :using => :svn
+
+      depends_on 'autoconf' => :build
+      depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+
 
       def install
         Dir.chdir "example-#{version}" unless ARGV.build_head?
@@ -152,7 +156,7 @@ The template for the `php53-example` pecl extension would be as follows. Please 
         # See https://github.com/mxcl/homebrew/pull/5947
         ENV.universal_binary
 
-        system "phpize"
+        safe_phpize
         system "./configure", "--prefix=#{prefix}"
         system "make"
         prefix.install "modules/example.so"
@@ -166,7 +170,7 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of Formula attributes, such as the `homepage`, `url`, `md5`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.13` and `5.4.3`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.15` and `5.4.5`.
 
 ## Todo
 

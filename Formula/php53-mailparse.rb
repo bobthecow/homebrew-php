@@ -6,7 +6,9 @@ class Php53Mailparse < AbstractPhpExtension
   md5 '0f84e1da1d074a4915a9bcfe2319ce84'
   head 'https://svn.php.net/repository/pecl/mailparse/trunk', :using => :svn
 
+  depends_on 'autoconf' => :build
   depends_on 'pcre'
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "mailparse-#{version}" unless ARGV.build_head?
@@ -14,7 +16,7 @@ class Php53Mailparse < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/mailparse.so"

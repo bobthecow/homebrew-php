@@ -6,7 +6,9 @@ class Php54Yaml < AbstractPhpExtension
   md5 'd8a965479d919e1526dd43295783c7f7'
   head 'https://svn.php.net/repository/pecl/yaml/trunk', :using => :svn
 
+  depends_on 'autoconf' => :build
   depends_on 'libyaml'
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     Dir.chdir "yaml-#{version}" unless ARGV.build_head?
@@ -14,7 +16,7 @@ class Php54Yaml < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/yaml.so"

@@ -6,6 +6,9 @@ class Php53Xdebug < AbstractPhpExtension
   md5 '5e5c467e920240c20f165687d7ac3709'
   head 'https://github.com/derickr/xdebug.git'
 
+  depends_on 'autoconf' => :build
+  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+
   def extension_type; "zend_extension"; end
 
   def install
@@ -14,7 +17,7 @@ class Php53Xdebug < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/issues/issue/69
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}",
                           "--disable-debug",
                           "--disable-dependency-tracking",

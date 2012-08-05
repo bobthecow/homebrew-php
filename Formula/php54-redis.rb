@@ -6,6 +6,9 @@ class Php54Redis < AbstractPhpExtension
   md5 '9a89b0aeae1906bcfdc8a80d14d62405'
   head 'https://github.com/nicolasff/phpredis.git'
 
+  depends_on 'autoconf' => :build
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+
   fails_with :clang do
     build 318
     cause <<-EOS.undent
@@ -18,7 +21,7 @@ class Php54Redis < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/redis.so"

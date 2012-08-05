@@ -6,7 +6,9 @@ class Php54Uploadprogress < AbstractPhpExtension
   md5 '13fdc39d68e131f37c4e18c3f75aeeda'
   head 'https://svn.php.net/repository/pecl/uploadprogress/trunk/', :using => :svn
 
+  depends_on 'autoconf' => :build
   depends_on 'pcre'
+  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     Dir.chdir "uploadprogress-#{version}" unless ARGV.build_head?
@@ -14,7 +16,7 @@ class Php54Uploadprogress < AbstractPhpExtension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
-    system "phpize"
+    safe_phpize
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/uploadprogress.so"
