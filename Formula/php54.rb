@@ -86,7 +86,7 @@ class Php54 < Formula
       "--localstatedir=#{var}",
       "--sysconfdir=#{config_path}",
       "--with-config-file-path=#{config_path}",
-      "--with-config-file-scan-dir=#{config_path}/php5/conf.d",
+      "--with-config-file-scan-dir=#{config_path}/conf.d",
       "--with-iconv-dir=/usr",
       "--enable-dba",
       "--with-ndbm=/usr",
