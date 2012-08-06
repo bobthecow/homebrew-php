@@ -2,7 +2,7 @@ This is a step-by-step guide to set up PHP-FPM to work with OS X built-in Apache
 
 ## Quick summary
 
-0. `brew pull https://github.com/mxcl/homebrew/pull/12093`
+0. `brew update && brew pull https://github.com/mxcl/homebrew/pull/12093`
 1. `brew install mod_fastcgi`
 2. Read caveats
 3. `brew install php54 --with-fpm`
