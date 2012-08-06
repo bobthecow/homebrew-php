@@ -39,7 +39,7 @@ class Php54Apc < AbstractPhpExtension
       apc.user_ttl=7200
       apc.num_files_hint=1024
       apc.mmap_file_mask=/tmp/apc.XXXXXX
-      apc.enable_cli=1
+      apc.enable_cli=0
     EOS
   end
 end
