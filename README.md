@@ -50,17 +50,26 @@ this repository.
 ## Requirements
 
 * Homebrew
-* Snow Leopard or Lion - Untested against Mountain Lion
+* Snow Leopard, Lion, Mountain Lion. Untested everywhere else
+* The homebrew `dupes` tap - `brew tap homebrew/dupes`
 
 ## Installation
 
 _[Brew Tap]_
 
-Run the following in your commandline:
+Setup the `homebrew/dupes` tap which has dependencies we need:
+
+    brew tap homebrew/dupes
+
+Then, run the following in your commandline:
 
     brew tap josegonzalez/homebrew-php
 
 ## Usage
+
+Tap the `homebrew/dupes` repository into your brew installation:
+
+    brew tap homebrew/dupes
 
 Tap the repository into your brew installation:
 
