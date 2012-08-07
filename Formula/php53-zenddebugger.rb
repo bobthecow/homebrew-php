@@ -26,21 +26,20 @@ class Php53Zenddebugger < AbstractPhpExtension
   def install
     prefix.install "5_3_x_comp/ZendDebugger.so"
     prefix.install "dummy.php"
+    write_config_file unless ARGV.include? "--without-config-file"
   end
 
-  def caveats; <<-EOS.undent
-     To finish installing php53-zenddebugger:
-       * Add the following lines to the end of #{etc}/php.ini:
-         [ZendDebugger]
-         zend_extension="#{prefix}/ZendDebugger.so"
-         zend_debugger.allow_hosts=<host_ip_addresses>
-
-       ** <host_ip_addresses> are the IPs of the hosts which will be allowed to initiate debug sessions
-       * Restart your webserver.
-       * Write a PHP page that calls "phpinfo();"
-       * Load it in a browser and look for the info on the Zend Debugger module.
-       * If you see it, you have been successful!
-     Additional information is available at: http://static.zend.com/topics/Zend-Debugger-Installation-Guide-050211.pdf
-     EOS
+  def config_file
+    super + <<-EOS.undent
+      zend_debugger.allow_hosts=127.0.0.1/32
+      zend_debugger.allow_tunnel=
+      zend_debugger.deny_hosts=
+      zend_debugger.expose_remotely=always
+      zend_debugger.httpd_uid=-1
+      zend_debugger.max_msg_size=2097152
+      zend_debugger.tunnel_max_port=65535
+      zend_debugger.tunnel_min_port=1024
+    EOS
   end
+
 end
