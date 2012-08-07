@@ -135,7 +135,7 @@ class AbstractPhpExtension < Formula
     caveats << <<-EOS
   * Restart your webserver.
   * Write a PHP page that calls "phpinfo();"
-  * Load it in a browser and look for the info on the yaml module.
+  * Load it in a browser and look for the info on the #{extension} module.
   * If you see it, you have been successful!
 EOS
 
