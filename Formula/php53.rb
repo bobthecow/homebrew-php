@@ -25,7 +25,7 @@ class Php53 < Formula
   depends_on 'openssl' if ARGV.include? '--with-homebrew-openssl'
   depends_on 'tidy' if ARGV.include? '--with-tidy'
   depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
-  depends_on 'zlib'
+  depends_on 'homebrew/dupes/zlib'
 
   # Sanity Checks
   mysql_opts = [ '--with-libmysql', '--with-mariadb', '--with-mysql' ]
