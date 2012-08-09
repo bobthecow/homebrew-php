@@ -1,10 +1,16 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Apc < AbstractPhpExtension
+class Php54Apc < AbstractPhp54Extension
   homepage 'http://pecl.php.net/package/apc'
   url 'http://pecl.php.net/get/APC-3.1.10.tgz'
   sha1 '02c8a2f60c5b1789e7cccd9c1b421d822ca77734'
   head 'https://svn.php.net/repository/pecl/apc/trunk/', :using => :svn
+
+  devel do
+    url 'http://pecl.php.net/get/APC-3.1.11.tgz'
+    version '3.1.11'
+    md5 '199b69ed1423aa869acafff485ef5f06'
+  end
 
   depends_on 'autoconf' => :build
   depends_on 'pcre'
@@ -13,7 +19,7 @@ class Php54Apc < AbstractPhpExtension
   def patches
     # fixes "Incorrect version tag: APC 3.1.10 shows 3.1.9"
     # https://bugs.php.net/bug.php?id=61695
-    DATA unless build.head?
+    DATA if version == '3.1.10'
   end
 
   def install
