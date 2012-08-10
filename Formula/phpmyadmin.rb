@@ -11,8 +11,9 @@ end
 
 class Phpmyadmin < Formula
   homepage 'http://www.phpmyadmin.net'
-  url 'http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.4.10.1/phpMyAdmin-3.4.10.1-all-languages.tar.bz2'
-  md5 '9eed98427c27685d665630b1aded1d85'
+#   url 'http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.4.10.1/phpMyAdmin-3.4.10.1-all-languages.tar.bz2'
+  url 'http://sourceforge.net/projects/phpmyadmin/files/phpMyAdmin/3.5.2.1/phpMyAdmin-3.5.2.1-all-languages.tar.bz2'
+  md5 'b6eddc5702788de38089c7eaba4b96f4'
 
   depends_on 'josegonzalez/php/php53-mcrypt' if php53_installed?
   depends_on 'josegonzalez/php/php54-mcrypt' if php54_installed?
