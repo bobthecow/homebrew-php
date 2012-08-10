@@ -74,6 +74,10 @@ class Php53 < Formula
     etc+"php/5.3"
   end
 
+  def home_path
+    File.expand_path("~")
+  end
+
   def install
     # Not removing all pear.conf's from PHP path results in the PHP
     # configure not properly setting the pear binary to be installed
