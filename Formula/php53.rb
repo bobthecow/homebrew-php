@@ -75,6 +75,33 @@ class Php53 < Formula
   end
 
   def install
+    # Not removing all pear.conf's from PHP path results in the PHP
+    # configure not properly setting the pear binary to be installed
+    config_pear = "#{config_path}/pear.conf"
+    user_pear = "#{home_path}/pear.conf"
+    if File.exists?(config_pear) || File.exists?(user_pear)
+      opoo "Backing up all known pear.conf files"
+      opoo <<-INFO
+If you have a pre-existing pear install outside
+         of homebrew-php, and you are using a non-standard
+         pear.conf location, installation may fail.
+INFO
+      FileUtils.mv(config_pear, "#{config_pear}-backup") if File.exists? config_pear
+      FileUtils.mv(user_pear, "#{user_pear}-backup") if File.exists? user_pear
+    end
+
+    begin
+      _install
+      FileUtils.rm_f("#{config_pear}-backup")
+      FileUtils.rm_f("#{user_pear}-backup")
+    rescue Exception => e
+      FileUtils.mv("#{config_pear}-backup", config_pear) if File.exists? "#{config_pear}-backup"
+      FileUtils.mv("#{user_pear}-backup", user_pear) if File.exists? "#{user_pear}-backup"
+      throw e
+    end
+  end
+
+  def _install
     args = [
       "--prefix=#{prefix}",
       "--disable-debug",
