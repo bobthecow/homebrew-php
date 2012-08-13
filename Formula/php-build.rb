@@ -2,8 +2,8 @@ require 'formula'
 
 class PhpBuild < Formula
   homepage 'http://chh.github.com/php-build/'
-  url 'https://github.com/CHH/php-build/zipball/v0.5.0'
-  md5 '953beb9f7744852701821da2a8864e87'
+  url 'https://github.com/CHH/php-build/zipball/v0.8.0'
+  md5 '3c375b98a0dd4b42f6cd02b915b0f058'
   head 'https://github.com/CHH/php-build.git'
 
   depends_on 'autoconf' => :build
