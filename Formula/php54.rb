@@ -16,12 +16,14 @@ class Php54 < Formula
   skip_clean ['bin', 'sbin']
 
   depends_on 'freetds' if ARGV.include? '--with-mssql'
+  depends_on 'freetype'
   depends_on 'gettext'
   depends_on 'gmp' if ARGV.include? '--with-gmp'
   depends_on 'icu4c' if ARGV.include? '--with-intl'
   depends_on 'imap-uw' if ARGV.include? '--with-imap'
   depends_on 'jpeg'
 
+  depends_on 'libpng'
   depends_on 'libxml2'
   depends_on 'mcrypt'
   depends_on 'openssl' if ARGV.include? '--with-homebrew-openssl'
