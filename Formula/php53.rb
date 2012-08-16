@@ -96,8 +96,8 @@ INFO
 
     begin
       _install
-      FileUtils.rm_f("#{config_pear}-backup")
-      FileUtils.rm_f("#{user_pear}-backup")
+      FileUtils.rm_f("#{config_pear}-backup") if File.exists? "#{config_pear}-backup"
+      FileUtils.rm_f("#{user_pear}-backup") if File.exists? "#{user_pear}-backup"
     rescue Exception => e
       FileUtils.mv("#{config_pear}-backup", config_pear) if File.exists? "#{config_pear}-backup"
       FileUtils.mv("#{user_pear}-backup", user_pear) if File.exists? "#{user_pear}-backup"
