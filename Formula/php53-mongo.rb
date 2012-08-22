@@ -2,8 +2,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Mongo < AbstractPhpExtension
   homepage 'http://pecl.php.net/package/mongo'
-  url 'http://pecl.php.net/get/mongo-1.2.11.tgz'
-  md5 '4a6e9d71ec266365c591284950d29167'
+  url 'http://pecl.php.net/get/mongo-1.2.12.tgz'
+  md5 'b8f2b50c818c28ae2674c46e639203ab'
   head 'https://github.com/mongodb/mongo-php-driver.git'
 
   depends_on 'autoconf' => :build
