@@ -6,9 +6,9 @@ end
 
 class Php53 < Formula
   homepage 'http://php.net'
-  url 'http://www.php.net/get/php-5.3.15.tar.bz2/from/this/mirror'
-  md5 '5cfcfd0fa4c4da7576f397073e7993cc'
-  version '5.3.15'
+  url 'http://www.php.net/get/php-5.3.16.tar.bz2/from/this/mirror'
+  md5 '99cfd78531643027f60c900e792d21be'
+  version '5.3.16'
 
 
 
