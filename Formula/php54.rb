@@ -127,7 +127,7 @@ INFO
       "--with-ndbm=/usr",
       "--enable-exif",
       "--enable-soap",
-      "--enable-sqlite-utf8",
+
       "--enable-wddx",
       "--enable-ftp",
       "--enable-sockets",
