@@ -29,7 +29,7 @@ class AbstractPhpExtension < Formula
 
       unless ARGV.include? '--with-homebrew-php'
         installed_php_version = nil
-        i = IO.popen("#{phpize} -v")
+        i = IO.popen("#{safe_phpize} -v")
         out = i.readlines.join("")
         i.close
         { 53 => 20090626, 54 => 20100412 }.each do |v, api|
@@ -73,14 +73,10 @@ class AbstractPhpExtension < Formula
   end
 
   def safe_phpize
-    system phpize
-  end
-
-  def phpize
     if ARGV.include? '--with-homebrew-php'
-      "#{(Formula.factory php_formula).bin}/phpize"
+      system "#{(Formula.factory php_formula).bin}/phpize"
     else
-      "phpize"
+      system "phpize"
     end
   end
 
