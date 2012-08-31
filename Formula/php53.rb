@@ -242,6 +242,11 @@ INFO
 
     system "./configure", *args
 
+    # https://bugs.php.net/bug.php?id=62460
+    inreplace "Makefile",
+              'EXEEXT = .dSYM',
+              'EXEEXT = '
+
     unless ARGV.include? '--without-apache'
       # Use Homebrew prefix for the Apache libexec folder
       inreplace "Makefile",
