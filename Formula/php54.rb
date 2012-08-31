@@ -15,6 +15,7 @@ class Php54 < Formula
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
 
+  depends_on 'curl'
   depends_on 'freetds' if ARGV.include? '--with-mssql'
   depends_on 'freetype'
   depends_on 'gettext'
@@ -143,14 +144,13 @@ INFO
       "--enable-bcmath",
       "--enable-calendar",
       "--with-zlib=#{Formula.factory('zlib').prefix}",
-      "--with-bz2=/usr",
       "--with-ldap",
       "--with-ldap-sasl=/usr",
       "--with-xmlrpc",
       "--with-kerberos=/usr",
       "--with-libxml-dir=#{Formula.factory('libxml2').prefix}",
       "--with-xsl=/usr",
-      "--with-curl=/usr",
+      "--with-curl=#{Formula.factory('curl').prefix}",
       "--with-gd",
       "--enable-gd-native-ttf",
       "--with-freetype-dir=#{Formula.factory('freetype').prefix}",
@@ -162,6 +162,10 @@ INFO
       "--with-mhash",
       "--mandir=#{man}",
     ]
+
+    unless ARGV.include? '--without-bz2'
+      args << '--with-bz2=/usr'
+    end
 
     if ARGV.include? '--with-homebrew-openssl'
       args << "--with-openssl=" + Formula.factory('openssl').prefix.to_s
