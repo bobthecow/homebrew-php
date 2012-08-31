@@ -2,8 +2,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Twig < AbstractPhpExtension
   homepage 'http://twig.sensiolabs.org/'
-  url 'https://github.com/fabpot/Twig/tarball/v1.9.1'
-  md5 '33d5be1db521fe76504bff316d2e58fd'
+  url 'https://github.com/fabpot/Twig/tarball/v1.9.2'
+  md5 '2985418adf4de2543699d7e6acd1fa7b'
   head 'git://github.com/fabpot/Twig.git', :using => :git
 
   depends_on 'autoconf' => :build
