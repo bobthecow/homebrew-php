@@ -2,9 +2,9 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php54Pspell < AbstractPhpExtension
   homepage 'http://php.net/manual/en/book.pspell.php'
-  url 'http://www.php.net/get/php-5.4.3.tar.bz2/from/this/mirror'
+  url 'http://www.php.net/get/php54-5.4.6.tar.bz2/from/this/mirror'
   md5 '51f9488bf8682399b802c48656315cac'
-  version '5.4.3'
+  version '5.4.6'
 
   depends_on 'aspell'
   depends_on 'autoconf' => :build

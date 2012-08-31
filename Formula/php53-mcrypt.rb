@@ -2,9 +2,9 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Mcrypt < AbstractPhpExtension
   homepage 'http://php.net/manual/en/book.mcrypt.php'
-  url 'http://www.php.net/get/php-5.3.13.tar.bz2/from/this/mirror'
+  url 'http://www.php.net/get/php-5.3.16.tar.bz2/from/this/mirror'
   md5 '370be99c5cdc2e756c82c44d774933c8'
-  version '5.3.13'
+  version '5.3.16'
 
   depends_on 'autoconf' => :build
   depends_on 'mcrypt'
