@@ -10,6 +10,8 @@ class Php53 < Formula
   md5 '5cfcfd0fa4c4da7576f397073e7993cc'
   version '5.3.15'
 
+
+
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
 
