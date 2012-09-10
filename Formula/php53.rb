@@ -240,6 +240,10 @@ INFO
       args << "--with-pdo-odbc=generic,/usr,iodbc"
     end
 
+    if ARGV.include? '--without-pear'
+      args << "--without-pear"
+    end
+
     system "./configure", *args
 
     # https://bugs.php.net/bug.php?id=62460
@@ -258,10 +262,6 @@ INFO
       inreplace 'Makefile' do |s|
         s.change_make_var! "EXTRA_LIBS", "\\1 -lstdc++"
       end
-    end
-
-    if ARGV.include? '--without-pear'
-      args << "--without-pear"
     end
 
     system "make"

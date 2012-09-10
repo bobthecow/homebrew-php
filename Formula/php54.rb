@@ -244,6 +244,10 @@ INFO
       args << "--with-pdo-odbc=generic,/usr,iodbc"
     end
 
+    if ARGV.include? '--without-pear'
+      args << "--without-pear"
+    end
+
     # Use libedit instead of readline for 5.4
     args << "--with-libedit"
 
@@ -261,10 +265,6 @@ INFO
       inreplace 'Makefile' do |s|
         s.change_make_var! "EXTRA_LIBS", "\\1 -lstdc++"
       end
-    end
-
-    if ARGV.include? '--without-pear'
-      args << "--without-pear"
     end
 
     system "make"
