@@ -314,6 +314,10 @@ If you have installed the formula with --with-fpm, to launch php-fpm on startup:
         cp #{prefix}/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
         launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
 
+Mountain Lion comes with php-fpm pre-installed, to ensure you are using the brew version you need to make sure /usr/local/sbin is before /usr/sbin in your PATH:
+
+  PATH="/usr/local/sbin:$PATH"
+
 You may also need to edit the plist to use the correct "UserName".
 
 Please note that the plist was called 'org.php-fpm.plist' in old versions
