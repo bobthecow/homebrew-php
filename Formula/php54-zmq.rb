@@ -9,6 +9,7 @@ class Php54Zmq < AbstractPhpExtension
 
   depends_on 'autoconf' => :build
   depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'zmq'
 
   def install
     # See https://github.com/mxcl/homebrew/pull/5947
