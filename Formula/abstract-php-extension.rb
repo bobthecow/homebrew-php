@@ -27,7 +27,7 @@ class AbstractPhpExtension < Formula
       raise "One does not simply install an AbstractPhpExtension" if name == "abstract-php-extension"
       init = super
 
-      unless ARGV.include? '--with-homebrew-php'
+      unless build.include? 'with-homebrew-php'
         installed_php_version = nil
         i = IO.popen("#{phpize} -v")
         out = i.readlines.join("")
@@ -55,9 +55,7 @@ class AbstractPhpExtension < Formula
     end
   end
 
-  def options
-    [ ['--with-homebrew-php', 'Ignore default PHP and use homebrew-php54 instead'] ]
-  end
+  option 'with-homebrew-php', "Ignore default PHP and use homebrew-php54 instead"
 
   def php_branch
     matches = /^Php5([3-9]+)/.match(self.class.name)
@@ -77,7 +75,7 @@ class AbstractPhpExtension < Formula
   end
 
   def phpize
-    if ARGV.include? '--with-homebrew-php'
+    if build.include? 'with-homebrew-php'
       "#{(Formula.factory php_formula).bin}/phpize"
     else
       "phpize"
@@ -85,7 +83,7 @@ class AbstractPhpExtension < Formula
   end
 
   def phpini
-    if ARGV.include? '--with-homebrew-php'
+    if build.include? 'with-homebrew-php'
       "#{(Formula.factory php_formula).config_path}/php.ini"
     else
       "php.ini presented by \"php --ini\""
@@ -124,7 +122,7 @@ class AbstractPhpExtension < Formula
   def caveats
     caveats = [ "To finish installing #{extension} for PHP #{php_branch}:" ]
 
-    if ARGV.include? "--without-config-file"
+    if build.include? "without-config-file"
       caveats << "  * Add the following line to #{phpini}:\n"
       caveats << config_file
     else
@@ -167,15 +165,15 @@ EOS
 
   def options
     options = []
-    options << ["--without-config-file", "Do not add #{config_filename} to #{config_scandir_path}"] if config_file
+    options << ["without-config-file", "Do not add #{config_filename} to #{config_scandir_path}"] if config_file
     options
   end
 end
 
 class AbstractPhp53Extension < AbstractPhpExtension
-  depends_on "php53" if ARGV.include? '--with-homebrew-php'
+  depends_on "php53" if build.include? 'with-homebrew-php'
 end
 
 class AbstractPhp54Extension < AbstractPhpExtension
-  depends_on "php54" if ARGV.include? '--with-homebrew-php'
+  depends_on "php54" if build.include? 'with-homebrew-php'
 end

@@ -3,21 +3,21 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php53Apc < AbstractPhpExtension
   homepage 'http://pecl.php.net/package/apc'
   url 'http://pecl.php.net/get/APC-3.1.10.tgz'
-  md5 'f4a6b91903d6ba9dce89fc87bb6f26c9'
+  sha1 '02c8a2f60c5b1789e7cccd9c1b421d822ca77734'
   head 'https://svn.php.net/repository/pecl/apc/trunk/', :using => :svn
 
   depends_on 'autoconf' => :build
-  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' if build.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
   depends_on 'pcre'
 
   def patches
     # fixes "Incorrect version tag: APC 3.1.10 shows 3.1.9"
     # https://bugs.php.net/bug.php?id=61695
-    DATA unless ARGV.build_head?
+    DATA unless build.head?
   end
 
   def install
-    Dir.chdir "APC-#{version}" unless ARGV.build_head?
+    Dir.chdir "APC-#{version}" unless build.head?
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
@@ -27,7 +27,7 @@ class Php53Apc < AbstractPhpExtension
                           "--enable-apc-pthreadmutex"
     system "make"
     prefix.install %w(modules/apc.so apc.php)
-    write_config_file unless ARGV.include? "--without-config-file"
+    write_config_file unless build.include? "without-config-file"
   end
 
   def config_file

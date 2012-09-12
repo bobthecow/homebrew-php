@@ -3,7 +3,7 @@ require 'formula'
 class PhpBuild < Formula
   homepage 'http://chh.github.com/php-build/'
   url 'https://github.com/CHH/php-build/zipball/v0.8.0'
-  md5 '3c375b98a0dd4b42f6cd02b915b0f058'
+  sha1 '9b747a2c7fdcd661d7f54d8e68ce71273be9e45b'
   head 'https://github.com/CHH/php-build.git'
 
   depends_on 'autoconf' => :build

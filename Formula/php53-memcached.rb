@@ -3,15 +3,15 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php53Memcached < AbstractPhpExtension
   homepage 'http://pecl.php.net/package/memcached'
   url 'http://pecl.php.net/get/memcached-2.0.1.tgz'
-  md5 'f81a5261be1c9848ed5c071a4ebe5e05'
+  sha1 '5442250bf4a9754534bce9a3033dc5363d8238f7'
   head 'https://github.com/php-memcached-dev/php-memcached.git'
 
   depends_on 'autoconf' => :build
   depends_on 'libmemcached'
-  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' if build.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
-    Dir.chdir "memcached-#{version}" unless ARGV.build_head?
+    Dir.chdir "memcached-#{version}" unless build.head?
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
@@ -21,6 +21,6 @@ class Php53Memcached < AbstractPhpExtension
                           "--with-libmemcached-dir=#{Formula.factory('libmemcached').prefix}"
     system "make"
     prefix.install "modules/memcached.so"
-    write_config_file unless ARGV.include? "--without-config-file"
+    write_config_file unless build.include? "without-config-file"
   end
 end

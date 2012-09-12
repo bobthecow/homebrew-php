@@ -3,15 +3,15 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php54Yaml < AbstractPhpExtension
   homepage 'http://pecl.php.net/package/yaml'
   url 'http://pecl.php.net/get/yaml-1.0.1.tgz'
-  md5 'd8a965479d919e1526dd43295783c7f7'
+  sha1 'bba27142b9656fecaa6835ad57e3614f2330a51c'
   head 'https://svn.php.net/repository/pecl/yaml/trunk', :using => :svn
 
   depends_on 'autoconf' => :build
   depends_on 'libyaml'
-  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' if build.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
-    Dir.chdir "yaml-#{version}" unless ARGV.build_head?
+    Dir.chdir "yaml-#{version}" unless build.head?
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
@@ -20,6 +20,6 @@ class Php54Yaml < AbstractPhpExtension
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/yaml.so"
-    write_config_file unless ARGV.include? "--without-config-file"
+    write_config_file unless build.include? "without-config-file"
   end
 end

@@ -3,7 +3,7 @@ require 'formula'
 class PhpVersion < Formula
   homepage  'http://wilmoore.github.com/php-version'
   url       'https://github.com/wilmoore/php-version/tarball/0.9.3'
-  md5       '0e4770c30ccb5f65b6363632e8f7850c'
+  sha1       '9baa3109002ed6c97f5f00c78a5865be5cd28cef'
   head      'https://github.com/wilmoore/php-version.git'
 
   def install

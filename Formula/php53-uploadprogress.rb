@@ -3,15 +3,15 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php53Uploadprogress < AbstractPhpExtension
   homepage 'http://pecl.php.net/package/uploadprogress'
   url 'http://pecl.php.net/get/uploadprogress-1.0.3.1.tgz'
-  md5 '13fdc39d68e131f37c4e18c3f75aeeda'
+  sha1 '5fd50a1d5d3ee485e31e16d76b686873125e8dec'
   head 'https://svn.php.net/repository/pecl/uploadprogress/trunk/', :using => :svn
 
   depends_on 'autoconf' => :build
   depends_on 'pcre'
-  depends_on 'php53' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' if build.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
-    Dir.chdir "uploadprogress-#{version}" unless ARGV.build_head?
+    Dir.chdir "uploadprogress-#{version}" unless build.head?
 
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
@@ -20,6 +20,6 @@ class Php53Uploadprogress < AbstractPhpExtension
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/uploadprogress.so"
-    write_config_file unless ARGV.include? "--without-config-file"
+    write_config_file unless build.include? "without-config-file"
   end
 end

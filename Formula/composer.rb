@@ -11,7 +11,7 @@ end
 class Composer < Formula
   homepage 'http://getcomposer.org'
   url 'http://getcomposer.org/download/1.0.0-alpha5/composer.phar'
-  md5 '06c2adc30540297757644ea1e4812989'
+  sha1 '572615d4ccf9390f32b254fe340fb9abfa88e457'
   version '1.0.0-alpha5'
 
   depends_on 'php' => :recommended unless php_installed?

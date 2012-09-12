@@ -4,10 +4,10 @@ class Php54Midgard2 < AbstractPhpExtension
   homepage 'http://www.midgard-project.org'
   head 'https://github.com/midgardproject/midgard-php5.git', :branch => 'ratatoskr'
   url 'https://github.com/midgardproject/midgard-php5/tarball/10.05.6'
-  md5 'ba43c97c4c3c940d1b9b331986f33ee6'
+  sha1 'b4e49d4e0b476db4a96b63c712fd9727a1538ea9'
 
   depends_on 'autoconf' => :build
-  depends_on 'php54' if ARGV.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' if build.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
   depends_on 'pkg-config' => :build
   depends_on 'midgard2'
 
@@ -19,6 +19,6 @@ class Php54Midgard2 < AbstractPhpExtension
     system "./configure", "--prefix=#{prefix}"
     system "make"
     prefix.install "modules/midgard2.so"
-    write_config_file unless ARGV.include? "--without-config-file"
+    write_config_file unless build.include? "without-config-file"
   end
 end

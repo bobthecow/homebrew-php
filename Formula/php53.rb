@@ -7,72 +7,64 @@ end
 class Php53 < Formula
   homepage 'http://php.net'
   url 'http://www.php.net/get/php-5.3.16.tar.bz2/from/this/mirror'
-  md5 '99cfd78531643027f60c900e792d21be'
+  sha1 'a8356b18f6413a87451bd70110b814c847b69f00'
   version '5.3.16'
-
-
 
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
 
   depends_on 'curl'
-  depends_on 'freetds' if ARGV.include? '--with-mssql'
+  depends_on 'freetds' if build.include? 'with-mssql'
   depends_on 'freetype'
   depends_on 'gettext'
-  depends_on 'gmp' if ARGV.include? '--with-gmp'
-  depends_on 'icu4c' if ARGV.include? '--with-intl'
-  depends_on 'imap-uw' if ARGV.include? '--with-imap'
+  depends_on 'gmp' if build.include? 'with-gmp'
+  depends_on 'icu4c' if build.include? 'with-intl'
+  depends_on 'imap-uw' if build.include? 'with-imap'
   depends_on 'jpeg'
-  depends_on 'libevent' if ARGV.include? '--with-fpm'
+  depends_on 'libevent' if build.include? 'with-fpm'
   depends_on 'libpng'
   depends_on 'libxml2' unless MacOS.version >= :mountain_lion
   depends_on 'mcrypt'
-  depends_on 'openssl' if ARGV.include? '--with-homebrew-openssl'
-  depends_on 'tidy' if ARGV.include? '--with-tidy'
-  depends_on 'unixodbc' if ARGV.include? '--with-unixodbc'
+  depends_on 'openssl' if build.include? 'with-homebrew-openssl'
+  depends_on 'tidy' if build.include? 'with-tidy'
+  depends_on 'unixodbc' if build.include? 'with-unixodbc'
   depends_on 'homebrew/dupes/zlib'
 
   # Sanity Checks
-  mysql_opts = [ '--with-libmysql', '--with-mariadb', '--with-mysql' ]
-  if ARGV.length - (ARGV - mysql_opts).length > 1
+  mysql_opts = [ 'with-libmysql', 'with-mariadb', 'with-mysql' ]
+  if mysql_opts.select {|o| build.include? o}.length > 1
     raise "Cannot specify more than one MySQL variant to build against."
   end
 
-  if ARGV.include? '--with-pgsql'
+  if build.include? 'with-pgsql'
     depends_on 'postgresql' => :recommended unless postgres_installed?
   end
 
-  if ARGV.include? '--with-cgi' and ARGV.include? '--with-fpm'
+  if build.include? 'with-cgi' and build.include? 'with-fpm'
     raise "Cannot specify more than one executable to build."
   end
 
-  if ARGV.include? '--with-cgi' or ARGV.include? '--with-fpm'
-    ARGV << '--without-apache' unless ARGV.include? '--without-apache'
-  end
-
-  def options
-   [
-     ['--with-libmysql', 'Include (old-style) libmysql support'],
-     ['--with-mariadb', 'Include MariaDB support'],
-     ['--with-mysql', 'Include MySQL support'],
-     ['--with-pgsql', 'Include PostgreSQL support'],
-     ['--with-mssql', 'Include MSSQL-DB support'],
-     ['--with-unixodbc', 'Include unixODBC support'],
-     ['--with-cgi', 'Enable building of the CGI executable (implies --without-apache)'],
-     ['--with-fpm', 'Enable building of the fpm SAPI executable (implies --without-apache)'],
-     ['--without-apache', 'Build without shared Apache 2.0 Handler module'],
-     ['--with-intl', 'Include internationalization support'],
-     ['--with-imap', 'Include IMAP extension'],
-     ['--with-gmp', 'Include GMP support'],
-     ['--with-suhosin', 'Include Suhosin patch'],
-     ['--with-tidy', 'Include Tidy support'],
-     ['--without-pear', 'Build without PEAR'],
-     ['--with-homebrew-openssl', 'Include OpenSSL support via Homebrew'],
-   ]
-  end
+  option '32-bit', "Build 32-bit only."
+  option 'with-libmysql', 'Include (old-style) libmysql support'
+  option 'with-mariadb', 'Include MariaDB support'
+  option 'with-mysql', 'Include MySQL support'
+  option 'with-pgsql', 'Include PostgreSQL support'
+  option 'with-mssql', 'Include MSSQL-DB support'
+  option 'with-unixodbc', 'Include unixODBC support'
+  option 'with-cgi', 'Enable building of the CGI executable (implies --without-apache)'
+  option 'with-fpm', 'Enable building of the fpm SAPI executable (implies --without-apache)'
+  option 'without-apache', 'Build without shared Apache 2.0 Handler module'
+  option 'with-intl', 'Include internationalization support'
+  option 'with-imap', 'Include IMAP extension'
+  option 'with-gmp', 'Include GMP support'
+  option 'with-suhosin', 'Include Suhosin patch'
+  option 'with-tidy', 'Include Tidy support'
+  option 'without-pear', 'Build without PEAR'
+  option 'with-homebrew-openssl', 'Include OpenSSL support via Homebrew'
+  option 'without-bz2', 'Build without bz2 support'
 
   def patches
-    "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if ARGV.include? '--with-suhosin'
+    "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if build.include? 'with-suhosin'
   end
 
   def config_path
@@ -95,17 +87,17 @@ If you have a pre-existing pear install outside
          of homebrew-php, and you are using a non-standard
          pear.conf location, installation may fail.
 INFO
-      FileUtils.mv(config_pear, "#{config_pear}-backup") if File.exists? config_pear
-      FileUtils.mv(user_pear, "#{user_pear}-backup") if File.exists? user_pear
+      mv(config_pear, "#{config_pear}-backup") if File.exists? config_pear
+      mv(user_pear, "#{user_pear}-backup") if File.exists? user_pear
     end
 
     begin
       _install
-      FileUtils.rm_f("#{config_pear}-backup") if File.exists? "#{config_pear}-backup"
-      FileUtils.rm_f("#{user_pear}-backup") if File.exists? "#{user_pear}-backup"
+      rm_f("#{config_pear}-backup") if File.exists? "#{config_pear}-backup"
+      rm_f("#{user_pear}-backup") if File.exists? "#{user_pear}-backup"
     rescue Exception => e
-      FileUtils.mv("#{config_pear}-backup", config_pear) if File.exists? "#{config_pear}-backup"
-      FileUtils.mv("#{user_pear}-backup", user_pear) if File.exists? "#{user_pear}-backup"
+      mv("#{config_pear}-backup", config_pear) if File.exists? "#{config_pear}-backup"
+      mv("#{user_pear}-backup", user_pear) if File.exists? "#{user_pear}-backup"
       throw e
     end
   end
@@ -162,17 +154,17 @@ INFO
       args << "--with-libxml-dir=#{Formula.factory('libxml2').prefix}"
     end
 
-    unless ARGV.include? '--without-bz2'
+    unless build.include? 'without-bz2'
       args << '--with-bz2=/usr'
     end
 
-    if ARGV.include? '--with-homebrew-openssl'
+    if build.include? 'with-homebrew-openssl'
       args << "--with-openssl=" + Formula.factory('openssl').prefix.to_s
     else
       args << "--with-openssl=/usr"
     end
 
-    if ARGV.include? '--with-fpm'
+    if build.include? 'with-fpm'
       args << "--enable-fpm"
       args << "--with-fpm-user=_www"
       args << "--with-fpm-group=_www"
@@ -180,62 +172,62 @@ INFO
       touch prefix+'var/log/php-fpm.log'
       (prefix+'homebrew-php.josegonzalez.php53.plist').write php_fpm_startup_plist
       (prefix+'homebrew-php.josegonzalez.php53.plist').chmod 0644
-    elsif ARGV.include? '--with-cgi'
+    elsif build.include? 'with-cgi'
       args << "--enable-cgi"
     end
 
     # Build Apache module by default
-    unless ARGV.include? '--without-apache'
+    unless build.include? 'without-apache' or build.include? 'with-cgi' or build.include? 'with-fpm'
       args << "--with-apxs2=/usr/sbin/apxs"
       args << "--libexecdir=#{libexec}"
     end
 
-    if ARGV.include? '--with-gmp'
+    if build.include? 'with-gmp'
       args << "--with-gmp=#{Formula.factory('gmp').prefix}"
     end
 
-    if ARGV.include? '--with-imap'
+    if build.include? 'with-imap'
       args << "--with-imap=#{Formula.factory('imap-uw').prefix}"
       args << "--with-imap-ssl=/usr"
     end
 
-    if ARGV.include? '--with-intl'
+    if build.include? 'with-intl'
       args << "--enable-intl"
       args << "--with-icu-dir=#{Formula.factory('icu4c').prefix}"
     end
 
-    if ARGV.include? '--with-mssql'
+    if build.include? 'with-mssql'
       args << "--with-mssql=#{Formula.factory('freetds').prefix}"
       args << "--with-pdo-dblib=#{Formula.factory('freetds').prefix}"
     end
 
-    if ARGV.include? '--with-libmysql'
+    if build.include? 'with-libmysql'
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=/usr/local/bin/mysql_config"
       args << "--with-mysql=/usr/local"
       args << "--with-pdo-mysql=/usr/local"
     end
 
-    if ARGV.include? '--with-mysql' or ARGV.include? '--with-mariadb'
+    if build.include? 'with-mysql' or build.include? 'with-mariadb'
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=mysqlnd"
       args << "--with-mysql=mysqlnd"
       args << "--with-pdo-mysql=mysqlnd"
     end
 
-    if ARGV.include? '--with-pgsql' and File.directory? Formula.factory('postgresql').prefix.to_s
+    if build.include? 'with-pgsql' and File.directory? Formula.factory('postgresql').prefix.to_s
       args << "--with-pgsql=#{Formula.factory('postgresql').prefix}"
       args << "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
-    elsif ARGV.include? '--with-pgsql'
+    elsif build.include? 'with-pgsql'
       args << "--with-pgsql=#{`pg_config --includedir`}"
       args << "--with-pdo-pgsql=#{`which pg_config`}"
     end
 
-    if ARGV.include? '--with-tidy'
+    if build.include? 'with-tidy'
       args << "--with-tidy=#{Formula.factory('tidy').prefix}"
     end
 
-    if ARGV.include? '--with-unixodbc'
+    if build.include? 'with-unixodbc'
       args << "--with-unixODBC=#{Formula.factory('unixodbc').prefix}"
       args << "--with-pdo-odbc=unixODBC,#{Formula.factory('unixodbc').prefix}"
     else
@@ -243,7 +235,7 @@ INFO
       args << "--with-pdo-odbc=generic,/usr,iodbc"
     end
 
-    if ARGV.include? '--without-pear'
+    if build.include? 'without-pear'
       args << "--without-pear"
     end
 
@@ -254,14 +246,14 @@ INFO
               'EXEEXT = .dSYM',
               'EXEEXT = '
 
-    unless ARGV.include? '--without-apache'
+    unless build.include? 'without-apache'
       # Use Homebrew prefix for the Apache libexec folder
       inreplace "Makefile",
         "INSTALL_IT = $(mkinstalldirs) '$(INSTALL_ROOT)/usr/libexec/apache2' && $(mkinstalldirs) '$(INSTALL_ROOT)/private/etc/apache2' && /usr/sbin/apxs -S LIBEXECDIR='$(INSTALL_ROOT)/usr/libexec/apache2' -S SYSCONFDIR='$(INSTALL_ROOT)/private/etc/apache2' -i -a -n php5 libs/libphp5.so",
         "INSTALL_IT = $(mkinstalldirs) '#{libexec}/apache2' && $(mkinstalldirs) '$(INSTALL_ROOT)/private/etc/apache2' && /usr/sbin/apxs -S LIBEXECDIR='#{libexec}/apache2' -S SYSCONFDIR='$(INSTALL_ROOT)/private/etc/apache2' -i -a -n php5 libs/libphp5.so"
     end
 
-    if ARGV.include? '--with-intl'
+    if build.include? 'with-intl'
       inreplace 'Makefile' do |s|
         s.change_make_var! "EXTRA_LIBS", "\\1 -lstdc++"
       end
@@ -273,8 +265,8 @@ INFO
 
     config_path.install "./php.ini-development" => "php.ini" unless File.exists? config_path+"php.ini"
     chmod_R 0775, lib+"php"
-    system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless ARGV.include? '--without-pear'
-    if ARGV.include?('--with-fpm') and not File.exists? config_path+"php-fpm.conf"
+    system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless build.include? 'without-pear'
+    if build.include?('--with-fpm') and not File.exists? config_path+"php-fpm.conf"
       config_path.install "sapi/fpm/php-fpm.conf"
       inreplace config_path+"php-fpm.conf" do |s|
         s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
@@ -325,7 +317,7 @@ of this formula.
  end
 
   def test
-    if ARGV.include?('--with-fpm')
+    if build.include?('--with-fpm')
       system "#{sbin}/php-fpm -y #{config_path}/php-fpm.conf -t"
     end
   end
