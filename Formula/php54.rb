@@ -25,7 +25,7 @@ class Php54 < Formula
   depends_on 'jpeg'
 
   depends_on 'libpng'
-  depends_on 'libxml2'
+  depends_on 'libxml2' unless MacOS.version >= :mountain_lion
   depends_on 'mcrypt'
   depends_on 'openssl' if ARGV.include? '--with-homebrew-openssl'
   depends_on 'tidy' if ARGV.include? '--with-tidy'
@@ -148,7 +148,6 @@ INFO
       "--with-ldap-sasl=/usr",
       "--with-xmlrpc",
       "--with-kerberos=/usr",
-      "--with-libxml-dir=#{Formula.factory('libxml2').prefix}",
       "--with-xsl=/usr",
       "--with-curl=#{Formula.factory('curl').prefix}",
       "--with-gd",
@@ -162,6 +161,10 @@ INFO
       "--with-mhash",
       "--mandir=#{man}",
     ]
+
+    unless MacOS.version >= :mountain_lion
+      args << "--with-libxml-dir=#{Formula.factory('libxml2').prefix}"
+    end
 
     unless ARGV.include? '--without-bz2'
       args << '--with-bz2=/usr'
