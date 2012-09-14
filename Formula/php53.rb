@@ -290,13 +290,22 @@ To enable PHP in Apache add the following to httpd.conf and restart Apache:
 The php.ini file can be found in:
     #{config_path}/php.ini
 
+✩✩✩✩ PEAR ✩✩✩✩
+
 If pear complains about permissions, 'Fix' the default PEAR permissions and config:
     chmod -R ug+w #{lib}/php
     pear config-set php_ini #{etc}/php/5.3/php.ini
 
+✩✩✩✩ Extensions ✩✩✩✩
+
 If you are having issues with custom extension compiling, ensure that this php is
 in your PATH:
     PATH="$(brew --prefix josegonzalez/php/php53)/bin:$PATH"
+
+Extensions will never be compiled against this homebrew-php PHP. Please install them
+using --with-homebrew-php to enable compiling against this php.
+
+✩✩✩✩ FPM ✩✩✩✩
 
 If you have installed the formula with --with-fpm, to launch php-fpm on startup:
     * If this is your first install:
