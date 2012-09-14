@@ -8,7 +8,6 @@ class Php53Zmq < AbstractPhpExtension
 
   depends_on 'autoconf' => :build
   depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
-  depends_on 'zeromq'
 
   def install
     # See https://github.com/mxcl/homebrew/pull/5947
