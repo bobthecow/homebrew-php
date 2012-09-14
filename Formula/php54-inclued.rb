@@ -7,7 +7,7 @@ class Php54Inclued < AbstractPhpExtension
   head 'https://svn.php.net/repository/pecl/inclued/trunk', :using => :svn
 
   depends_on 'autoconf' => :build
-  depends_on 'php54' if build.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     Dir.chdir "inclued-#{version}" unless build.head?

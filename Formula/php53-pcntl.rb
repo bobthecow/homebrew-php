@@ -7,7 +7,7 @@ class Php53Pcntl < AbstractPhpExtension
   version '5.3.16'
 
   depends_on 'autoconf' => :build
-  depends_on 'php53' if build.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "ext/pcntl"

@@ -8,7 +8,7 @@ class Php53Gearman < AbstractPhpExtension
 
   depends_on 'autoconf' => :build
   depends_on 'gearman'
-  depends_on 'php53' if build.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "gearman-#{version}" unless build.head?

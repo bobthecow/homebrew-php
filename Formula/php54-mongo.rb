@@ -7,7 +7,7 @@ class Php54Mongo < AbstractPhpExtension
   head 'https://github.com/mongodb/mongo-php-driver.git'
 
   depends_on 'autoconf' => :build
-  depends_on 'php54' if build.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     Dir.chdir "mongo-#{version}" unless build.head?

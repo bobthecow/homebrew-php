@@ -7,7 +7,7 @@ class Php53Xhprof < AbstractPhpExtension
 
   depends_on 'autoconf' => :build
   depends_on 'pcre'
-  depends_on 'php53' if build.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "xhprof-#{version}/extension" do

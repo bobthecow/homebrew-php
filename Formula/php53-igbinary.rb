@@ -7,7 +7,7 @@ class Php53Igbinary < AbstractPhpExtension
   head 'https://github.com/igbinary/igbinary.git', :using => :git
 
   depends_on 'autoconf' => :build
-  depends_on 'php53' if build.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "igbinary-#{version}" unless build.head?

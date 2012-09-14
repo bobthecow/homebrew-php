@@ -7,7 +7,7 @@ class Php53Memcache < AbstractPhpExtension
   head 'https://svn.php.net/repository/pecl/memcache/trunk/', :using => :svn
 
   depends_on 'autoconf' => :build
-  depends_on 'php53' if build.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
 
   def install
     Dir.chdir "memcache-#{version}" unless build.head?

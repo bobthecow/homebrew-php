@@ -6,7 +6,7 @@ class Php54Xcache < AbstractPhpExtension
   sha1 '8a41d0a7ec92dea96677514a5e74bf15e76c7466'
 
   depends_on 'autoconf' => :build
-  depends_on 'php54' if build.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
 
   def extension_type; "zend_extension"; end
 

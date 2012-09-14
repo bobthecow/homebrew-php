@@ -7,7 +7,7 @@ class Php54Redis < AbstractPhpExtension
   head 'https://github.com/nicolasff/phpredis.git'
 
   depends_on 'autoconf' => :build
-  depends_on 'php54' if build.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
 
   fails_with :clang do
     build 318

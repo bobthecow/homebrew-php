@@ -266,7 +266,7 @@ INFO
     config_path.install "./php.ini-development" => "php.ini" unless File.exists? config_path+"php.ini"
     chmod_R 0775, lib+"php"
     system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless build.include? 'without-pear'
-    if build.include?('--with-fpm') and not File.exists? config_path+"php-fpm.conf"
+    if build.include?('with-fpm') and not File.exists? config_path+"php-fpm.conf"
       config_path.install "sapi/fpm/php-fpm.conf"
       inreplace config_path+"php-fpm.conf" do |s|
         s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
@@ -317,7 +317,7 @@ of this formula.
  end
 
   def test
-    if build.include?('--with-fpm')
+    if build.include?('with-fpm')
       system "#{sbin}/php-fpm -y #{config_path}/php-fpm.conf -t"
     end
   end

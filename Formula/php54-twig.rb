@@ -7,7 +7,7 @@ class Php54Twig < AbstractPhpExtension
   head 'https://github.com/fabpot/Twig.git', :using => :git
 
   depends_on 'autoconf' => :build
-  depends_on 'php54' if build.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
 
   def install
     # See https://github.com/mxcl/homebrew/pull/5947

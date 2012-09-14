@@ -8,7 +8,7 @@ class Php54Apc < AbstractPhpExtension
 
   depends_on 'autoconf' => :build
   depends_on 'pcre'
-  depends_on 'php54' if build.include?('--with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
 
   def patches
     # fixes "Incorrect version tag: APC 3.1.10 shows 3.1.9"
