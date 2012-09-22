@@ -49,6 +49,7 @@ class AbstractPhpExtension < Formula
       # Hack so that we pass all brew doctor tests
       reraise = true
       e.backtrace.each do |l|
+        reraise = false if l.match(/cleanup\.rb/)
         reraise = false if l.match(/doctor\.rb/)
       end
       raise e if reraise
