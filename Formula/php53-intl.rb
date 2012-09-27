@@ -18,6 +18,7 @@ class Php53Intl < AbstractPhpExtension
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
+                          phpconfig,
                           "--enable-intl"
     system "make"
     prefix.install "modules/intl.so"

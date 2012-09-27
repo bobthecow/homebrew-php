@@ -17,7 +17,8 @@ class Php54Ssh2 < AbstractPhpExtension
     ENV.universal_binary unless Hardware.is_64_bit?
 
     safe_phpize
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          phpconfig
     system "make"
     prefix.install "modules/ssh2.so"
     write_config_file unless build.include? "without-config-file"

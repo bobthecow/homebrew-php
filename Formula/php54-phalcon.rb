@@ -22,7 +22,9 @@ class Php54Phalcon < AbstractPhpExtension
 
     safe_phpize
     system 'export CFLAGS="-O2 -fno-delete-null-pointer-checks"'
-    system "./configure", "--prefix=#{prefix}", "--enable-phalcon"
+    system "./configure", "--prefix=#{prefix}",
+                          phpconfig,
+                          "--enable-phalcon"
     system "make"
     prefix.install "modules/phalcon.so"
     write_config_file unless build.include? "without-config-file"

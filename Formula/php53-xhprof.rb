@@ -15,7 +15,8 @@ class Php53Xhprof < AbstractPhpExtension
       ENV.universal_binary
 
       safe_phpize
-      system "./configure", "--prefix=#{prefix}"
+      system "./configure", "--prefix=#{prefix}",
+                            phpconfig
       system "make"
       prefix.install "modules/xhprof.so"
     end

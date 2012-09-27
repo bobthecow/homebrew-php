@@ -14,7 +14,8 @@ class Php54Zmq < AbstractPhpExtension
     ENV.universal_binary
 
     safe_phpize
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          phpconfig
     system "make"
     prefix.install "modules/zmq.so"
     write_config_file unless build.include? "without-config-file"

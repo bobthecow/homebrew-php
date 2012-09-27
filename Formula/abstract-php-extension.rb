@@ -91,6 +91,14 @@ class AbstractPhpExtension < Formula
     end
   end
 
+  def phpconfig
+    if build.include? 'with-homebrew-php'
+      "--with-php-config=#{(Formula.factory php_formula).bin}/php-config"
+    else
+      ""
+    end
+  end
+
   def extension
     matches = /^Php5[3-9](.+)/.match(self.class.name)
     if matches

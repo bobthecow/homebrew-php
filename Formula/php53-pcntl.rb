@@ -17,6 +17,7 @@ class Php53Pcntl < AbstractPhpExtension
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
+                          phpconfig,
                           "--disable-dependency-tracking"
     system "make"
     prefix.install "modules/pcntl.so"

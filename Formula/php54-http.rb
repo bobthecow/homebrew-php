@@ -16,7 +16,8 @@ class Php54Http < AbstractPhpExtension
     ENV.universal_binary
 
     safe_phpize
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          phpconfig
     system "make"
     prefix.install "modules/http.so"
     write_config_file unless build.include? "without-config-file"

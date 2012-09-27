@@ -18,6 +18,7 @@ class Php54Gearman < AbstractPhpExtension
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
+                          phpconfig,
                           "--with-gearman=#{Formula.factory('gearman').prefix}"
     system "make"
     prefix.install "modules/gearman.so"

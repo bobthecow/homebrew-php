@@ -18,6 +18,7 @@ class Php53Pspell < AbstractPhpExtension
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
+                          phpconfig,
                           "--disable-debug",
                           "--with-pspell=#{Formula.factory('aspell').prefix}"
     system "make"

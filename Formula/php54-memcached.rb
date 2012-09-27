@@ -18,6 +18,7 @@ class Php54Memcached < AbstractPhpExtension
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
+                          phpconfig,
                           "--with-libmemcached-dir=#{Formula.factory('libmemcached').prefix}"
     system "make"
     prefix.install "modules/memcached.so"

@@ -24,6 +24,7 @@ class Php53Apc < AbstractPhpExtension
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
+                          phpconfig,
                           "--enable-apc-pthreadmutex"
     system "make"
     prefix.install %w(modules/apc.so apc.php)

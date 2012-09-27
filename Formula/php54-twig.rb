@@ -15,7 +15,8 @@ class Php54Twig < AbstractPhpExtension
 
     Dir.chdir 'ext/twig' do
       safe_phpize
-      system "./configure", "--prefix=#{prefix}"
+      system "./configure", "--prefix=#{prefix}",
+                            phpconfig
       system "make"
       prefix.install %w(modules/twig.so)
     end

@@ -19,6 +19,7 @@ class Php53Xdebug < AbstractPhpExtension
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
+                          phpconfig
                           "--disable-debug",
                           "--disable-dependency-tracking",
                           "--enable-xdebug"

@@ -18,6 +18,7 @@ class Php54Mcrypt < AbstractPhpExtension
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
+                          phpconfig,
                           "--disable-dependency-tracking",
                           "--with-mcrypt=#{Formula.factory('mcrypt').prefix}"
     system "make"
