@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Oauth < AbstractPhpExtension
+class Php54Oauth < AbstractPhp54Extension
   homepage 'http://pecl.php.net/package/oauth'
   url 'http://pecl.php.net/get/oauth-1.2.2.tgz'
   sha1 'bd74cd7aa150e33db20ac36f0b1459473f1ef070'

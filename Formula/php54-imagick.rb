@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Imagick < AbstractPhpExtension
+class Php54Imagick < AbstractPhp54Extension
   homepage 'http://pecl.php.net/package/imagick'
   url 'http://pecl.php.net/get/imagick-3.1.0RC2.tgz'
   sha1 '64dd5c8ff4d43d94e65c3b35ac0b439676ecc746'

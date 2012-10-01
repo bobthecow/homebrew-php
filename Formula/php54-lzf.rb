@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Lzf < AbstractPhpExtension
+class Php54Lzf < AbstractPhp54Extension
   homepage 'http://pecl.php.net/package/lzf'
   url 'http://pecl.php.net/get/LZF-1.6.2.tgz'
   sha1 '9e24976b65a000ea09f0860daa1de13d5de4f022'

@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Memcache < AbstractPhpExtension
+class Php54Memcache < AbstractPhp54Extension
   homepage 'http://pecl.php.net/package/memcache'
   url 'http://pecl.php.net/get/memcache-2.2.6.tgz'
   sha1 'be0b12fa09ed127dc35c0da29a576a9112be1bde'

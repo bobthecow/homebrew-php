@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Yaf < AbstractPhpExtension
+class Php54Yaf < AbstractPhp54Extension
   homepage 'http://pecl.php.net/package/yaf'
   url 'http://pecl.php.net/get/yaf-2.2.2.tgz'
   sha1 '826f85b7b641a7418110f73f823749509c58b1b7'

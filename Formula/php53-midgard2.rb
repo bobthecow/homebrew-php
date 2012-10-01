@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Midgard2 < AbstractPhpExtension
+class Php53Midgard2 < AbstractPhp53Extension
   homepage 'http://www.midgard-project.org'
   head 'https://github.com/midgardproject/midgard-php5.git', :branch => 'ratatoskr'
   url 'https://github.com/midgardproject/midgard-php5/tarball/10.05.6'

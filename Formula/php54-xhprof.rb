@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Xhprof < AbstractPhpExtension
+class Php54Xhprof < AbstractPhp54Extension
   homepage 'https://github.com/facebook/xhprof'
   url 'https://github.com/facebook/xhprof/tarball/270b75dddf871271fe81ed416e122bd158a883f6'
   sha1 'bcab304b002043d1b31a4e66231e4ec93573e30c'

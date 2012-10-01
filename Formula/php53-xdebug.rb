@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Xdebug < AbstractPhpExtension
+class Php53Xdebug < AbstractPhp53Extension
   homepage 'http://xdebug.org'
   url 'http://xdebug.org/files/xdebug-2.2.1.tgz'
   sha1 '8b4aec5f68f2193d07bf4839ee46ff547740ed7e'

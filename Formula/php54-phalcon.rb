@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Phalcon < AbstractPhpExtension
+class Php54Phalcon < AbstractPhp54Extension
   homepage 'http://phalconphp.com/'
   url 'https://github.com/phalcon/cphalcon/tarball/v0.4.5'
   version '0.4.5'

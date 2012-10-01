@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Intl < AbstractPhpExtension
+class Php53Intl < AbstractPhp53Extension
   homepage 'http://php.net/manual/en/book.intl.php'
   url 'http://www.php.net/get/php-5.3.16.tar.bz2/from/this/mirror'
   sha1 'a8356b18f6413a87451bd70110b814c847b69f00'

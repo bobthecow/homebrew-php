@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php54Solr < AbstractPhpExtension
+class Php54Solr < AbstractPhp54Extension
   homepage 'http://pecl.php.net/package/solr'
   url 'http://pecl.php.net/get/solr-1.0.2.tgz'
   sha1 '2412c77bd86e70bfcd25473a7ed70e4631ffafcc'

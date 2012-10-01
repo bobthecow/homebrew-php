@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Igbinary < AbstractPhpExtension
+class Php53Igbinary < AbstractPhp53Extension
   homepage 'http://pecl.php.net/package/igbinary'
   url 'http://pecl.php.net/get/igbinary-1.1.1.tgz'
   sha1 'cebe34d18dd167a40a712a6826415e3e5395ab27'

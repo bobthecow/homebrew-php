@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-class Php53Gearman < AbstractPhpExtension
+class Php53Gearman < AbstractPhp53Extension
   homepage 'http://pecl.php.net/package/gearman'
   url 'http://pecl.php.net/get/gearman-1.0.2.tgz'
   sha1 '6b75248d9eb8776a640639bfdffb0c06e0e594ad'
