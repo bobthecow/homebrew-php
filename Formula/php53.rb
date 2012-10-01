@@ -6,9 +6,9 @@ end
 
 class Php53 < Formula
   homepage 'http://php.net'
-  url 'http://www.php.net/get/php-5.3.16.tar.bz2/from/this/mirror'
-  sha1 'a8356b18f6413a87451bd70110b814c847b69f00'
-  version '5.3.16'
+  url 'http://www.php.net/get/php-5.3.17.tar.bz2/from/this/mirror'
+  sha1 'd6f0192d2c1dae2921923762bde5ae356ceda5b5'
+  version '5.3.17'
 
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
@@ -248,11 +248,6 @@ INFO
     end
 
     system "./configure", *args
-
-    # https://bugs.php.net/bug.php?id=62460
-    inreplace "Makefile",
-              'EXEEXT = .dSYM',
-              'EXEEXT = '
 
     unless build.include? 'without-apache'
       # Use Homebrew prefix for the Apache libexec folder
