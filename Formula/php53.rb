@@ -76,28 +76,36 @@ class Php53 < Formula
   end
 
   def install
-    # Not removing all pear.conf's from PHP path results in the PHP
-    # configure not properly setting the pear binary to be installed
+    # Not removing all pear.conf and .pearrc files from PHP path results in
+    # the PHP configure not properly setting the pear binary to be installed
     config_pear = "#{config_path}/pear.conf"
     user_pear = "#{home_path}/pear.conf"
-    if File.exists?(config_pear) || File.exists?(user_pear)
-      opoo "Backing up all known pear.conf files"
+    config_pearrc = "#{config_path}/.pearrc"
+    user_pearrc = "#{home_path}/.pearrc"
+    if File.exists?(config_pear) || File.exists?(user_pear) || File.exists?(config_pearrc) || File.exists?(user_pearrc)
+      opoo "Backing up all known pear.conf and .pearrc files"
       opoo <<-INFO
 If you have a pre-existing pear install outside
-         of homebrew-php, and you are using a non-standard
+         of homebrew-php, or you are using a non-standard
          pear.conf location, installation may fail.
 INFO
       mv(config_pear, "#{config_pear}-backup") if File.exists? config_pear
       mv(user_pear, "#{user_pear}-backup") if File.exists? user_pear
+      mv(config_pearrc, "#{config_pearrc}-backup") if File.exists? config_pearrc
+      mv(user_pearrc, "#{user_pearrc}-backup") if File.exists? user_pearrc
     end
 
     begin
       _install
       rm_f("#{config_pear}-backup") if File.exists? "#{config_pear}-backup"
       rm_f("#{user_pear}-backup") if File.exists? "#{user_pear}-backup"
+      rm_f("#{config_pearrc}-backup") if File.exists? "#{config_pearrc}-backup"
+      rm_f("#{user_pearrc}-backup") if File.exists? "#{user_pearrc}-backup"
     rescue Exception => e
       mv("#{config_pear}-backup", config_pear) if File.exists? "#{config_pear}-backup"
       mv("#{user_pear}-backup", user_pear) if File.exists? "#{user_pear}-backup"
+      mv("#{config_pearrc}-backup", config_pearrc) if File.exists? "#{config_pearrc}-backup"
+      mv("#{user_pearrc}-backup", user_pearrc) if File.exists? "#{user_pearrc}-backup"
       throw e
     end
   end
