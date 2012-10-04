@@ -11,7 +11,7 @@ end
 class PhpCsFixer < Formula
   homepage 'http://cs.sensiolabs.org'
   url 'http://cs.sensiolabs.org/get/php-cs-fixer.phar'
-  sha1 'd8aee46fa5515513bab100635992c85ad08258c7'
+  sha1 '15fd2bb68070b7b0fb2562b5fe8e8683a71e5676'
   version '0.2'
 
   depends_on 'php53' => :recommended unless php_installed? && php_phar_module_enabled?
