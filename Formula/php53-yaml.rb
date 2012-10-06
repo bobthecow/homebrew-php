@@ -2,8 +2,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Yaml < AbstractPhp53Extension
   homepage 'http://pecl.php.net/package/yaml'
-  url 'http://pecl.php.net/get/yaml-1.0.1.tgz'
-  sha1 'bba27142b9656fecaa6835ad57e3614f2330a51c'
+  url 'http://pecl.php.net/get/yaml-1.1.0.tgz'
+  sha1 '8ab77d3e49eed6944bbb3130c054288402f484d7'
   head 'https://svn.php.net/repository/pecl/yaml/trunk', :using => :svn
 
   depends_on 'autoconf' => :build
