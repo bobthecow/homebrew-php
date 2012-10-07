@@ -9,7 +9,7 @@ class Php53Geoip < AbstractPhp53Extension
 
   depends_on 'autoconf' => :build
   depends_on 'geoip'
-  depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "geoip-#{version}" unless build.head?

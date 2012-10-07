@@ -7,7 +7,7 @@ class Php53Dbase < AbstractPhp53Extension
   version '5.1.0'
 
   depends_on 'autoconf' => :build
-  depends_on 'php53' if build.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' unless build.include?('with-homebrew-php')
 
   def install
     Dir.chdir "dbase-5.1.0"

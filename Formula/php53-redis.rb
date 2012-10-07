@@ -7,7 +7,7 @@ class Php53Redis < AbstractPhp53Extension
   head 'https://github.com/nicolasff/phpredis.git'
 
   depends_on 'autoconf' => :build
-  depends_on 'php53' if build.include?('--with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   fails_with :clang do
     build 318
