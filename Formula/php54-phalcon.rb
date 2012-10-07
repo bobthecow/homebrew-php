@@ -8,7 +8,7 @@ class Php54Phalcon < AbstractPhp54Extension
   head 'git://github.com/phalcon/cphalcon.git', :using => :git
 
   depends_on 'autoconf' => :build
-  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' unless build.include?('without-homebrew-php')
   depends_on 'pcre'
 
   def install

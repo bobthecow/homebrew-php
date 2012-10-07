@@ -8,7 +8,7 @@ class Php54Yaml < AbstractPhp54Extension
 
   depends_on 'autoconf' => :build
   depends_on 'libyaml'
-  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "yaml-#{version}" unless build.head?

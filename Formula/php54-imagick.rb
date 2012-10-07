@@ -8,7 +8,7 @@ class Php54Imagick < AbstractPhp54Extension
 
   depends_on 'autoconf' => :build
   depends_on 'imagemagick'
-  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "imagick-#{version}" unless build.head?

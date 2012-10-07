@@ -7,7 +7,7 @@ class Php54Uuid < AbstractPhp54Extension
   head 'https://svn.php.net/repository/pecl/uuid/trunk', :using => :svn
 
   depends_on 'autoconf' => :build
-  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def patches
     # fixes build errors on OSX 10.6 and 10.7

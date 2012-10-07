@@ -7,7 +7,7 @@ class Php53Zmq < AbstractPhp53Extension
   head 'https://github.com/mkoppanen/php-zmq.git'
 
   depends_on 'autoconf' => :build
-  depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   def install
     # See https://github.com/mxcl/homebrew/pull/5947

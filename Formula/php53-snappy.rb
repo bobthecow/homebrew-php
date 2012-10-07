@@ -7,7 +7,7 @@ class Php53Snappy < AbstractPhp53Extension
   head 'http://php-snappy.googlecode.com/svn/trunk/', :using => :svn
 
   depends_on 'autoconf' => :build
-  depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' unless build.include?('without-homebrew-php')
   depends_on 'snappy'
 
   def install

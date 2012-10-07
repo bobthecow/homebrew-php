@@ -14,7 +14,7 @@ class Php53Apc < AbstractPhp53Extension
 
   depends_on 'autoconf' => :build
   depends_on 'pcre'
-  depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   def patches
     # fixes "Incorrect version tag: APC 3.1.10 shows 3.1.9"

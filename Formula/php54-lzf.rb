@@ -7,7 +7,7 @@ class Php54Lzf < AbstractPhp54Extension
   head 'https://svn.php.net/lzf/pecl/example/trunk', :using => :svn
 
   depends_on 'autoconf' => :build
-  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' unless build.include?('without-homebrew-php')
 
 
   def install

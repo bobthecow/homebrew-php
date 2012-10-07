@@ -180,9 +180,9 @@ EOS
 end
 
 class AbstractPhp53Extension < AbstractPhpExtension
-  depends_on "php53" if build.include? 'with-homebrew-php'
+  depends_on "php53" unless build.include?('without-homebrew-php')
 end
 
 class AbstractPhp54Extension < AbstractPhpExtension
-  depends_on "php54" if build.include? 'with-homebrew-php'
+  depends_on "php54" unless build.include?('without-homebrew-php')
 end

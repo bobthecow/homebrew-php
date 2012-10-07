@@ -7,7 +7,7 @@ class Php54Xdebug < AbstractPhp54Extension
   head 'https://github.com/derickr/xdebug.git'
 
   depends_on 'autoconf' => :build
-  depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
+  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def extension_type; "zend_extension"; end
 

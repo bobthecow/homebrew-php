@@ -7,7 +7,7 @@ class Php53Midgard2 < AbstractPhp53Extension
   sha1 'b4e49d4e0b476db4a96b63c712fd9727a1538ea9'
 
   depends_on 'autoconf' => :build
-  depends_on 'php53' if build.include?('with-homebrew-php') && !Formula.factory('php53').installed?
+  depends_on 'php53' unless build.include?('without-homebrew-php')
   depends_on 'pkg-config' => :build
   depends_on 'midgard2'
 
