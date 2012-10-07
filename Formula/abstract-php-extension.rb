@@ -16,7 +16,7 @@ class InvalidPhpizeError < RuntimeError
     @name = name
     super <<-EOS.undent
       Version of phpize (PHP#{installed_php_version}) in $PATH does not support building this extension
-             version (PHP#{required_php_version}). Consider installing  with the `--with-homebrew-php` flag.
+             version (PHP#{required_php_version}). Consider installing  with the `--without-homebrew-php` flag.
     EOS
   end
 end
@@ -27,7 +27,7 @@ class AbstractPhpExtension < Formula
       raise "One does not simply install an AbstractPhpExtension" if name == "abstract-php-extension"
       init = super
 
-      unless build.include? 'with-homebrew-php'
+      if build.include? 'without-homebrew-php'
         installed_php_version = nil
         i = IO.popen("#{phpize} -v")
         out = i.readlines.join("")
@@ -56,7 +56,7 @@ class AbstractPhpExtension < Formula
     end
   end
 
-  option 'with-homebrew-php', "Ignore default PHP and use homebrew-php54 instead"
+  option 'without-homebrew-php', "Ignore homebrew PHP and use default instead"
 
   def php_branch
     matches = /^Php5([3-9]+)/.match(self.class.name)
@@ -76,26 +76,26 @@ class AbstractPhpExtension < Formula
   end
 
   def phpize
-    if build.include? 'with-homebrew-php'
-      "#{(Formula.factory php_formula).bin}/phpize"
-    else
+    if build.include? 'without-homebrew-php'
       "phpize"
+    else
+      "#{(Formula.factory php_formula).bin}/phpize"
     end
   end
 
   def phpini
-    if build.include? 'with-homebrew-php'
-      "#{(Formula.factory php_formula).config_path}/php.ini"
-    else
+    if build.include? 'without-homebrew-php'
       "php.ini presented by \"php --ini\""
+    else
+      "#{(Formula.factory php_formula).config_path}/php.ini"
     end
   end
 
   def phpconfig
-    if build.include? 'with-homebrew-php'
-      "--with-php-config=#{(Formula.factory php_formula).bin}/php-config"
-    else
+    if build.include? 'without-homebrew-php'
       ""
+    else
+      "--with-php-config=#{(Formula.factory php_formula).bin}/php-config"
     end
   end
 
