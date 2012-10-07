@@ -40,7 +40,7 @@ class Php53 < Formula
     depends_on 'postgresql' => :recommended unless postgres_installed?
   end
 
-  if build.include? 'with-cgi' and build.include? 'with-fpm'
+  if build.include?('with-cgi') && build.include?('with-fpm')
     raise "Cannot specify more than one executable to build."
   end
 
@@ -185,7 +185,7 @@ INFO
     end
 
     # Build Apache module by default
-    unless build.include? 'without-apache' or build.include? 'with-cgi' or build.include? 'with-fpm'
+    unless build.include?('without-apache') || build.include?('with-cgi') || build.include?('with-fpm')
       args << "--with-apxs2=/usr/sbin/apxs"
       args << "--libexecdir=#{libexec}"
     end
@@ -216,14 +216,14 @@ INFO
       args << "--with-pdo-mysql=/usr/local"
     end
 
-    if build.include? 'with-mysql' or build.include? 'with-mariadb'
+    if build.include?('with-mysql') || build.include?('with-mariadb')
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=mysqlnd"
       args << "--with-mysql=mysqlnd"
       args << "--with-pdo-mysql=mysqlnd"
     end
 
-    if build.include? 'with-pgsql' and File.directory? Formula.factory('postgresql').prefix.to_s
+    if build.include?('with-pgsql') && File.directory?(Formula.factory('postgresql').prefix.to_s)
       args << "--with-pgsql=#{Formula.factory('postgresql').prefix}"
       args << "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
     elsif build.include? 'with-pgsql'
@@ -249,7 +249,7 @@ INFO
 
     system "./configure", *args
 
-    unless build.include? 'without-apache'
+    unless build.include?('without-apache') || build.include?('with-cgi') || build.include?('with-fpm')
       # Use Homebrew prefix for the Apache libexec folder
       inreplace "Makefile",
         "INSTALL_IT = $(mkinstalldirs) '$(INSTALL_ROOT)/usr/libexec/apache2' && $(mkinstalldirs) '$(INSTALL_ROOT)/private/etc/apache2' && /usr/sbin/apxs -S LIBEXECDIR='$(INSTALL_ROOT)/usr/libexec/apache2' -S SYSCONFDIR='$(INSTALL_ROOT)/private/etc/apache2' -i -a -n php5 libs/libphp5.so",
@@ -269,7 +269,7 @@ INFO
     config_path.install "./php.ini-development" => "php.ini" unless File.exists? config_path+"php.ini"
     chmod_R 0775, lib+"php"
     system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless build.include? 'without-pear'
-    if build.include?('with-fpm') and not File.exists? config_path+"php-fpm.conf"
+    if build.include?('with-fpm') && !File.exists?(config_path+"php-fpm.conf")
       config_path.install "sapi/fpm/php-fpm.conf"
       inreplace config_path+"php-fpm.conf" do |s|
         s.sub!(/^;?daemonize\s*=.+$/,'daemonize = no')
