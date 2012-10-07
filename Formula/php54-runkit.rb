@@ -17,7 +17,8 @@ class Php54Runkit < AbstractPhp54Extension
     ENV.universal_binary
 
     safe_phpize
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          phpconfig
     system "make"
     prefix.install "modules/runkit.so"
     write_config_file unless build.include? "without-config-file"

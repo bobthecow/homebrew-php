@@ -315,8 +315,8 @@ If you are having issues with custom extension compiling, ensure that this php i
 in your PATH:
     PATH="$(brew --prefix josegonzalez/php/php54)/bin:$PATH"
 
-Extensions will never be compiled against this homebrew-php PHP. Please install them
-using --with-homebrew-php to enable compiling against this php.
+PHP54 Extensions will always be compiled against this PHP. Please install them
+using --without-homebrew-php to enable compiling against system PHP.
 
 ✩✩✩✩ FPM ✩✩✩✩
 

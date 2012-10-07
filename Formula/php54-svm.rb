@@ -18,7 +18,8 @@ class Php54Svm < AbstractPhp54Extension
 
     safe_phpize
     ENV["CFLAGS"] = '-Wno-return-type'
-    system "./configure", "--prefix=#{prefix}"
+    system "./configure", "--prefix=#{prefix}",
+                          phpconfig
     system "make"
     prefix.install "modules/svm.so"
     write_config_file unless build.include? "without-config-file"
