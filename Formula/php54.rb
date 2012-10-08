@@ -222,7 +222,7 @@ INFO
       args << "--with-pdo-mysql=/usr/local"
     end
 
-    if build.include?('with-mysql') && build.include?('with-mariadb')
+    if build.include?('with-mysql') || build.include?('with-mariadb')
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=mysqlnd"
       args << "--with-mysql=mysqlnd"
