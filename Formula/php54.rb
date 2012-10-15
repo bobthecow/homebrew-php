@@ -55,6 +55,7 @@ class Php54 < Formula
   end
 
   option '32-bit', "Build 32-bit only."
+  option 'with-debug', 'Compile with debugging symbols'
   option 'with-libmysql', 'Include (old-style) libmysql support'
   option 'with-mariadb', 'Include MariaDB support'
   option 'with-mysql', 'Include MySQL support'
@@ -119,7 +120,6 @@ INFO
   def _install
     args = [
       "--prefix=#{prefix}",
-      "--disable-debug",
       "--localstatedir=#{var}",
       "--sysconfdir=#{config_path}",
       "--with-config-file-path=#{config_path}",
@@ -170,6 +170,12 @@ INFO
 
     unless build.include? 'without-bz2'
       args << '--with-bz2=/usr'
+    end
+
+    if build.include? 'with-debug'
+      args << "--enable-debug"
+    else
+      args << "--disable-debug"
     end
 
     if build.include? 'with-homebrew-openssl'
