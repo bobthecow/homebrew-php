@@ -6,9 +6,9 @@ end
 
 class Php54 < Formula
   homepage 'http://php.net'
-  url 'http://www.php.net/get/php-5.4.7.tar.bz2/from/this/mirror'
-  sha1 'e634fbbb63818438636bf83a5f6ea887d4569943'
-  version '5.4.7'
+  url 'http://www.php.net/get/php-5.4.8.tar.bz2/from/this/mirror'
+  sha1 'ed9c4e31da827af8a4d4b1adf3dfde17d11c0b34'
+  version '5.4.8'
 
   head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
 
