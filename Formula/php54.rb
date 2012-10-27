@@ -191,7 +191,7 @@ INFO
     end
 
     # Build Apache module by default
-    unless build.include?('without-apache') || build.include?('with-cgi') || build.include?('with-fpm')
+    if build_apache?
       args << "--with-apxs2=/usr/sbin/apxs"
       args << "--libexecdir=#{libexec}"
     end
@@ -259,7 +259,7 @@ INFO
     system "./buildconf" if build.head?
     system "./configure", *args
 
-    unless build.include?('without-apache') || build.include?('with-cgi') || build.include?('with-fpm')
+    if build_apache?
       # Use Homebrew prefix for the Apache libexec folder
       inreplace "Makefile",
         "INSTALL_IT = $(mkinstalldirs) '$(INSTALL_ROOT)/usr/libexec/apache2' && $(mkinstalldirs) '$(INSTALL_ROOT)/private/etc/apache2' && /usr/sbin/apxs -S LIBEXECDIR='$(INSTALL_ROOT)/usr/libexec/apache2' -S SYSCONFDIR='$(INSTALL_ROOT)/private/etc/apache2' -i -a -n php5 libs/libphp5.so",
@@ -292,55 +292,88 @@ INFO
     end
   end
 
- def caveats; <<-EOS
-For 10.5 and Apache:
-    Apache needs to run in 32-bit mode. You can either force Apache to start
-    in 32-bit mode or you can thin the Apache executable.
+  def build_apache?
+    !(build.include?('without-apache') || build.include?('with-cgi') || build.include?('with-fpm'))
+  end
 
-To enable PHP in Apache add the following to httpd.conf and restart Apache:
-    LoadModule php5_module    #{libexec}/apache2/libphp5.so
+  def caveats
+    s = []
 
-The php.ini file can be found in:
-    #{config_path}/php.ini
+    if build_apache?
+      if MacOS.version <= :leopard
+        s << <<-EOS.undent
+          For 10.5 and Apache:
+              Apache needs to run in 32-bit mode. You can either force Apache to start
+              in 32-bit mode or you can thin the Apache executable.
+        EOS
+      end
 
-✩✩✩✩ PEAR ✩✩✩✩
+      s << <<-EOS.undent
+        To enable PHP in Apache add the following to httpd.conf and restart Apache:
+            LoadModule php5_module    #{libexec}/apache2/libphp5.so
+      EOS
+    end
 
-If pear complains about permissions, 'Fix' the default PEAR permissions and config:
-    chmod -R ug+w #{lib}/php
-    pear config-set php_ini #{etc}/php/5.4/php.ini
+    s << <<-EOS.undent
+      The php.ini file can be found in:
+          #{config_path}/php.ini
+    EOS
 
-✩✩✩✩ Extensions ✩✩✩✩
+    unless build.include? 'without-pear'
+      s << <<-EOS.undent
+        ✩✩✩✩ PEAR ✩✩✩✩
 
-If you are having issues with custom extension compiling, ensure that this php is
-in your PATH:
-    PATH="$(brew --prefix josegonzalez/php/php54)/bin:$PATH"
+        If PEAR complains about permissions, 'fix' the default PEAR permissions and config:
+            chmod -R ug+w #{lib}/php
+            pear config-set php_ini #{etc}/php/5.4/php.ini
+      EOS
+    end
 
-PHP54 Extensions will always be compiled against this PHP. Please install them
-using --without-homebrew-php to enable compiling against system PHP.
+    s << <<-EOS.undent
+      ✩✩✩✩ Extensions ✩✩✩✩
 
-✩✩✩✩ FPM ✩✩✩✩
+      If you are having issues with custom extension compiling, ensure that this php is
+      in your PATH:
+          PATH="$(brew --prefix josegonzalez/php/php54)/bin:$PATH"
 
-If you have installed the formula with --with-fpm, to launch php-fpm on startup:
-    * If this is your first install:
-        mkdir -p ~/Library/LaunchAgents
-        cp #{prefix}/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
-        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
+      PHP54 Extensions will always be compiled against this PHP. Please install them
+      using --without-homebrew-php to enable compiling against system PHP.
+    EOS
 
-    * If this is an upgrade and you already have the homebrew-php.josegonzalez.php54.plist loaded:
-        launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
-        cp #{prefix}/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
-        launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
+    if build.include? 'with-fpm'
+      s << <<-EOS.undent
+        ✩✩✩✩ FPM ✩✩✩✩
 
-Mountain Lion comes with php-fpm pre-installed, to ensure you are using the brew version you need to make sure /usr/local/sbin is before /usr/sbin in your PATH:
+        To launch php-fpm on startup:
+            * If this is your first install:
+                mkdir -p ~/Library/LaunchAgents
+                cp #{prefix}/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+                launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
 
-  PATH="/usr/local/sbin:$PATH"
+            * If this is an upgrade and you already have the homebrew-php.josegonzalez.php54.plist loaded:
+                launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
+                cp #{prefix}/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+                launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
+      EOS
 
-You may also need to edit the plist to use the correct "UserName".
+      if MacOS.version >= :mountain_lion
+        s << <<-EOS.undent
+          Mountain Lion comes with php-fpm pre-installed, to ensure you are using the brew version you need to make sure /usr/local/sbin is before /usr/sbin in your PATH:
 
-Please note that the plist was called 'org.php-fpm.plist' in old versions
-of this formula.
-   EOS
- end
+            PATH="/usr/local/sbin:$PATH"
+        EOS
+      end
+
+      s << <<-EOS.undent
+        You may also need to edit the plist to use the correct "UserName".
+
+        Please note that the plist was called 'org.php-fpm.plist' in old versions
+        of this formula.
+      EOS
+    end
+
+    s.join "\n"
+  end
 
   def test
     if build.include?('with-fpm')
