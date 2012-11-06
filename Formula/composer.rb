@@ -5,7 +5,7 @@ def php_installed?
 end
 
 def composer_reqs?
-  `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -- --check`.include? "All settings correct"
+  `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -d date.timezone=UTC -- --check`.include? "All settings correct"
 end
 
 class Composer < Formula
@@ -20,7 +20,7 @@ class Composer < Formula
     unless composer_reqs?
       raise <<-EOS.undent
         Composer PHP requirements check has failed. Please run
-        `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -- --check`
+        `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -d date.timezone=UTC -- --check`
         to identify and fix any issues
       EOS
     end
