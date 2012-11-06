@@ -14,7 +14,7 @@ class Composer < Formula
   sha1 'f01c2bbbd5d9d56fe7b2250081d66c40dbe9a3e6'
   version '1.0.0-alpha6'
 
-  depends_on 'php' => :recommended unless php_installed?
+  depends_on 'php53' => :recommended unless php_installed?
 
   def install
     unless composer_reqs?
