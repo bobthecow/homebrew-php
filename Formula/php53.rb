@@ -6,11 +6,11 @@ class Php53 < AbstractPhp
   version '5.3.18'
 
   def php_version
-    5.4
+    5.3
   end
 
   def php_version_path
-    54
+    53
   end
 
 end
