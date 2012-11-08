@@ -6,6 +6,7 @@ class Php52 < AbstractPhp
   version '5.2.17'
 
   depends_on 'mhash'
+  depends_on 'libevent' if build.include? 'with-fpm'
 
   def php_version
     5.2
