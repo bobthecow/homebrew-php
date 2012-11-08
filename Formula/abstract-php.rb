@@ -5,26 +5,6 @@ def postgres_installed?
 end
 
 class AbstractPhp < Formula
-  def initialize name='__UNKNOWN__', path=nil
-    init = super
-
-    if php_version < 5.4
-      raise "Cannot build head on old version of php" if build.head?
-      self.class.depends_on 'libevent' if build.include? 'with-fpm'
-    else
-      self.class.head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
-    end
-
-
-    self.class.depends_on 'mhash' if php_version == 5.2
-
-    if build.include?('with-suhosin') && (build.head? || php_version >= 5.4)
-      raise "Cannot apply Suhosin Patch to unstable builds or PHP 5.4 at this time"
-    end
-
-    init
-  end
-
   homepage 'http://php.net'
 
   # So PHP extensions don't report missing symbols
@@ -52,7 +32,6 @@ class AbstractPhp < Formula
     raise "Cannot specify more than one MySQL variant to build against."
   end
 
-
   if build.include? 'with-pgsql'
     depends_on 'postgresql' => :recommended unless postgres_installed?
   end
@@ -60,6 +39,8 @@ class AbstractPhp < Formula
   if build.include?('with-cgi') && build.include?('with-fpm')
     raise "Cannot specify more than one executable to build."
   end
+
+  raise "Cannot apply Suhosin Patch to unstable builds" if build.include?('with-suhosin') && build.head?
 
   option '32-bit', "Build 32-bit only."
   option 'with-debug', 'Compile with debugging symbols'
@@ -80,10 +61,6 @@ class AbstractPhp < Formula
   option 'without-pear', 'Build without PEAR'
   option 'with-homebrew-openssl', 'Include OpenSSL support via Homebrew'
   option 'without-bz2', 'Build without bz2 support'
-
-  def patches
-    "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if build.include? 'with-suhosin'
-  end
 
   def config_path
     etc+"php/"+php_version.to_s
@@ -144,8 +121,8 @@ INFO
     end
   end
 
-  def _install
-    args = [
+  def install_args
+    [
       "--prefix=#{prefix}",
       "--localstatedir=#{var}",
       "--sysconfdir=#{config_path}",
@@ -186,18 +163,20 @@ INFO
       "--with-snmp=/usr",
       "--with-libedit",
       "--mandir=#{man}",
+      "--with-mhash",
     ]
+  end
 
-    if php_version == 5.2
-      args << "--with-mhash=#{Formula.factory('mhash').prefix}"
-    else
-      args << "--with-mhash"
-    end
+  def default_config
+    "./php.ini-development"
+  end
 
-    args << "--enable-zend-multibyte" if php_version < 5.4
-    args << "--enable-sqlite-utf8" if php_version < 5.4
-    args << "--enable-zend-signals" if php_version >= 5.4
-    args << "--enable-dtrace" if php_version >= 5.4
+  def skip_pear_config_set?
+    build.include? 'without-pear'
+  end
+
+  def _install
+    args = install_args
 
     unless MacOS.version >= :mountain_lion
       args << "--with-libxml-dir=#{Formula.factory('libxml2').prefix}"
@@ -314,17 +293,11 @@ INFO
     ENV.deparallelize # parallel install fails on some systems
     system "make install"
 
-    if php_version == 5.2
-      config_path.install "./php.ini-recommended" => "php.ini" unless File.exists? config_path+"php.ini"
-    else
-      config_path.install "./php.ini-development" => "php.ini" unless File.exists? config_path+"php.ini"
-    end
+    config_path.install default_config => "php.ini" unless File.exists? config_path+"php.ini"
 
     chmod_R 0775, lib+"php"
 
-    unless php_version == 5.2
-      system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless build.include? 'without-pear'
-    end
+    system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless skip_pear_config_set?
 
     if build.include?('with-fpm') && !File.exists?(config_path+"php-fpm.conf")
       config_path.install "sapi/fpm/php-fpm.conf"
