@@ -40,8 +40,6 @@ class AbstractPhp < Formula
     raise "Cannot specify more than one executable to build."
   end
 
-  raise "Cannot apply Suhosin Patch to unstable builds" if build.include?('with-suhosin') && build.head?
-
   option '32-bit', "Build 32-bit only."
   option 'with-debug', 'Compile with debugging symbols'
   option 'with-libmysql', 'Include (old-style) libmysql support'
