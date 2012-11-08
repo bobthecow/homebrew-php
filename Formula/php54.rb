@@ -5,6 +5,8 @@ class Php54 < AbstractPhp
   sha1 'ed9c4e31da827af8a4d4b1adf3dfde17d11c0b34'
   version '5.4.8'
 
+  head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
+
   def php_version
     5.4
   end
