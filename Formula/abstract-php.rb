@@ -15,6 +15,9 @@ class AbstractPhp < Formula
       self.class.head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
     end
 
+
+    self.class.depends_on 'mhash' if php_version == 5.2
+
     if build.include?('with-suhosin') && (build.head? || php_version >= 5.4)
       raise "Cannot apply Suhosin Patch to unstable builds or PHP 5.4 at this time"
     end
@@ -181,10 +184,15 @@ INFO
       "--with-png-dir=#{Formula.factory('libpng').prefix}",
       "--with-gettext=#{Formula.factory('gettext').prefix}",
       "--with-snmp=/usr",
-      "--with-mhash",
       "--with-libedit",
       "--mandir=#{man}",
     ]
+
+    if php_version == 5.2
+      args << "--with-mhash=#{Formula.factory('mhash').prefix}"
+    else
+      args << "--with-mhash"
+    end
 
     args << "--enable-zend-multibyte" if php_version < 5.4
     args << "--enable-sqlite-utf8" if php_version < 5.4
@@ -306,9 +314,18 @@ INFO
     ENV.deparallelize # parallel install fails on some systems
     system "make install"
 
-    config_path.install "./php.ini-development" => "php.ini" unless File.exists? config_path+"php.ini"
+    if php_version == 5.2
+      config_path.install "./php.ini-recommended" => "php.ini" unless File.exists? config_path+"php.ini"
+    else
+      config_path.install "./php.ini-development" => "php.ini" unless File.exists? config_path+"php.ini"
+    end
+
     chmod_R 0775, lib+"php"
-    system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless build.include? 'without-pear'
+
+    unless php_version == 5.2
+      system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless build.include? 'without-pear'
+    end
+
     if build.include?('with-fpm') && !File.exists?(config_path+"php-fpm.conf")
       config_path.install "sapi/fpm/php-fpm.conf"
       inreplace config_path+"php-fpm.conf" do |s|
