@@ -7,6 +7,15 @@ class Php54 < AbstractPhp
 
   head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
 
+  raise "Cannot build PHP 5.4 with Suhosin at this time" if build.include? 'with-suhosin'
+
+  def install_args
+    super + [
+      "--enable-zend-signals",
+      "--enable-dtrace",
+    ]
+  end
+
   def php_version
     5.4
   end

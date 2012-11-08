@@ -5,6 +5,19 @@ class Php53 < AbstractPhp
   sha1 '561b7ed1ad147346d97f4cac78159e5918a7b5b9'
   version '5.3.18'
 
+  depends_on 'libevent' if build.include? 'with-fpm'
+
+  def install_args
+    super + [
+      "--enable-zend-multibyte",
+      "--enable-sqlite-utf8",
+    ]
+  end
+
+  def patches
+    "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if build.include? 'with-suhosin'
+  end
+
   def php_version
     5.3
   end
