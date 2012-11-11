@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Ssh2 < AbstractPhp53Extension
+  init
   homepage 'http://pecl.php.net/package/ssh2'
   url 'http://pecl.php.net/get/ssh2-0.11.3.tgz'
   sha1 '8d1e4b59e1fff368c5a3dde04fc93c5361203077'

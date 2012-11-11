@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Geoip < AbstractPhp53Extension
+  init
   homepage 'http://pecl.php.net/package/geoip'
   url 'http://pecl.php.net/get/geoip-1.0.8.tgz'
   sha1 'f8d17da3e192002332ab54b9b4ab0f5deeaf9f15'

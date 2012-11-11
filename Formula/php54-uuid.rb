@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php54Uuid < AbstractPhp54Extension
+  init
   homepage 'http://pecl.php.net/package/uuid'
   url 'http://pecl.php.net/get/uuid-1.0.2.tgz'
   sha1 'ad936b20fdbeecc803b9770c292e8d763026597d'

@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php54Snappy < AbstractPhp54Extension
+  init
   homepage 'http://code.google.com/p/php-snappy/'
   url 'http://php-snappy.googlecode.com/files/php-snappy-0.0.2.tar.gz'
   sha1 '8537def4d9358830c26119e321a9080db1228c78'

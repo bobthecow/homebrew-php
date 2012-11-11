@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Twig < AbstractPhp53Extension
+  init
   homepage 'http://twig.sensiolabs.org/'
   url 'https://github.com/fabpot/Twig/tarball/v1.9.2'
   sha1 '5e734f152d09df1f49de70cc27b031887c4408dd'

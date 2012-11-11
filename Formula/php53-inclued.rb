@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Inclued < AbstractPhp53Extension
+  init
   homepage 'http://pecl.php.net/package/inclued'
   url 'http://pecl.php.net/get/inclued-0.1.3.tgz'
   sha1 '3967cfa654a9bd7f0a793700030c5d28b744d48d'

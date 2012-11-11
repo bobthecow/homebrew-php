@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Imagick < AbstractPhp53Extension
+  init
   homepage 'http://pecl.php.net/package/imagick'
   url 'http://pecl.php.net/get/imagick-3.1.0RC2.tgz'
   sha1 '29b6dcd534cde6b37ebe3ee5077b71a9eed685c2'

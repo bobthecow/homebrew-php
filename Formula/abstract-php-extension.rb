@@ -56,7 +56,9 @@ class AbstractPhpExtension < Formula
     end
   end
 
-  option 'without-homebrew-php', "Ignore homebrew PHP and use default instead"
+  def self.init
+    option 'without-homebrew-php', "Ignore homebrew PHP and use default instead"
+  end
 
   def php_branch
     matches = /^Php5([3-9]+)/.match(self.class.name)
@@ -180,9 +182,15 @@ EOS
 end
 
 class AbstractPhp53Extension < AbstractPhpExtension
-  depends_on "php53" unless build.include?('without-homebrew-php')
+  def self.init
+    super
+    depends_on "php53" unless build.include?('without-homebrew-php')
+  end
 end
 
 class AbstractPhp54Extension < AbstractPhpExtension
-  depends_on "php54" unless build.include?('without-homebrew-php')
+  def self.init
+    super
+    depends_on "php54" unless build.include?('without-homebrew-php')
+  end
 end
