@@ -16,7 +16,7 @@ class Php53 < AbstractPhp
   end
 
   def patches
-    "http://download.suhosin.org/suhosin-patch-5.3.9-0.9.10.patch.gz" if build.include? 'with-suhosin'
+    "http://www.itkb.ro/userfiles/file/suhosin-patch-5.3.18-0.9.10.patch.gz" if build.include? 'with-suhosin'
   end
 
   def php_version
