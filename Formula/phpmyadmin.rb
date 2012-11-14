@@ -8,7 +8,6 @@ def php53_installed?
   `php -v`.match(/5\.3\./)
 end
 
-
 class Phpmyadmin < Formula
   homepage 'http://www.phpmyadmin.net'
   url 'http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.2.1/phpMyAdmin-3.5.2.1-all-languages.tar.bz2'

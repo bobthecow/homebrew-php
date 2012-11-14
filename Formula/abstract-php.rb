@@ -86,17 +86,17 @@ class AbstractPhp < Formula
   end
 
   def php_version
-  	raise "Unspecified php version"
+    raise "Unspecified php version"
   end
 
   def php_version_path
-  	raise "Unspecified php version path"
+    raise "Unspecified php version path"
   end
 
   def install
-  	# Ensure this php has a version specified
-  	php_version
-  	php_version_path
+    # Ensure this php has a version specified
+    php_version
+    php_version_path
 
     # Not removing all pear.conf and .pearrc files from PHP path results in
     # the PHP configure not properly setting the pear binary to be installed
