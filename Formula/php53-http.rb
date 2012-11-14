@@ -7,9 +7,6 @@ class Php53Http < AbstractPhp53Extension
   sha1 '3a2276c765fccb58ae0a96e71bde26657952d139'
   head 'http://svn.php.net/repository/pecl/http/trunk/', :using => :svn
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
-
   def install
     Dir.chdir "pecl_http-#{version}" unless build.head?
 

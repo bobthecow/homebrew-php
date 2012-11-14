@@ -7,9 +7,6 @@ class Php54Mongo < AbstractPhp54Extension
   sha1 '5bf06a36f275e40378db1ebdfda6dfb93419ae60'
   head 'https://github.com/mongodb/mongo-php-driver.git'
 
-  depends_on 'autoconf' => :build
-  depends_on 'php54' unless build.include?('without-homebrew-php')
-
   def install
     Dir.chdir "mongo-#{version}" unless build.head?
 

@@ -8,9 +8,6 @@ class Php53Runkit < AbstractPhp53Extension
   head 'https://github.com/zenovich/runkit.git'
   version '1.0.3'
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
-
   def install
     Dir.chdir "runkit-#{version}" unless build.head?
 

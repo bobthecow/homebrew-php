@@ -7,9 +7,6 @@ class Php53Dbase < AbstractPhp53Extension
   sha1 'e3740fae3eba6a5d65ca928445f15d58e529201d'
   version '5.1.0'
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
-
   def install
     Dir.chdir "dbase-5.1.0"
 

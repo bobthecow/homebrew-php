@@ -6,9 +6,7 @@ class Php53Xhprof < AbstractPhp53Extension
   url 'http://pecl.php.net/get/xhprof-0.9.2.tgz'
   sha1 'cef6bfb3374e05c7b7445249a304e066d4fd8574'
 
-  depends_on 'autoconf' => :build
   depends_on 'pcre'
-  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "xhprof-#{version}/extension" do

@@ -8,9 +8,6 @@ class Php54Svm < AbstractPhp54Extension
   head 'https://github.com/ianbarber/php-svm.git'
   version '0.1.8'
 
-  depends_on 'autoconf' => :build
-  depends_on 'php54' unless build.include?('without-homebrew-php')
-
   def install
     Dir.chdir "svm-#{version}" unless build.head?
 

@@ -148,16 +148,13 @@ The template for the `php54-example` pecl extension would be as follows. Please 
 
     require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
-    class Php54Example < AbstractPhpExtension
+    class Php54Example < AbstractPhp54Extension
+      init
       homepage 'http://pecl.php.net/package/example'
       url 'http://pecl.php.net/get/example-1.0.tgz'
       sha1 'SOMEHASHHERE'
       version '1.0'
       head 'https://svn.php.net/repository/pecl/example/trunk', :using => :svn
-
-      depends_on 'autoconf' => :build
-      depends_on 'php54' if build.include?('with-homebrew-php') && !Formula.factory('php54').installed?
-
 
       def install
         Dir.chdir "example-#{version}" unless build.head?
@@ -166,14 +163,15 @@ The template for the `php54-example` pecl extension would be as follows. Please 
         ENV.universal_binary
 
         safe_phpize
-        system "./configure", "--prefix=#{prefix}"
+        system "./configure", "--prefix=#{prefix}",
+                              phpconfig
         system "make"
         prefix.install "modules/example.so"
         write_config_file unless build.include? "without-config-file"
       end
     end
 
-Defining extensions inheriting AbstractPhpExtension will provide a `write_config_file` which add `ext-{extension}.ini` to `conf.d`, don’t forget to remove it manually upon extension removal. Please see [AbstractPhpExtension.rb](Formula/AbstractPhpExtension.rb) for more details.
+Defining extensions inheriting AbstractPhp5(34)Extension will provide a `write_config_file` which add `ext-{extension}.ini` to `conf.d`, don’t forget to remove it manually upon extension removal. Please see [AbstractPhpExtension.rb](Formula/AbstractPhpExtension.rb) for more details.
 
 Please note that your formula installation may deviate significantly from the above; caveats should more or less stay the same, as they give explicit instructions to users as to how to ensure the extension is properly installed.
 

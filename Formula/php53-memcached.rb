@@ -7,9 +7,7 @@ class Php53Memcached < AbstractPhp53Extension
   sha1 '5442250bf4a9754534bce9a3033dc5363d8238f7'
   head 'https://github.com/php-memcached-dev/php-memcached.git'
 
-  depends_on 'autoconf' => :build
   depends_on 'libmemcached'
-  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "memcached-#{version}" unless build.head?

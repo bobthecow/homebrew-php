@@ -7,9 +7,7 @@ class Php54Zmq < AbstractPhp54Extension
   sha1 'ac3f28fdad28543ea3280c2a4b73f52c62deaadc'
   head 'https://github.com/mkoppanen/php-zmq.git'
 
-  depends_on 'autoconf' => :build
   depends_on 'pkg-config'
-  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def install
     # See https://github.com/mxcl/homebrew/pull/5947

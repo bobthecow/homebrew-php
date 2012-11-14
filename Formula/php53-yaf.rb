@@ -7,8 +7,6 @@ class Php53Yaf < AbstractPhp53Extension
   sha1 '826f85b7b641a7418110f73f823749509c58b1b7'
   head 'https://svn.php.net/repository/pecl/yaf/trunk/', :using => :svn
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
   depends_on 'pcre'
 
   def install

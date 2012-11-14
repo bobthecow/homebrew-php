@@ -8,8 +8,6 @@ class Php53Pspell < AbstractPhp53Extension
   version '5.3.18'
 
   depends_on 'aspell'
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "ext/pspell"

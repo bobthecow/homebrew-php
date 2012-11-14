@@ -7,9 +7,6 @@ class Php54Oauth < AbstractPhp54Extension
   sha1 'bd74cd7aa150e33db20ac36f0b1459473f1ef070'
   head 'https://svn.php.net/repository/pecl/oauth/trunk', :using => :svn
 
-  depends_on 'autoconf' => :build
-  depends_on 'php54' unless build.include?('without-homebrew-php')
-
   def install
     Dir.chdir "oauth-#{version}" unless build.head?
 

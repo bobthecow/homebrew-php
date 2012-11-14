@@ -8,9 +8,7 @@ class Php54Xhprof < AbstractPhp54Extension
   head 'https://github.com/facebook/xhprof.git'
   version '270b75d'
 
-  depends_on 'autoconf' => :build
   depends_on 'pcre'
-  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "extension" do

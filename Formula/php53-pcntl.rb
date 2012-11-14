@@ -7,9 +7,6 @@ class Php53Pcntl < AbstractPhp53Extension
   sha1 '561b7ed1ad147346d97f4cac78159e5918a7b5b9'
   version '5.3.18'
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
-
   def install
     Dir.chdir "ext/pcntl"
 

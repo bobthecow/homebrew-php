@@ -7,9 +7,6 @@ class Php53Solr < AbstractPhp53Extension
   sha1 '2412c77bd86e70bfcd25473a7ed70e4631ffafcc'
   head 'https://svn.php.net/repository/pecl/solr/trunk/', :using => :svn
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
-
   def install
     Dir.chdir "solr-#{version}" unless build.head?
 

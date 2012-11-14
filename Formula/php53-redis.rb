@@ -7,9 +7,6 @@ class Php53Redis < AbstractPhp53Extension
   sha1 '8e131f12b68eaf5d6b840277cd986f88a434b90e'
   head 'https://github.com/nicolasff/phpredis.git'
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
-
   fails_with :clang do
     build 318
     cause <<-EOS.undent

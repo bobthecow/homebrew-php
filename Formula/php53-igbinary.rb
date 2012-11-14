@@ -7,9 +7,6 @@ class Php53Igbinary < AbstractPhp53Extension
   sha1 'cebe34d18dd167a40a712a6826415e3e5395ab27'
   head 'https://github.com/igbinary/igbinary.git', :using => :git
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
-
   def install
     Dir.chdir "igbinary-#{version}" unless build.head?
 

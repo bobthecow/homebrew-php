@@ -7,9 +7,7 @@ class Php53Yaml < AbstractPhp53Extension
   sha1 '8ab77d3e49eed6944bbb3130c054288402f484d7'
   head 'https://svn.php.net/repository/pecl/yaml/trunk', :using => :svn
 
-  depends_on 'autoconf' => :build
   depends_on 'libyaml'
-  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "yaml-#{version}" unless build.head?

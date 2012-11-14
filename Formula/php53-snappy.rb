@@ -7,8 +7,6 @@ class Php53Snappy < AbstractPhp53Extension
   sha1 '8537def4d9358830c26119e321a9080db1228c78'
   head 'http://php-snappy.googlecode.com/svn/trunk/', :using => :svn
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
   depends_on 'snappy'
 
   def install

@@ -8,8 +8,6 @@ class Php53Phalcon < AbstractPhp53Extension
   sha1 'e941f84eb236492507245b539bec7cdb69def14a'
   head 'git://github.com/phalcon/cphalcon.git', :using => :git
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
   depends_on 'pcre'
 
   def install

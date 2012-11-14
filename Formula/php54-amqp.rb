@@ -7,8 +7,6 @@ class Php54Amqp < AbstractPhp54Extension
   sha1 '90a92f9752fde0cb8e4c6525aabfa6e678bbea23'
   head 'http://svn.php.net/repository/pecl/amqp/trunk/', :using => :svn
 
-  depends_on 'autoconf' => :build
-  depends_on 'php54' unless build.include?('without-homebrew-php')
   depends_on 'rabbitmq-c'
 
   def install

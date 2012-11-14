@@ -7,9 +7,7 @@ class Php53Uploadprogress < AbstractPhp53Extension
   sha1 '5fd50a1d5d3ee485e31e16d76b686873125e8dec'
   head 'https://svn.php.net/repository/pecl/uploadprogress/trunk/', :using => :svn
 
-  depends_on 'autoconf' => :build
   depends_on 'pcre'
-  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "uploadprogress-#{version}" unless build.head?

@@ -7,9 +7,6 @@ class Php53Uuid < AbstractPhp53Extension
   sha1 'ad936b20fdbeecc803b9770c292e8d763026597d'
   head 'https://svn.php.net/repository/pecl/uuid/trunk', :using => :svn
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
-
   def patches
     # fixes build errors on OSX 10.6 and 10.7
     # https://bugs.php.net/bug.php?id=62009

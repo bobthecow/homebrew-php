@@ -8,9 +8,7 @@ class Php54Geoip < AbstractPhp54Extension
   head 'https://svn.php.net/repository/pecl/geoip/trunk/', :using => :svn
   version '1.0.8'
 
-  depends_on 'autoconf' => :build
   depends_on 'geoip'
-  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "geoip-#{version}" unless build.head?

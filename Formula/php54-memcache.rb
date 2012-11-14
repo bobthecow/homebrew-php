@@ -7,9 +7,6 @@ class Php54Memcache < AbstractPhp54Extension
   sha1 'be0b12fa09ed127dc35c0da29a576a9112be1bde'
   head 'https://svn.php.net/repository/pecl/memcache/trunk/', :using => :svn
 
-  depends_on 'autoconf' => :build
-  depends_on 'php54' unless build.include?('without-homebrew-php')
-
   def install
     Dir.chdir "memcache-#{version}" unless build.head?
 

@@ -7,9 +7,7 @@ class Php54Gearman < AbstractPhp54Extension
   sha1 '6b75248d9eb8776a640639bfdffb0c06e0e594ad'
   head 'https://svn.php.net/repository/pecl/gearman/trunk/', :using => :svn
 
-  depends_on 'autoconf' => :build
   depends_on 'gearman'
-  depends_on 'php54' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "gearman-#{version}" unless build.head?

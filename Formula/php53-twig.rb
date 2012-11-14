@@ -7,9 +7,6 @@ class Php53Twig < AbstractPhp53Extension
   sha1 '5e734f152d09df1f49de70cc27b031887c4408dd'
   head 'https://github.com/fabpot/Twig.git', :using => :git
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
-
   def install
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary

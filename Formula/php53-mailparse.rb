@@ -7,9 +7,7 @@ class Php53Mailparse < AbstractPhp53Extension
   sha1 'f0deaa433a1f7833e80f80dabc1bbbdbe0071b3c'
   head 'https://svn.php.net/repository/pecl/mailparse/trunk', :using => :svn
 
-  depends_on 'autoconf' => :build
   depends_on 'pcre'
-  depends_on 'php53' unless build.include?('without-homebrew-php')
 
   def install
     Dir.chdir "mailparse-#{version}" unless build.head?

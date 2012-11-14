@@ -7,8 +7,6 @@ class Php54Midgard2 < AbstractPhp54Extension
   url 'https://github.com/midgardproject/midgard-php5/tarball/10.05.6'
   sha1 'b4e49d4e0b476db4a96b63c712fd9727a1538ea9'
 
-  depends_on 'autoconf' => :build
-  depends_on 'php54' unless build.include?('without-homebrew-php')
   depends_on 'pkg-config' => :build
   depends_on 'midgard2'
 

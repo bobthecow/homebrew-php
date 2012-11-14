@@ -53,6 +53,8 @@ class AbstractPhpExtension < Formula
   end
 
   def self.init
+    depends_on 'autoconf' => :build
+
     option 'without-homebrew-php', "Ignore homebrew PHP and use default instead"
   end
 

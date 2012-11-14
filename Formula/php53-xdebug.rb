@@ -7,9 +7,6 @@ class Php53Xdebug < AbstractPhp53Extension
   sha1 '8b4aec5f68f2193d07bf4839ee46ff547740ed7e'
   head 'https://github.com/derickr/xdebug.git'
 
-  depends_on 'autoconf' => :build
-  depends_on 'php53' unless build.include?('without-homebrew-php')
-
   def extension_type; "zend_extension"; end
 
   def install
