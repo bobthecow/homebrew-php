@@ -1,8 +1,5 @@
 require 'formula'
-
-def php_installed?
-    `which php`.length > 0
-end
+require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'php-meta-requirement')
 
 class PhpCodeSniffer < Formula
   homepage 'http://pear.php.net/package/PHP_CodeSniffer'
@@ -10,7 +7,7 @@ class PhpCodeSniffer < Formula
   sha1 '084042071211f925b4c67a55e2c601e983d25b1d'
   version '1.4.0'
 
-  depends_on 'php53' => :recommended unless php_installed?
+  depends_on PhpMetaRequirement.new
 
   def install
     prefix.install Dir['PHP_CodeSniffer-1.4.0/*']
@@ -18,10 +15,6 @@ class PhpCodeSniffer < Formula
     sh.write("/usr/bin/env php #{prefix}/scripts/phpcs $*")
     chmod 0755, sh
     bin.install_symlink sh
-  end
-
-  def test
-    system 'phpcs --version'
   end
 
   def caveats; <<-EOS.undent
