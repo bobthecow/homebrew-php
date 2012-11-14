@@ -215,8 +215,8 @@ INFO
       args << "--with-fpm-group=_www"
       (prefix+'var/log').mkpath
       touch prefix+'var/log/php-fpm.log'
-      (prefix+'homebrew-php.josegonzalez.php'+php_version.to_s.gsub('.','')+'.plist').write php_fpm_startup_plist
-      (prefix+'homebrew-php.josegonzalez.php'+php_version.to_s.gsub('.','')+'.plist').chmod 0644
+      (prefix+"homebrew-php.josegonzalez.php#{php_version.to_s.gsub('.','')}.plist").write php_fpm_startup_plist
+      (prefix+"homebrew-php.josegonzalez.php#{php_version.to_s.gsub('.','')}.plist").chmod 0644
     elsif build.include? 'with-cgi'
       args << "--enable-cgi"
     end
