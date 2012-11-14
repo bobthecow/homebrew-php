@@ -1,12 +1,6 @@
 require 'formula'
-
-def php_installed?
-    `which php`.length > 0
-end
-
-def composer_reqs?
-  `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -d date.timezone=UTC -- --check`.include? "All settings correct"
-end
+require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'php-meta-requirement')
+require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'composer-requirement')
 
 class Composer < Formula
   homepage 'http://getcomposer.org'
@@ -14,27 +8,15 @@ class Composer < Formula
   sha1 'f01c2bbbd5d9d56fe7b2250081d66c40dbe9a3e6'
   version '1.0.0-alpha6'
 
-  depends_on 'php53' => :recommended unless php_installed?
+  depends_on PhpMetaRequirement.new
+  depends_on ComposerRequirement.new
 
   def install
-    unless composer_reqs?
-      raise <<-EOS.undent
-        Composer PHP requirements check has failed. Please run
-        `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -d date.timezone=UTC -- --check`
-        to identify and fix any issues
-      EOS
-    end
-
     libexec.install "composer.phar"
     sh = libexec + "composer"
     sh.write("/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/composer.phar $*")
     chmod 0755, sh
     bin.install_symlink sh
-
-  end
-
-  def test
-    system 'composer --version'
   end
 
   def caveats; <<-EOS.undent
