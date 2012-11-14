@@ -1,12 +1,6 @@
 require 'formula'
-
-def php_installed?
-    `which php`.length > 0
-end
-
-def php_phar_module_enabled?
-    `php -m`.downcase.include? "phar"
-end
+require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'php-meta-requirement')
+require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'phar-requirement')
 
 class PhpMd < Formula
   homepage 'http://phpmd.org/'
@@ -14,7 +8,8 @@ class PhpMd < Formula
   sha1 'a13ab5dd6abb9691c9e844770a79e8ae6be7a43e'
   version '1.4.0'
 
-  depends_on 'php53' => :recommended unless php_installed? && php_phar_module_enabled?
+  depends_on PhpMetaRequirement.new
+  depends_on PharRequirement.new
 
   def install
     libexec.install "phpmd.phar"

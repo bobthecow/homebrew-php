@@ -1,12 +1,6 @@
 require 'formula'
-
-def php_installed?
-    `which php`.length > 0
-end
-
-def php_phar_module_enabled?
-    `php -m`.downcase.include? "phar"
-end
+require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'php-meta-requirement')
+require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'phar-requirement')
 
 class Phpcpd < Formula
   homepage 'https://github.com/sebastianbergmann/phpcpd'
@@ -14,7 +8,8 @@ class Phpcpd < Formula
   sha1 '86d59e472a424ab41bb657d41b77dc01a4868dc7'
   version '1.4.0'
 
-  depends_on 'php53' => :recommended unless php_installed? && php_phar_module_enabled?
+  depends_on PhpMetaRequirement.new
+  depends_on PharRequirement.new
 
   def install
     libexec.install "phpcpd.phar"
