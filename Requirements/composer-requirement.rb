@@ -1,6 +1,6 @@
-class ComposerRequirement < Requirement
-  def fatal?; true; end
+require File.join(File.dirname(__FILE__), 'homebrew-php-requirement')
 
+class ComposerRequirement < HomebrewPhpRequirement
   def satisfied?
     `curl -s http://getcomposer.org/installer | /usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off -d date.timezone=UTC -- --check`.include? "All settings correct"
   end

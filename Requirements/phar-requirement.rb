@@ -1,13 +1,11 @@
-class PharRequirement < Requirement
-  def fatal?; true; end
+require File.join(File.dirname(__FILE__), 'homebrew-php-requirement')
 
+class PharRequirement < HomebrewPhpRequirement
   def satisfied?
     `php -m`.downcase.include? "phar"
   end
 
   def message
-<<-EOS
-PHP Phar support is required for this formula
-EOS
+  	"PHP Phar support is required for this formula"
   end
 end
