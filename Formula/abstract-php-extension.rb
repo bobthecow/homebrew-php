@@ -47,12 +47,8 @@ class AbstractPhpExtension < Formula
       init
     rescue Exception => e
       # Hack so that we pass all brew doctor tests
-      reraise = true
-      e.backtrace.each do |l|
-        reraise = false if l.match(/cleanup\.rb/)
-        reraise = false if l.match(/doctor\.rb/)
-      end
-      raise e if reraise
+      reraise = e.backtrace.select { |l| l.match(/(cleanup|doctor)\.rb/) }
+      raise e if reraise.empty?
     end
   end
 
