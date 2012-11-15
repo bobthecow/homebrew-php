@@ -21,7 +21,8 @@ class Php54Xhgui < AbstractPhp54Extension
       system "./configure", "--prefix=#{prefix}",
                             phpconfig
       system "make"
-      prefix.install "modules/xhprof.so"
+      system("cp modules/xhprof.so modules/xhgui.so")
+      prefix.install "modules/xhgui.so"
     end
 
     prefix.install %w(xhprof_html xhprof_lib)
