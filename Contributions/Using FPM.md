@@ -85,7 +85,7 @@ Refer to https://github.com/josegonzalez/homebrew-php. You will need to add --wi
 
 ## Configuring PHP-FPM
 
-PHP-FPM's configuration file is located at /usr/local/etc/php/5.4/php-fpm.conf. The default configuration is fine for most purposes, but you may want to edit it to suit your needs. For example, some parameters you may want to tune are `pm.start_servers` (number of child processes at startup), `pm.max_spare_servers` (maximum number of idle server processes), `pm.max_requests` (maximum number of requests each child process should execute before respawning), etc…
+PHP-FPM's configuration file is located at $HOMEBREW_PREFIX/etc/php/5.4/php-fpm.conf. The default configuration is fine for most purposes, but you may want to edit it to suit your needs. For example, some parameters you may want to tune are `pm.start_servers` (number of child processes at startup), `pm.max_spare_servers` (maximum number of idle server processes), `pm.max_requests` (maximum number of requests each child process should execute before respawning), etc…
 
 If you want PHP-FPM to listen on a Unix socket instead of a TCP socket (see the virtual host configuration below), which is faster when the web server and PHP-FPM are on the same machine, you must change `listen = 127.0.0.1:9000` to `listen = /tmp/php-fpm.sock` in php-fpm.conf.
 
@@ -94,7 +94,7 @@ If you want PHP-FPM to listen on a Unix socket instead of a TCP socket (see the 
 You may check that PHP-FPM is configured correctly by running the following:
 
 ```
-    php-fpm -y /usr/local/etc/php/5.4/php-fpm.conf -t
+    php-fpm -y $HOMEBREW_PREFIX/etc/php/5.4/php-fpm.conf -t
 ```
 
 You are now ready to make your first virtual host using PHP-FPM! Create an Apache virtual host configuration file in /etc/apache2/vhosts (or wherever your virtual host configuration files should be located), whose content will be similar to the following:
@@ -153,7 +153,7 @@ Do not forget to add the virtual host to /etc/hosts. Edit /etc/hosts and add the
 Start php-fpm directly from the command line (for debugging):
 
 ```
-    php-fpm --fpm-config /usr/local/etc/php/5.4/php-fpm.conf
+    php-fpm --fpm-config $HOMEBREW_PREFIX/etc/php/5.4/php-fpm.conf
 ```
 
 Then restart Apache to enable the virtual host. Keep an eye on the Apache error log through the Console app to ensure that there are no errors. Then visit http://HOSTNAME/info.php. If all is fine, you should see a page of information about PHP. In the “Server API” field, you should read “FPM/FastCGI”.

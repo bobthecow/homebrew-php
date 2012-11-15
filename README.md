@@ -95,13 +95,15 @@ If using Apache, you will need to update the `LoadModule` call. For convenience,
 
     # /etc/apache2/httpd.conf
     # Swapping from PHP53 to PHP54
-    # LoadModule php5_module    /usr/local/Cellar/php53/5.3.15/libexec/apache2/libphp5.so
-    LoadModule php5_module    /usr/local/Cellar/php54/5.4.5/libexec/apache2/libphp5.so
+    # $HOMEBREW_PREFIX is normally `/usr/local`
+    # LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php53/5.3.15/libexec/apache2/libphp5.so
+    LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.5/libexec/apache2/libphp5.so
 
 If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
 
     # Swapping from PHP53 to PHP54
-    cp /usr/local/Cellar/php54/5.4.5/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+    # $HOMEBREW_PREFIX is normally `/usr/local`
+    cp $HOMEBREW_PREFIX/Cellar/php54/5.4.5/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
     launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
     launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
 
