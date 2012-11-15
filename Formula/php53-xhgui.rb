@@ -1,15 +1,15 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
-require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'xhprof54-requirement')
+require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 'xhgui53-requirement')
 
-class Php54Xhprof < AbstractPhp54Extension
+class Php53Xhgui < AbstractPhp53Extension
   init
-  homepage 'https://github.com/facebook/xhprof'
-  url 'https://github.com/facebook/xhprof/tarball/270b75dddf871271fe81ed416e122bd158a883f6'
-  sha1 'bcab304b002043d1b31a4e66231e4ec93573e30c'
-  head 'https://github.com/facebook/xhprof.git'
-  version '270b75d'
+  homepage 'https://github.com/preinheimer/xhprof'
+  url 'https://github.com/preinheimer/xhprof/tarball/58ceef1a59e89eb44a932e767d04e2340521cd77'
+  sha1 'bfd2e5b6e97a07c8bc17fa5f569244a6883aed7c'
+  head 'https://github.com/preinheimer/xhprof.git'
+  version '58ceef1'
 
-  depends_on Xhprof54Requirement.new
+  depends_on Xhgui53Requirement.new
   depends_on 'pcre'
 
   def install

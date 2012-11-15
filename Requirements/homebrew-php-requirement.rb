@@ -2,21 +2,21 @@ require File.join(File.dirname(__FILE__), 'homebrew-php-requirement')
 
 class HomebrewPhpRequirement < Requirement
   def fatal?
-  	true
+    true
   end
 
   def satisfied?
-		false
+    false
   end
 
   # Hack to allow homebrew tap to symlink
   # these and shut brew doctor up
   def keg_only?
-  	false
+    false
   end
 
   def message
-  	"A requirement as failed"
+    "A requirement as failed"
   end
 end
 
