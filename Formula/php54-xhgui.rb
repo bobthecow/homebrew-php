@@ -25,7 +25,7 @@ class Php54Xhgui < AbstractPhp54Extension
       prefix.install "modules/xhgui.so"
     end
 
-    prefix.install %w(xhprof_html xhprof_lib)
+    prefix.install %w(xhprof_html xhprof_lib external)
     write_config_file unless build.include? "without-config-file"
   end
 end
