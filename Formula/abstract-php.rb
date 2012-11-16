@@ -11,7 +11,7 @@ class AbstractPhp < Formula
       super
     rescue Exception => e
       # Hack so that we pass all brew doctor tests
-      reraise = e.backtrace.select { |l| l.match(/(doctor|cleanup|uses)\.rb/) }
+      reraise = e.backtrace.select { |l| l.match(/(doctor|cleanup|leaves|uses)\.rb/) }
       raise e if reraise.empty?
     end
   end
