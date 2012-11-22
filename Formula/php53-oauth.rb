@@ -3,8 +3,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php53Oauth < AbstractPhp53Extension
   init
   homepage 'http://pecl.php.net/package/oauth'
-  url 'http://pecl.php.net/get/oauth-1.2.2.tgz'
-  sha1 'bd74cd7aa150e33db20ac36f0b1459473f1ef070'
+  url 'http://pecl.php.net/get/oauth-1.2.3.tgz'
+  sha1 'e2a42961c8134746fc0cd8ef9bd433f760b94975'
   head 'https://svn.php.net/repository/pecl/oauth/trunk', :using => :svn
 
   def install
