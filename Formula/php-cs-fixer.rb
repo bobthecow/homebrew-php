@@ -5,7 +5,7 @@ require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 
 class PhpCsFixer < Formula
   homepage 'http://cs.sensiolabs.org'
   url 'http://cs.sensiolabs.org/get/php-cs-fixer.phar'
-  sha1 'fa59fcce7d1ec1a90162926ff15bc9d72c6687b0'
+  sha1 'c93538d937952226e1e7184c6fc0ef8fe778df62'
   version '0.2'
 
   depends_on PhpMetaRequirement.new
