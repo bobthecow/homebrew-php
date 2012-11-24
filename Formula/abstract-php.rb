@@ -4,6 +4,10 @@ def postgres_installed?
   `which pg_config`.length > 0
 end
 
+def build_intl?
+  false
+end
+
 class AbstractPhp < Formula
   def initialize name='__UNKNOWN__', path=nil
     begin
@@ -27,7 +31,7 @@ class AbstractPhp < Formula
     depends_on 'freetype'
     depends_on 'gettext'
     depends_on 'gmp' if build.include? 'with-gmp'
-    depends_on 'icu4c' if build.include? 'with-intl'
+    depends_on 'icu4c' if build.include?('with-intl') && build_intl?
     depends_on 'imap-uw' if build.include? 'with-imap'
     depends_on 'jpeg'
     depends_on 'libpng'
@@ -237,8 +241,9 @@ INFO
     end
 
     if build.include? 'with-intl'
-      args << "--enable-intl"
-      args << "--with-icu-dir=#{Formula.factory('icu4c').prefix}"
+      opoo "INTL is broken as of mxcl/homebrew#03ed757c, please install php#{php_version_path.to_s}-intl" unless build_intl?
+      args << "--enable-intl" if build_intl?
+      args << "--with-icu-dir=#{Formula.factory('icu4c').prefix}" if build_intl?
     end
 
     if build.include? 'with-mssql'
@@ -260,12 +265,14 @@ INFO
       args << "--with-pdo-mysql=mysqlnd"
     end
 
-    if build.include?('with-pgsql') && File.directory?(Formula.factory('postgresql').prefix.to_s)
-      args << "--with-pgsql=#{Formula.factory('postgresql').prefix}"
-      args << "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
-    elsif build.include? 'with-pgsql'
-      args << "--with-pgsql=#{`pg_config --includedir`}"
-      args << "--with-pdo-pgsql=#{`which pg_config`}"
+    if build.include?('with-pgsql')
+      if File.directory?(Formula.factory('postgresql').prefix.to_s)
+        args << "--with-pgsql=#{Formula.factory('postgresql').prefix}"
+        args << "--with-pdo-pgsql=#{Formula.factory('postgresql').prefix}"
+      else
+        args << "--with-pgsql=#{`pg_config --includedir`}"
+        args << "--with-pdo-pgsql=#{`which pg_config`}"
+      end
     end
 
     if build.include? 'with-tidy'
@@ -294,7 +301,7 @@ INFO
         "INSTALL_IT = $(mkinstalldirs) '#{libexec}/apache2' && $(mkinstalldirs) '$(INSTALL_ROOT)/private/etc/apache2' && /usr/sbin/apxs -S LIBEXECDIR='#{libexec}/apache2' -S SYSCONFDIR='$(INSTALL_ROOT)/private/etc/apache2' -i -a -n php5 libs/libphp5.so"
     end
 
-    if build.include? 'with-intl'
+    if build.include?('with-intl') && build_intl?
       inreplace 'Makefile' do |s|
         s.change_make_var! "EXTRA_LIBS", "\\1 -lstdc++"
       end
@@ -366,6 +373,17 @@ INFO
       PHP#{php_version_path.to_s} Extensions will always be compiled against this PHP. Please install them
       using --without-homebrew-php to enable compiling against system PHP.
     EOS
+
+    if build.include?('with-intl') && !build_intl?
+    s << <<-EOS.undent
+      ✩✩✩✩✩ INTL Support ✩✩✩✩✩
+
+      icu4c is broken as of mxcl/homebrew#03ed757c, so you will need to install intl as
+      a separate extension:
+
+          brew install php#{php_version_path.to_s}-intl
+    EOS
+    end
 
     if build.include? 'with-fpm'
       s << <<-EOS.undent
