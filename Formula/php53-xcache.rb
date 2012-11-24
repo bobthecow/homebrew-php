@@ -9,8 +9,7 @@ class Php53Xcache < AbstractPhp53Extension
   def extension_type; "zend_extension"; end
 
   def install
-    # See https://github.com/mxcl/homebrew/issues/issue/69
-    ENV.universal_binary unless Hardware.is_64_bit?
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",

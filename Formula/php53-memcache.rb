@@ -10,8 +10,7 @@ class Php53Memcache < AbstractPhp53Extension
   def install
     Dir.chdir "memcache-#{version}" unless build.head?
 
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",

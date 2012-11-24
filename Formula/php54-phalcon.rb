@@ -17,7 +17,7 @@ class Php54Phalcon < AbstractPhp54Extension
       Dir.chdir "release"
     end
 
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     system 'export CFLAGS="-O2 -fno-delete-null-pointer-checks"'

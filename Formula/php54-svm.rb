@@ -11,8 +11,7 @@ class Php54Svm < AbstractPhp54Extension
   def install
     Dir.chdir "svm-#{version}" unless build.head?
 
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     ENV["CFLAGS"] = '-Wno-return-type'

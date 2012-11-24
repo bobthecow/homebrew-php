@@ -18,8 +18,7 @@ class Php53Memcached < AbstractPhp53Extension
   def install
     Dir.chdir "memcached-#{version}" unless build.head?
 
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
 
     args = []
     args << "--prefix=#{prefix}"

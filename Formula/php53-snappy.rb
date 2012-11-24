@@ -10,8 +10,7 @@ class Php53Snappy < AbstractPhp53Extension
   depends_on 'snappy'
 
   def install
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",

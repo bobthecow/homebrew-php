@@ -8,8 +8,7 @@ class Php53Twig < AbstractPhp53Extension
   head 'https://github.com/fabpot/Twig.git', :using => :git
 
   def install
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary
+    ENV.universal_binary if build.universal?
 
     Dir.chdir 'ext/twig' do
       safe_phpize

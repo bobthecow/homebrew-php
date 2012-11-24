@@ -12,8 +12,7 @@ class Php54Mcrypt < AbstractPhp54Extension
   def install
     Dir.chdir "ext/mcrypt"
 
-    # See https://github.com/mxcl/homebrew/pull/5947
-    ENV.universal_binary unless Hardware.is_64_bit?
+    ENV.universal_binary if build.universal?
 
     safe_phpize
     system "./configure", "--prefix=#{prefix}",
