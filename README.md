@@ -32,7 +32,7 @@ Please include the following information in your bug report:
   - If on Snow Leopard, you may want to install the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/)
 - Output of `gcc -v`
 - Output of `php -v`
-- Output of `brew install -V path/to/homebrew-php/formula.rb` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
+- Output of `brew install -V path/to/homebrew-php/the-formula-you-want-to-test.rb --with-your --opts-here` within a [gist](http://gist.github.com). Please append any options you added to the `brew install` command.
 - Output of `brew doctor` within a [gist](http://gist.github.com)
 
 This will help us diagnose your issues much quicker, as well as find commonalities between different reported issues.
