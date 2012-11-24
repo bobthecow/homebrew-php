@@ -1,11 +1,18 @@
 require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php54Redis < AbstractPhp54Extension
-  init
   homepage 'https://github.com/nicolasff/phpredis'
-  url 'https://github.com/nicolasff/phpredis/tarball/2.2.0'
-  sha1 '8e131f12b68eaf5d6b840277cd986f88a434b90e'
+  url 'https://github.com/nicolasff/phpredis/tarball/2.2.2'
+  sha1 '156677eab43a9d4337d3254ae4e957a6039ed861'
   head 'https://github.com/nicolasff/phpredis.git'
+
+  def self.init
+    super
+    option 'with-igbinary', "Build with igbinary support"
+    depends_on 'php54-igbinary' if build.include?('with-igbinary')
+  end
+
+  init
 
   fails_with :clang do
     build 318
@@ -19,9 +26,13 @@ class Php54Redis < AbstractPhp54Extension
     # See https://github.com/mxcl/homebrew/pull/5947
     ENV.universal_binary
 
+    args = []
+    args << "--prefix=#{prefix}"
+    args << phpconfig
+    args << "--enable-redis-igbinary" if build.include? 'with-igbinary'
+
     safe_phpize
-    system "./configure", "--prefix=#{prefix}",
-                          phpconfig
+    system "./configure", *args
     system "make"
     prefix.install "modules/redis.so"
     write_config_file unless build.include? "without-config-file"
