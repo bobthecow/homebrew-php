@@ -6,6 +6,6 @@ class PhpMetaRequirement < HomebrewPhpRequirement
   end
 
   def message
-  	"Missing PHP53 or PHP54 from homebrew-php. Please install one or the other before continuing"
+    "Missing PHP53 or PHP54 from homebrew-php. Please install one or the other before continuing"
   end
 end

@@ -6,6 +6,6 @@ class PharRequirement < HomebrewPhpRequirement
   end
 
   def message
-  	"PHP Phar support is required for this formula"
+    "PHP Phar support is required for this formula"
   end
 end
