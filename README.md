@@ -20,7 +20,10 @@ Doing all of these might be a hassle, but will more than likely ensure you eithe
 
 
 ----
-**SUPERHACK** **DANGEROUS** **DONT DO IT** If none of the above works, and we are unable to fix your issue after you've filed a bug report, try installing the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/). A small number of users have reported success after doing so.
+**SUPERHACK DANGEROUS DONT DO IT**
+
+If none of the above works, and we are unable to fix your issue after you've filed a bug report, try installing the [`OS X GCC Installer`](https://github.com/kennethreitz/osx-gcc-installer/). A small number of users have reported success after doing so.
+
 ----
 
 ### Filing Bug Reports
