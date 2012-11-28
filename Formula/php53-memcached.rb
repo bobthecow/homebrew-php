@@ -2,8 +2,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 
 class Php53Memcached < AbstractPhp53Extension
   homepage 'http://pecl.php.net/package/memcached'
-  url 'http://pecl.php.net/get/memcached-2.0.1.tgz'
-  sha1 '5442250bf4a9754534bce9a3033dc5363d8238f7'
+  url 'http://pecl.php.net/get/memcached-2.1.0.tgz'
+  sha1 '16fac6bfae8ec7e2367fda588b74df88c6f11a8e'
   head 'https://github.com/php-memcached-dev/php-memcached.git'
 
   def self.init
