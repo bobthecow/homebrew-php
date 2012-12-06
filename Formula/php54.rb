@@ -10,8 +10,13 @@ class Php54 < AbstractPhp
 
   raise "Cannot build PHP 5.4 with Suhosin at this time" if build.include? 'with-suhosin'
 
+  # Leopard requires Hombrew OpenSSL to build correctly
+  depends_on 'openssl' if MacOS.version == :leopard
+
   def install_args
-    super + [
+    args = super
+    args << "--with-homebrew-openssl" if MacOS.version == :leopard
+    args + [
       "--enable-zend-signals",
       "--enable-dtrace",
     ]

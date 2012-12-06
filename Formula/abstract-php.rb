@@ -190,6 +190,13 @@ INFO
     build.include? 'without-pear'
   end
 
+  def patches
+    # Bug in PHP 5.x causes build to fail on OSX 10.5 Leopard due to
+    # outdated system libraries being first on library search path:
+    # https://bugs.php.net/bug.php?id=44294
+    "https://raw.github.com/gist/4222668/923819a243f3b6fefb79471671dbc8baff6e72b7/Makefile.global.diff"
+  end
+
   def _install
     args = install_args
 
