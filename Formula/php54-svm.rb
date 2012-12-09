@@ -3,14 +3,12 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php54Svm < AbstractPhp54Extension
   init
   homepage 'http://php.net/manual/en/book.svm.php'
-  url 'https://github.com/ianbarber/php-svm/tarball/master'
-  sha1 '10b3a64170639602f9929c1b47d1c4f4da210a2b'
+  url 'https://github.com/ianbarber/php-svm/archive/0.1.9.tar.gz'
+  sha1 'e59c663f22b7bb3db53bf784e5d85e21f5719a18'
   head 'https://github.com/ianbarber/php-svm.git'
-  version '0.1.8'
+  version '0.1.9'
 
   def install
-    Dir.chdir "svm-#{version}" unless build.head?
-
     ENV.universal_binary if build.universal?
 
     safe_phpize
