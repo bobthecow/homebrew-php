@@ -3,14 +3,14 @@ require File.join(HOMEBREW_LIBRARY, 'Taps', 'josegonzalez-php', 'Requirements', 
 
 class PhpCodeSniffer < Formula
   homepage 'http://pear.php.net/package/PHP_CodeSniffer'
-  url 'http://download.pear.php.net/package/PHP_CodeSniffer-1.4.0.tgz'
-  sha1 '084042071211f925b4c67a55e2c601e983d25b1d'
-  version '1.4.0'
+  url 'http://download.pear.php.net/package/PHP_CodeSniffer-1.4.3.tgz'
+  sha1 '1265ffea3689d0cdaf5b660654a0794d9d39e486'
+  version '1.4.3'
 
   depends_on PhpMetaRequirement.new
 
   def install
-    prefix.install Dir['PHP_CodeSniffer-1.4.0/*']
+    prefix.install Dir['PHP_CodeSniffer-1.4.3/*']
     sh = libexec + "phpcs"
     sh.write("/usr/bin/env php #{prefix}/scripts/phpcs $*")
     chmod 0755, sh
