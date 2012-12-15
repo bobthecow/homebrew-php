@@ -8,6 +8,8 @@ Bugs inevitably happen - none of us is running EVERY conceivable setup - but hop
 
 - Upgrade your Mac to the latest patch version. So if you are on `10.7.0`, upgrade to `10.7.4` etc.
 - Ensure XCode is installed and up to date.
+- Run `brew update`. If you tapped an old version of `homebrew-php` or have an old brew installation, this may cause some installation issues.
+- If `brew doctor` complains about `Error: Failed to import: homebrew-php-requirement` or similar, you can find broken php requirement files using `find $(brew --prefix)/Library/Formula -type l -name "*.rb"`. Run this with the `-delete` flag if you are sure the results of the find contain only the files producing import failures. You can also remove them manually.
 - If you are using XCode 4, install the `Command Line Tools`. If you think you have it installed, please ensure that an update of XCode or OS X did not remove them. You can verify this by launching XCode, opening preferences, going to the Downloads tab, and clicking the `Install` button:
 ![command line tool installation](http://f.cl.ly/items/411X3k0m2O1p1U2Y0I30/Image%202012.11.15%2011:32:41%20AM.png)
 - Delete your `~/.pearrc` file before attempting to install a `PHP` version, as the pear step will fail if an existing, incompatible version exists. We try to detect and remove them ourselves, but sometimes this fails.
