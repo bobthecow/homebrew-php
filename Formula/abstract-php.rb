@@ -26,7 +26,7 @@ class AbstractPhp < Formula
     # So PHP extensions don't report missing symbols
     skip_clean ['bin', 'sbin']
 
-    depends_on 'curl'
+    depends_on 'curl' unless MacOS.version >= :mountain_lion
     depends_on 'freetds' if build.include? 'with-mssql'
     depends_on 'freetype'
     depends_on 'gettext'
@@ -137,7 +137,7 @@ INFO
   end
 
   def install_args
-    [
+    args = [
       "--prefix=#{prefix}",
       "--localstatedir=#{var}",
       "--sysconfdir=#{config_path}",
@@ -167,7 +167,6 @@ INFO
       "--with-xmlrpc",
       "--with-kerberos=/usr",
       "--with-xsl=/usr",
-      "--with-curl=#{Formula.factory('curl').prefix}",
       "--with-gd",
       "--enable-gd-native-ttf",
       "--with-freetype-dir=#{Formula.factory('freetype').prefix}",
@@ -180,6 +179,10 @@ INFO
       "--mandir=#{man}",
       "--with-mhash",
     ]
+
+    args << "--with-curl" if MacOS.version >= :mountain_lion
+    args << "--with-curl=#{Formula.factory('curl').prefix}" unless MacOS.version >= :mountain_lion
+    args
   end
 
   def default_config
