@@ -8,8 +8,6 @@ class Php54 < AbstractPhp
 
   head 'https://svn.php.net/repository/php/php-src/trunk', :using => :svn
 
-  raise "Cannot build PHP 5.4 with Suhosin at this time" if build.include? 'with-suhosin'
-
   # Leopard requires Hombrew OpenSSL to build correctly
   depends_on 'openssl' if MacOS.version == :leopard
 

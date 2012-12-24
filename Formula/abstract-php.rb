@@ -70,7 +70,6 @@ class AbstractPhp < Formula
     option 'with-intl', 'Include internationalization support'
     option 'with-imap', 'Include IMAP extension'
     option 'with-gmp', 'Include GMP support'
-    option 'with-suhosin', 'Include Suhosin patch'
     option 'with-tidy', 'Include Tidy support'
     option 'without-pear', 'Build without PEAR'
     option 'with-homebrew-openssl', 'Include OpenSSL support via Homebrew'

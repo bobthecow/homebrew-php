@@ -15,15 +15,6 @@ class Php53 < AbstractPhp
     ]
   end
 
-  def patches
-    # AbstractPhp formula provides a patch for upstream PHP Makefile bug.
-    # As long as this formula implements the patches method, it must pass
-    # the returned patch in super along as well.
-    data = []
-    data << "http://www.itkb.ro/userfiles/file/suhosin-patch-5.3.18-0.9.10.patch.gz" if build.include? 'with-suhosin'
-    data << super
-  end
-
   def php_version
     5.3
   end
