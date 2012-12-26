@@ -107,14 +107,14 @@ If using Apache, you will need to update the `LoadModule` call. For convenience,
     # /etc/apache2/httpd.conf
     # Swapping from PHP53 to PHP54
     # $HOMEBREW_PREFIX is normally `/usr/local`
-    # LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php53/5.3.15/libexec/apache2/libphp5.so
-    LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.5/libexec/apache2/libphp5.so
+    # LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php53/5.3.20/libexec/apache2/libphp5.so
+    LoadModule php5_module    $HOMEBREW_PREFIX/Cellar/php54/5.4.10/libexec/apache2/libphp5.so
 
 If using FPM, you will need to unload the `plist` controlling php, or manually stop the daemon, via your command line:
 
     # Swapping from PHP53 to PHP54
     # $HOMEBREW_PREFIX is normally `/usr/local`
-    cp $HOMEBREW_PREFIX/Cellar/php54/5.4.5/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
+    cp $HOMEBREW_PREFIX/Cellar/php54/5.4.10/homebrew-php.josegonzalez.php54.plist ~/Library/LaunchAgents/
     launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php53.plist
     launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist
 
@@ -189,7 +189,7 @@ Please note that your formula installation may deviate significantly from the ab
 
 The ordering of Formula attributes, such as the `homepage`, `url`, `sha1`, etc. should follow the above order for consistency. The `version` is only included when the url does not include a version in the filename. `head` installations are not required.
 
-All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.16` and `5.4.6`.
+All official PHP extensions should be built for all stable versions of PHP included in `homebrew-php`. As of this writing, these version are `5.3.20` and `5.4.10`.
 
 ## Todo
 
