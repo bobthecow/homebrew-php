@@ -3,8 +3,8 @@ require File.join(File.dirname(__FILE__), 'abstract-php-extension')
 class Php53Twig < AbstractPhp53Extension
   init
   homepage 'http://twig.sensiolabs.org/'
-  url 'https://github.com/fabpot/Twig/tarball/v1.9.2'
-  sha1 '5e734f152d09df1f49de70cc27b031887c4408dd'
+  url 'https://github.com/fabpot/Twig/tarball/v1.11.1'
+  sha1 'dfac84344d7d70141e5bd3296a8c9572c1bb4086'
   head 'https://github.com/fabpot/Twig.git', :using => :git
 
   def install
