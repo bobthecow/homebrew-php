@@ -26,7 +26,7 @@ class AbstractPhp < Formula
     # So PHP extensions don't report missing symbols
     skip_clean ['bin', 'sbin']
 
-    depends_on 'curl' unless MacOS.version >= :mountain_lion
+    depends_on 'curl' unless MacOS.version >= :lion
     depends_on 'freetds' if build.include? 'with-mssql'
     depends_on 'freetype'
     depends_on 'gettext'
@@ -179,8 +179,8 @@ INFO
       "--with-mhash",
     ]
 
-    args << "--with-curl" if MacOS.version >= :mountain_lion
-    args << "--with-curl=#{Formula.factory('curl').prefix}" unless MacOS.version >= :mountain_lion
+    args << "--with-curl" if MacOS.version >= :lion
+    args << "--with-curl=#{Formula.factory('curl').prefix}" unless MacOS.version >= :lion
     args
   end
 
@@ -325,7 +325,7 @@ INFO
     chmod_R 0775, lib+"php"
 
     system bin+"pear", "config-set", "php_ini", config_path+"php.ini" unless skip_pear_config_set?
-    
+
     sbin.install 'sapi/fpm/init.d.php-fpm' => "php#{php_version_path.to_s}-fpm" if build.include? 'with-fpm'
 
     if build.include?('with-fpm') && !File.exists?(config_path+"php-fpm.conf")
@@ -410,7 +410,7 @@ INFO
                 launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist
                 cp #{prefix}/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist ~/Library/LaunchAgents/
                 launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php#{php_version_path.to_s}.plist
-        
+
         The control script is located at #{sbin}/php#{php_version_path.to_s}-fpm
       EOS
 
