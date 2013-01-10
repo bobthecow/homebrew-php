@@ -20,6 +20,19 @@ class Php52 < AbstractPhp
   def install_args
     defaults = super
     defaults.delete '--with-mhash'
+
+    if build.include?('with-mysql') || build.include?('with-mariadb')
+      defaults.delete "--with-mysql-sock=/tmp/mysql.sock"
+      defaults.delete "--with-mysqli=mysqlnd"
+      defaults.delete "--with-mysql=mysqlnd"
+      defaults.delete "--with-pdo-mysql=mysqlnd"
+
+      defaults << "--with-mysql-sock=/tmp/mysql.sock"
+      defaults << "--with-mysqli=#{Formula.factory('mysql').prefix}/bin/mysql_config"
+      defaults << "--with-mysql=#{Formula.factory('mysql').prefix}/bin/mysql_config"
+      defaults << "--with-pdo-mysql=#{Formula.factory('mysql').prefix}/bin/mysql_config"
+    end
+
     defaults + [
       "--enable-zend-multibyte",
       "--enable-sqlite-utf8",

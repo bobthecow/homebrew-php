@@ -136,6 +136,22 @@ INFO
     end
   end
 
+  def apache_apxs
+    if build.include? 'homebrew-apxs'
+      "#{HOMEBREW_PREFIX}/bin/apxs"
+    else
+      '/usr/sbin/apxs'
+    end
+  end
+
+  def apache_libexec
+    if build.include? 'homebrew-apxs'
+      "#{HOMEBREW_PREFIX}/libexec"
+    else
+      libexec
+    end
+  end
+
   def install_args
     args = [
       "--prefix=#{prefix}",
@@ -182,42 +198,6 @@ INFO
 
     args << "--with-curl" if MacOS.version >= :lion
     args << "--with-curl=#{Formula.factory('curl').prefix}" unless MacOS.version >= :lion
-    args
-  end
-
-  def default_config
-    "./php.ini-development"
-  end
-
-  def skip_pear_config_set?
-    build.include? 'without-pear'
-  end
-
-  def patches
-    # Bug in PHP 5.x causes build to fail on OSX 10.5 Leopard due to
-    # outdated system libraries being first on library search path:
-    # https://bugs.php.net/bug.php?id=44294
-    "https://raw.github.com/gist/4222668/923819a243f3b6fefb79471671dbc8baff6e72b7/Makefile.global.diff"
-  end
-
-  def apache_apxs
-    if build.include? 'homebrew-apxs'
-      "#{HOMEBREW_PREFIX}/bin/apxs"
-    else
-      '/usr/sbin/apxs'
-    end
-  end
-
-  def apache_libexec
-    if build.include? 'homebrew-apxs'
-      "#{HOMEBREW_PREFIX}/libexec"
-    else
-      libexec
-    end
-  end
-
-  def _install
-    args = install_args
 
     unless MacOS.version >= :mountain_lion
       args << "--with-libxml-dir=#{Formula.factory('libxml2').prefix}"
@@ -316,6 +296,27 @@ INFO
     if build.include? 'without-pear'
       args << "--without-pear"
     end
+
+    args
+  end
+
+  def default_config
+    "./php.ini-development"
+  end
+
+  def skip_pear_config_set?
+    build.include? 'without-pear'
+  end
+
+  def patches
+    # Bug in PHP 5.x causes build to fail on OSX 10.5 Leopard due to
+    # outdated system libraries being first on library search path:
+    # https://bugs.php.net/bug.php?id=44294
+    "https://raw.github.com/gist/4222668/923819a243f3b6fefb79471671dbc8baff6e72b7/Makefile.global.diff"
+  end
+
+  def _install
+    args = install_args
 
     system "./buildconf" if build.head?
     system "./configure", *args
