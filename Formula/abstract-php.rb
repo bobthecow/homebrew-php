@@ -57,6 +57,7 @@ class AbstractPhp < Formula
     end
 
     option '32-bit', "Build 32-bit only."
+    option 'homebrew-apxs', 'Build against apxs in Homebrew prefix'
     option 'with-debug', 'Compile with debugging symbols'
     option 'with-libmysql', 'Include (old-style) libmysql support'
     option 'with-mariadb', 'Include MariaDB support'
@@ -199,6 +200,22 @@ INFO
     "https://raw.github.com/gist/4222668/923819a243f3b6fefb79471671dbc8baff6e72b7/Makefile.global.diff"
   end
 
+  def apache_apxs
+    if build.include? 'homebrew-apxs'
+      "#{HOMEBREW_PREFIX}/bin/apxs"
+    else
+      '/usr/sbin/apxs'
+    end
+  end
+
+  def apache_libexec
+    if build.include? 'homebrew-apxs'
+      "#{HOMEBREW_PREFIX}/libexec"
+    else
+      libexec
+    end
+  end
+
   def _install
     args = install_args
 
@@ -236,8 +253,8 @@ INFO
 
     # Build Apache module by default
     if build_apache?
-      args << "--with-apxs2=/usr/sbin/apxs"
-      args << "--libexecdir=#{libexec}"
+      args << "--with-apxs2=#{apache_apxs}"
+      args << "--libexecdir=#{apache_libexec}"
     end
 
     if build.include? 'with-gmp'
