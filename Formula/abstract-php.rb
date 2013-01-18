@@ -55,6 +55,7 @@ class AbstractPhp < Formula
     option 'homebrew-apxs', 'Build against apxs in Homebrew prefix'
     option 'with-debug', 'Compile with debugging symbols'
     option 'with-libmysql', 'Include (old-style) libmysql support'
+    option 'without-mysql', 'Remove MySQL/MariaDB support'
     option 'with-pgsql', 'Include PostgreSQL support'
     option 'with-mssql', 'Include MSSQL-DB support'
     option 'with-unixodbc', 'Include unixODBC support'
@@ -255,7 +256,7 @@ INFO
       args << "--with-mysqli=#{$HOMEBREW_PREFIX}/bin/mysql_config"
       args << "--with-mysql=#{$HOMEBREW_PREFIX}"
       args << "--with-pdo-mysql=#{$HOMEBREW_PREFIX}"
-    else
+    elsif !build.include? 'without-mysql'
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=mysqlnd"
       args << "--with-mysql=mysqlnd"
