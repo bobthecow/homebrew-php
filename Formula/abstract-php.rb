@@ -43,11 +43,6 @@ class AbstractPhp < Formula
     depends_on 'homebrew/dupes/zlib'
 
     # Sanity Checks
-    mysql_opts = [ 'with-libmysql', 'with-mariadb', 'with-mysql' ]
-    if mysql_opts.select {|o| build.include? o}.length > 1
-      raise "Cannot specify more than one MySQL variant to build against."
-    end
-
     if build.include? 'with-pgsql'
       depends_on 'postgresql' => :recommended unless postgres_installed?
     end
@@ -60,8 +55,6 @@ class AbstractPhp < Formula
     option 'homebrew-apxs', 'Build against apxs in Homebrew prefix'
     option 'with-debug', 'Compile with debugging symbols'
     option 'with-libmysql', 'Include (old-style) libmysql support'
-    option 'with-mariadb', 'Include MariaDB support'
-    option 'with-mysql', 'Include MySQL support'
     option 'with-pgsql', 'Include PostgreSQL support'
     option 'with-mssql', 'Include MSSQL-DB support'
     option 'with-unixodbc', 'Include unixODBC support'
@@ -262,9 +255,7 @@ INFO
       args << "--with-mysqli=#{$HOMEBREW_PREFIX}/bin/mysql_config"
       args << "--with-mysql=#{$HOMEBREW_PREFIX}"
       args << "--with-pdo-mysql=#{$HOMEBREW_PREFIX}"
-    end
-
-    if build.include?('with-mysql') || build.include?('with-mariadb')
+    else
       args << "--with-mysql-sock=/tmp/mysql.sock"
       args << "--with-mysqli=mysqlnd"
       args << "--with-mysql=mysqlnd"
