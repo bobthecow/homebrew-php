@@ -14,7 +14,7 @@ class Composer < Formula
   def install
     libexec.install "composer.phar"
     sh = libexec + "composer"
-    sh.write("/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/composer.phar $*")
+    sh.write("#!/usr/bin/env bash\n\n/usr/bin/env php -d allow_url_fopen=On -d detect_unicode=Off #{libexec}/composer.phar $*")
     chmod 0755, sh
     bin.install_symlink sh
   end
